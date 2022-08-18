@@ -33,7 +33,7 @@ body {
   height: 10vh;
 }
 
-.sign-up-popup {
+.login-popup {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -42,4 +42,16 @@ body {
   border: 1px solid black;
   display: flex;
   flex-direction: column;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-up-button {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }

@@ -18,6 +18,16 @@ class Validation {
       inputField.style.backgroundColor = 'white';
     }
   }
+
+  static checkName(value: string, inputField: HTMLInputElement): void {
+    const MIN_CHARS_IN_NAME = 3;
+    // TODO rewrite this function
+    if (value.length < MIN_CHARS_IN_NAME) {
+      inputField.style.backgroundColor = 'red';
+    } else {
+      inputField.style.backgroundColor = 'white';
+    }
+  }
 }
 
 export default Validation;
