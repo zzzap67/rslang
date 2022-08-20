@@ -1,6 +1,6 @@
 import BaseElement from '../base-element/base-element';
 import { HEADER_NAV_ITEMS } from '../constants/constants';
-import Tutorial from '../pages/tutorial';
+import Tutorial from '../tutorial/tutorial';
 
 class HeaderNav {
   public navContainer: HTMLElement;

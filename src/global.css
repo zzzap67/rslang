@@ -29,6 +29,20 @@ body {
   justify-content: space-between;
 }
 
+.cards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  width: 20vw;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
 .footer {
   display: flex;
   flex-direction: row;
