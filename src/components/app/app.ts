@@ -1,4 +1,5 @@
 import Header from '../header/header';
+import MainContainer from '../main-container/main-container';
 
 class App {
   private container: HTMLElement;
@@ -8,7 +9,7 @@ class App {
   }
 
   start() {
-    new Header();
+    this.container.append(new Header().headerElement, new MainContainer().mainContainerElement);
   }
 }
 export default App;

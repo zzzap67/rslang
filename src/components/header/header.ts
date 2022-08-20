@@ -4,6 +4,7 @@ import Button from '../buttons/button';
 import HeaderNav from './header-nav';
 
 class Header {
+  public headerElement: HTMLElement;
   constructor() {
     const header = new BaseElement('header', ['header']).element;
     const logoContainer = new BaseElement('div', ['logo-container']).element;
@@ -14,7 +15,7 @@ class Header {
     logInButton.addEventListener('click', this.handlelogIn);
     loginContainer.append(userNameField, logInButton);
     header.append(logoContainer, navContainer, loginContainer);
-    document.body.prepend(header);
+    this.headerElement = header;
   }
 
   private handlelogIn() {

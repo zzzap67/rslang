@@ -18,6 +18,11 @@ body {
   justify-content: space-between;
 }
 
+.header-nav-li {
+  list-style: none;
+  cursor: pointer;
+}
+
 .login-container {
   width: 20vw;
   display: flex;
