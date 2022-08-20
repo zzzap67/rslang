@@ -6,6 +6,23 @@ body {
     margin: 0px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(219, 219, 219);
+}
+
+.header-nav-ul {
+  width: 30vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-container {
+  width: 20vw;
+  display: flex;
+  justify-content: space-between;
+}
 
 .footer {
   display: flex;

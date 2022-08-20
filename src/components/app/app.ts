@@ -1,3 +1,5 @@
+import Header from '../header/header';
+
 class App {
   private container: HTMLElement;
 
@@ -6,7 +8,7 @@ class App {
   }
 
   start() {
-    this.container.innerHTML = 'RSS LANG';
+    new Header();
   }
 }
 export default App;
