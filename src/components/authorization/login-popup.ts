@@ -58,6 +58,7 @@ class LoginPopup {
     state.userName = data.name;
     nameField.textContent = `Hi, ${state.userName}!`;
     state.token = data.token;
+    state.userId = data.userId;
     loginPopup.remove();
   }
 

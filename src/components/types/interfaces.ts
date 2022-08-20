@@ -22,4 +22,5 @@ export interface IState {
   group: number;
   page: number;
   userName: string;
+  userId: string;
 }

@@ -5,4 +5,5 @@ export const state: IState = {
   group: 0,
   page: 0,
   userName: '',
+  userId: '',
 };
