@@ -1,6 +1,7 @@
 import LoginPopup from '../authorization/login-popup';
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
+import { state } from '../store/state';
 import HeaderNav from './header-nav';
 
 class Header {
@@ -20,6 +21,13 @@ class Header {
 
   private handlelogIn() {
     document.body.append(new LoginPopup().loginPopupElement);
+  }
+
+  static printUserName() {
+    const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
+    if (state.userName) {
+      userNameField.textContent = `Hi, ${state.userName}!`;
+    }
   }
 }
 

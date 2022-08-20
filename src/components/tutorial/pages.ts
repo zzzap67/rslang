@@ -8,7 +8,7 @@ class Pages {
   constructor() {
     const NUMBER_OF_PAGES = 6;
     const pageButtonsContainer = new BaseElement('div', ['pages-container']).element;
-    for (let i = 0; i <= NUMBER_OF_PAGES; i++) {
+    for (let i = 1; i <= NUMBER_OF_PAGES; i++) {
       const pageButton = new Button(`${i}`, ['page-btn']).buttonElement;
       pageButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(pageButton);
@@ -18,7 +18,7 @@ class Pages {
 
   private handlePageButton(e: Event): void {
     const target = e.target as HTMLElement;
-    const pageNumber = Number(target.textContent);
+    const pageNumber = Number(target.textContent) - 1;
     state.page = pageNumber;
     new Tutorial();
   }

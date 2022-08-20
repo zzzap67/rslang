@@ -1,6 +1,7 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import { apiStrings } from '../constants/constants';
+import { state } from '../store/state';
 import Validation from './validation';
 
 class LoginPopup {
@@ -54,9 +55,9 @@ class LoginPopup {
       body: JSON.stringify(newUser),
     });
     const data = await response.json();
-    console.log(data.name);
-    nameField.textContent = `Hi, ${data.name}!`;
-    localStorage.setItem('currentToken', JSON.stringify(data.token));
+    state.userName = data.name;
+    nameField.textContent = `Hi, ${state.userName}!`;
+    state.token = data.token;
     loginPopup.remove();
   }
 

@@ -15,3 +15,11 @@ export interface ICard {
   textMeaningTranslate: string;
   wordTranslate: string;
 }
+
+export interface IState {
+  [key: string]: number | string;
+  token: string;
+  group: number;
+  page: number;
+  userName: string;
+}

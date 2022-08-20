@@ -1,5 +1,6 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
+import { state } from '../store/state';
 import { ICard } from '../types/interfaces';
 
 class TutorialCard {
@@ -18,15 +19,10 @@ class TutorialCard {
     cardTranscription.textContent = `${card.transcription}`;
     cardRussianWord.textContent = `${card.wordTranslate}`;
     audioButton.addEventListener('click', () => this.handleAudio(card.audio));
-    tutorialCard.append(
-      cardImage,
-      cardEnglishWord,
-      cardTranscription,
-      cardRussianWord,
-      audioButton,
-      difficultButton,
-      discardButton
-    );
+    tutorialCard.append(cardImage, cardEnglishWord, cardTranscription, cardRussianWord, audioButton);
+    if (state.userName) {
+      tutorialCard.append(difficultButton, discardButton);
+    }
     this.cardElement = tutorialCard;
   }
 
