@@ -16,7 +16,7 @@ class Pages {
       pageButtonsContainer.append(pageButton);
     }
     if (state.userName) {
-      const difficultWordsButton = new Button('Сложные слова', ['pages-difficult-btn']).buttonElement;
+      const difficultWordsButton = new Button('Сложные слова', ['pages-hard-btn']).buttonElement;
       difficultWordsButton.addEventListener('click', this.handleHardWords);
       pageButtonsContainer.append(difficultWordsButton);
     }
