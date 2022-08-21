@@ -1,5 +1,5 @@
 import BaseElement from '../base-element/base-element';
-import { HEADER_NAV_ITEMS } from '../constants/constants';
+import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
 
 class HeaderNav {

@@ -3,6 +3,7 @@ export const apiStrings = {
   API_USERS: '/users',
   API_SIGN_IN: '/signin',
   API_WORDS: '/words',
+  API_AGGREGATED_WORDS: '/aggregatedWords',
 };
 
 export const HEADER_NAV_ITEMS = [

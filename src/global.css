@@ -43,6 +43,16 @@ body {
   border: 1px solid black;
 }
 
+.card-image {
+  width: 20vw;
+  height: 15vw;
+  background-size: cover;
+
+}
+
+.hard-card-in-tutorial {
+  background-color: burlywood;
+}
 .footer {
   display: flex;
   flex-direction: row;

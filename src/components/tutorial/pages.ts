@@ -1,7 +1,7 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
-import { apiStrings } from '../constants/constants';
 import { state } from '../store/state';
+import HardWordsCheck from './hard-words-check';
 import HardWordsPage from './hard-words-page';
 import Tutorial from './tutorial';
 
@@ -17,7 +17,7 @@ class Pages {
     }
     if (state.userName) {
       const difficultWordsButton = new Button('Сложные слова', ['pages-difficult-btn']).buttonElement;
-      difficultWordsButton.addEventListener('click', this.handleDifficultWords);
+      difficultWordsButton.addEventListener('click', this.handleHardWords);
       pageButtonsContainer.append(difficultWordsButton);
     }
 
@@ -31,25 +31,9 @@ class Pages {
     new Tutorial();
   }
 
-  private async handleDifficultWords(): Promise<void> {
-    const userId = state.userId;
-    const token = state.token;
-    const DIFFICULTY_HARD_API = '?filter={"userWord.difficulty":"hard"}';
-    const response = await fetch(
-      //TODO move aggrWords to constants
-      `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}/aggregatedWords${DIFFICULTY_HARD_API}`,
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-      }
-    );
-    const data = await response.json();
-    const difficultWords = data[0].paginatedResults;
-    new HardWordsPage(difficultWords);
+  private async handleHardWords(): Promise<void> {
+    const hardWords = await HardWordsCheck.getHardWords();
+    new HardWordsPage(hardWords);
   }
 }
 

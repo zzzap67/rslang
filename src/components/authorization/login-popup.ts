@@ -1,6 +1,6 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
-import { apiStrings } from '../constants/constants';
+import { apiStrings } from '../store/constants';
 import { state } from '../store/state';
 import Validation from './validation';
 
