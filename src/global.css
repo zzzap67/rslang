@@ -6,7 +6,53 @@ body {
     margin: 0px;
 }
 
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: rgb(219, 219, 219);
+}
 
+.header-nav-ul {
+  width: 30vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-nav-li {
+  list-style: none;
+  cursor: pointer;
+}
+
+.login-container {
+  width: 20vw;
+  display: flex;
+  justify-content: space-between;
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card {
+  width: 20vw;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid black;
+}
+
+.card-image {
+  width: 20vw;
+  height: 15vw;
+  background-size: cover;
+
+}
+
+.hard-card-in-tutorial {
+  background-color: burlywood;
+}
 .footer {
   display: flex;
   flex-direction: row;
@@ -19,4 +65,39 @@ body {
 
 .footerDiv {
   padding: 3px;
+}
+
+.btn {
+  display: inline-block;
+  background-color: gray;
+  border-radius: 5px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.header {
+  height: 10vh;
+}
+
+.login-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  padding: 20px;
+  transform: translate(-50%, -50%);
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.sign-up-button {
+  color: blue;
+  text-decoration: underline;
+  cursor: pointer;
 }
