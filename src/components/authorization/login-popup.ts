@@ -1,6 +1,8 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
-import { apiStrings } from '../store/constants';
+import ClosePopupButton from '../buttons/close-popup-button';
+import Overlay from '../overlay/overlay';
+import { apiStrings, TOKEN_EXPIRATION_TIME } from '../store/constants';
 import { state } from '../store/state';
 import Validation from './validation';
 
@@ -8,8 +10,10 @@ class LoginPopup {
   loginPopupElement: HTMLElement;
 
   constructor() {
-    const loginPopup = new BaseElement('div', ['login-popup']).element;
+    const loginPopup = new BaseElement('div', ['popup']).element;
+    const overlay = new Overlay().overlayElement;
     const fragment = document.createDocumentFragment();
+    const closePopupButton = new ClosePopupButton().closePopubButtonElement;
     const loginForm = new BaseElement('form', ['login-form']).element;
     const loginSign = new BaseElement('p', ['login-sign']).element;
     loginSign.textContent = 'Log In';
@@ -28,8 +32,9 @@ class LoginPopup {
     const signUpButton = new BaseElement('p', ['sign-up-button']).element;
     signUpButton.textContent = `Don't authorized yet? Sign Up!`;
     signUpButton.addEventListener('click', () => this.handleCreateUser(loginPopup, inputEmail, inputPassword));
+    document.body.append(overlay);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
-    fragment.append(loginSign, loginForm, signUpButton);
+    fragment.append(closePopupButton, loginSign, loginForm, signUpButton);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
   }
@@ -57,8 +62,14 @@ class LoginPopup {
     const data = await response.json();
     state.userName = data.name;
     nameField.textContent = `Hi, ${state.userName}!`;
+    //TODO Maybe we do not need following string
     state.token = data.token;
+    localStorage.setItem('currentToken', data.token);
+    localStorage.setItem('refreshToken', data.refreshToken);
+    const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
+    localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
     state.userId = data.userId;
+    console.log(data.userId);
     loginPopup.remove();
   }
 

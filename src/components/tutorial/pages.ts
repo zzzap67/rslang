@@ -17,7 +17,7 @@ class Pages {
     }
     if (state.userName) {
       const difficultWordsButton = new Button('Сложные слова', ['pages-hard-btn']).buttonElement;
-      difficultWordsButton.addEventListener('click', this.handleHardWords);
+      difficultWordsButton.addEventListener('click', Pages.handleHardWords);
       pageButtonsContainer.append(difficultWordsButton);
     }
 
@@ -31,8 +31,9 @@ class Pages {
     new Tutorial();
   }
 
-  private async handleHardWords(): Promise<void> {
+  static async handleHardWords(): Promise<void> {
     const hardWords = await HardWordsCheck.getHardWords();
+    if (!hardWords) return;
     new HardWordsPage(hardWords);
   }
 }
