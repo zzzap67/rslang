@@ -2,7 +2,7 @@ import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import ClosePopupButton from '../buttons/close-popup-button';
 import Overlay from '../overlay/overlay';
-import { apiStrings } from '../store/constants';
+import { apiStrings, TOKEN_EXPIRATION_TIME } from '../store/constants';
 import { state } from '../store/state';
 import Validation from './validation';
 
@@ -62,8 +62,14 @@ class LoginPopup {
     const data = await response.json();
     state.userName = data.name;
     nameField.textContent = `Hi, ${state.userName}!`;
+    //TODO Maybe we do not need following string
     state.token = data.token;
+    localStorage.setItem('currentToken', data.token);
+    localStorage.setItem('refreshToken', data.refreshToken);
+    const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
+    localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
     state.userId = data.userId;
+    console.log(data.userId);
     loginPopup.remove();
   }
 

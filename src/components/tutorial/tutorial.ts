@@ -21,13 +21,17 @@ class Tutorial {
   }
 
   private async renderTutorial(cardsContainer: HTMLElement): Promise<void> {
-    const response = await fetch(
-      `${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${state.page}&group=${state.group}`
-    );
-    const data = await response.json();
-    data.forEach((item: ICard) => {
-      cardsContainer.append(new TutorialCard(item).cardElement);
-    });
+    try {
+      const response = await fetch(
+        `${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${state.page}&group=${state.group}`
+      );
+      const data = await response.json();
+      data.forEach((item: ICard) => {
+        cardsContainer.append(new TutorialCard(item).cardElement);
+      });
+    } catch (err) {
+      console.log('this is an error' + err);
+    }
   }
 }
 
