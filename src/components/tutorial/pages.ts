@@ -1,24 +1,52 @@
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import { state } from '../store/state';
-import HardWordsCheck from './hard-words-check';
-import HardWordsPage from './hard-words-page';
 import Tutorial from './tutorial';
 
 class Pages {
   pagesButtonsElement: HTMLElement;
+  numberOfPages: number;
+
   constructor() {
-    const NUMBER_OF_PAGES = 6;
     const pageButtonsContainer = new BaseElement('div', ['pages-container']).element;
-    for (let i = 1; i <= NUMBER_OF_PAGES; i++) {
-      const pageButton = new Button(`${i}`, ['page-btn']).buttonElement;
-      pageButton.addEventListener('click', this.handlePageButton);
-      pageButtonsContainer.append(pageButton);
-    }
-    if (state.userName) {
-      const difficultWordsButton = new Button('Сложные слова', ['pages-hard-btn']).buttonElement;
-      difficultWordsButton.addEventListener('click', Pages.handleHardWords);
-      pageButtonsContainer.append(difficultWordsButton);
+    this.numberOfPages = 30;
+    if (state.group != 7) {
+      const firstButton = new Button('<<', ['page-btn']).buttonElement;
+      firstButton.addEventListener('click', this.handlePageButton);
+      pageButtonsContainer.append(firstButton);
+
+      const prevButton = new Button('<', ['page-btn']).buttonElement;
+      prevButton.addEventListener('click', this.handlePageButton);
+      pageButtonsContainer.append(prevButton);
+
+      let pageStart = state.page;
+      if (state.page <= 2) {
+        pageStart = 0;
+      } else if (pageStart >= this.numberOfPages - 3) {
+        pageStart = this.numberOfPages - 5;
+      } else {
+        pageStart = pageStart - 2;
+      }
+
+      for (let i = 1; i <= 5; i++) {
+        let cssArray = [];
+        if (pageStart + i === state.page + 1) {
+          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+        } else {
+          cssArray = ['page-btn', 'page-btn-middle'];
+        }
+        const pageButton = new Button(`${pageStart + i}`, cssArray).buttonElement;
+        pageButton.addEventListener('click', this.handlePageButton);
+        pageButtonsContainer.append(pageButton);
+      }
+
+      const nextButton = new Button('>', ['page-btn']).buttonElement;
+      nextButton.addEventListener('click', this.handlePageButton);
+      pageButtonsContainer.append(nextButton);
+
+      const lastButton = new Button('>>', ['page-btn']).buttonElement;
+      lastButton.addEventListener('click', this.handlePageButton);
+      pageButtonsContainer.append(lastButton);
     }
 
     this.pagesButtonsElement = pageButtonsContainer;
@@ -26,15 +54,24 @@ class Pages {
 
   private handlePageButton(e: Event): void {
     const target = e.target as HTMLElement;
-    const pageNumber = Number(target.textContent) - 1;
-    state.page = pageNumber;
+    if (target.textContent === '>') {
+      state.page++;
+    } else if (target.textContent === '<') {
+      state.page--;
+    } else if (target.textContent === '<<') {
+      state.page = 0;
+    } else if (target.textContent === '>>') {
+      state.page = 29;
+    } else {
+      state.page = Number(target.textContent) - 1;
+    }
+    if (state.page < 0) {
+      state.page = 0;
+    }
+    if (state.page > 29) {
+      state.page = 29;
+    }
     new Tutorial();
-  }
-
-  static async handleHardWords(): Promise<void> {
-    const hardWords = await HardWordsCheck.getHardWords();
-    if (!hardWords) return;
-    new HardWordsPage(hardWords);
   }
 }
 
