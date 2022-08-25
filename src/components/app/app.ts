@@ -1,3 +1,4 @@
+import BaseElement from '../base-element/base-element';
 import Header from '../header/header';
 import MainContainer from '../main-container/main-container';
 import { state } from '../store/state';
@@ -12,7 +13,9 @@ class App {
   public start(): void {
     document.addEventListener('DOMContentLoaded', this.getState);
     window.addEventListener('beforeunload', this.setState);
-    this.container.append(new Header().headerElement, new MainContainer().mainContainerElement);
+    const wrapper = new BaseElement('div', ['wrapper']).element;
+    wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
+    this.container.append(wrapper);
   }
 
   public getState(): void {
