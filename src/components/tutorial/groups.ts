@@ -42,12 +42,18 @@ class Groups {
       const hardWords = await HardWordsCheck.getHardWords();
       state.page = 0;
       state.group = 7;
+      if (!hardWords) {
+        return;
+      }
       new HardWordsPage(hardWords);
     }
   }
 
   async handleHardWordsStart(): Promise<void> {
     const hardWords = await HardWordsCheck.getHardWords();
+    if (!hardWords) {
+      return;
+    }
     new HardWordsPage(hardWords);
   }
 

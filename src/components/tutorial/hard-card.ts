@@ -3,7 +3,7 @@ import { apiStrings } from '../store/constants';
 import { state } from '../store/state';
 import { ICard } from '../types/interfaces';
 import TutorialCard from './card';
-import Pages from './pages';
+// import Groups from './groups';
 
 class HardCard extends TutorialCard {
   card: ICard;
@@ -36,7 +36,7 @@ class HardCard extends TutorialCard {
       }
     );
     await response.json();
-    Pages.handleHardWords();
+    // Groups.handleHardWords();
   }
 }
 
