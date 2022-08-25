@@ -115,6 +115,33 @@ body {
   gap: 10px;
 }
 
+.input-login:valid {
+  border-color: green;
+}
+
+.input-login:invalid {
+  border-color: red;
+}
+
+.warning-popup {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  padding: 50px;
+  background-color: white;
+}
+
+.warning-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
 .sign-up-button {
   color: blue;
   text-decoration: underline;
