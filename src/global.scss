@@ -68,27 +68,4 @@ h2 {
   @include h2;
 }
 
-.cards-container {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
 
-.card {
-  width: 20vw;
-  padding: 10px;
-  border-radius: 5px;
-  border: 1px solid black;
-}
-
-.card-image {
-  width: 20vw;
-  height: 15vw;
-  background-size: cover;
-
-}
-
-.hard-card-in-tutorial {
-  background-color: burlywood;
-}

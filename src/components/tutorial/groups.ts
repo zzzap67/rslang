@@ -5,6 +5,7 @@ import Tutorial from './tutorial';
 
 class Groups {
   groupsContainerElement: HTMLElement;
+
   constructor() {
     const groupsContainer = new BaseElement('div', ['groups-container']).element;
     const prevButton = new Button('Prev', ['group-btn']).buttonElement;
