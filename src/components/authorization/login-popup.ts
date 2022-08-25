@@ -1,10 +1,12 @@
+import './login-popup.scss';
+
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import ClosePopupButton from '../buttons/close-popup-button';
 import Overlay from '../overlay/overlay';
 import { apiStrings, EMAIL_REGEXP, TOKEN_EXPIRATION_TIME } from '../store/constants';
 import { state } from '../store/state';
-import Validation from './validation';
+//import Validation from './validation';
 import WarningPopup from './warning-popup';
 
 class LoginPopup {
@@ -34,8 +36,17 @@ class LoginPopup {
     // inputPassword.addEventListener('change', () => Validation.checkPassword(inputPassword.value, inputPassword));
     const loginPopupButton = new Button('Log In', ['login-btn']).buttonElement;
     loginPopupButton.addEventListener('click', () => this.loginUser(loginPopup, inputEmail, inputPassword));
-    const signUpButton = new BaseElement('p', ['sign-up-button']).element;
-    signUpButton.textContent = `Don't authorized yet? Sign Up!`;
+    const signUpP = new BaseElement('p').element;
+    const signUpSpan = new BaseElement('span', ['span__sign-up']).element;
+    signUpSpan.textContent = "Don't authorized yet?";
+    const signUpButton = new BaseElement('span', ['sign-up-button']).element;
+    signUpButton.textContent = 'SIGN UP!';
+    //signUpButton.addEventListener('click', () => this.handleCreateUser(loginPopup, inputEmail, inputPassword));
+    signUpP.append(signUpSpan, signUpButton);
+    loginForm.append(inputEmail, inputPassword, loginPopupButton);
+    fragment.append(loginSign, loginForm, signUpP);
+    //const signUpButton = new BaseElement('p', ['sign-up-button']).element;
+    //signUpButton.textContent = `Don't authorized yet? Sign Up!`;
     const logOutButton = new BaseElement('p', ['log-out-button']).element;
     logOutButton.textContent = 'Log Out';
     logOutButton.addEventListener('click', () => this.logOut());
@@ -47,7 +58,7 @@ class LoginPopup {
     fragment.append(closePopupButton, loginSign, loginForm, signUpButton, logOutButton);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
-    Validation.handleEsc(loginPopup, overlay);
+    //Validation.handleEsc(loginPopup, overlay);
   }
 
   private async loginUser(
@@ -55,7 +66,7 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для логина')) return;
+    //if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для логина')) return;
     const nameField = document.body.querySelector('.user-name-field') as HTMLElement;
     const email = inputEmail.value;
     const password = inputPassword.value;
@@ -130,7 +141,7 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для подписки')) return;
+    //if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для подписки')) return;
     const email = inputEmail.value;
     const password = inputPassword.value;
     const userName = inputName.value;

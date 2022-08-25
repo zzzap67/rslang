@@ -11,15 +11,19 @@ export const TOKEN_EXPIRATION_TIME = 4.5 * 60 * 60 * 1000;
 
 export const HEADER_NAV_ITEMS = [
   {
-    name: 'Учебник',
+    name: 'ГЛАВНАЯ',
+    role: 'main',
+  },
+  {
+    name: 'УЧЕБНИК',
     role: 'tutorial',
   },
   {
-    name: 'Игры',
+    name: 'ИГРЫ',
     role: 'games',
   },
   {
-    name: 'Статистика',
+    name: 'СТАТИСТИКА',
     role: 'statistics',
   },
 ];

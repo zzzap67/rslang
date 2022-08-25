@@ -1,3 +1,4 @@
+import './header.scss';
 import LoginPopup from '../authorization/login-popup';
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
@@ -11,10 +12,10 @@ class Header {
     const logoContainer = new BaseElement('div', ['logo-container']).element;
     const navContainer = new HeaderNav().navContainer;
     const loginContainer = new BaseElement('div', ['login-container']).element;
-    const logInButton = new Button('Log In').buttonElement;
+    const logInButton = new Button('LOG IN', ['header__btn']).buttonElement;
     const userNameField = new BaseElement('div', ['user-name-field']).element;
     logInButton.addEventListener('click', this.handlelogIn);
-    loginContainer.append(userNameField, logInButton);
+    loginContainer.append(logInButton, userNameField);
     header.append(logoContainer, navContainer, loginContainer);
     this.headerElement = header;
   }

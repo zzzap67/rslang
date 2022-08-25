@@ -7,6 +7,7 @@ import Tutorial from './tutorial';
 
 class Groups {
   groupsContainerElement: HTMLElement;
+
   constructor() {
     const groupsContainer = new BaseElement('div', ['groups-container']).element;
     const NUMBER_OF_GROUPS = 6;
