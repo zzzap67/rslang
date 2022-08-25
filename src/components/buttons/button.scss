@@ -1,0 +1,13 @@
+@import '../../assets/scss/variables.scss';
+
+.btn {
+    display: inline-block;
+    background-color: $main-gray;
+    border-radius: 15px;
+    padding: 5px 10px;
+    transition: 0.3s;
+  
+      &:hover {
+        color: $main-white;
+      }
+}
