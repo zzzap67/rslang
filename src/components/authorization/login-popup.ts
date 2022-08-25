@@ -1,3 +1,5 @@
+import './login-popup.scss';
+
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import { apiStrings } from '../store/constants';
@@ -25,11 +27,15 @@ class LoginPopup {
     inputPassword.addEventListener('change', () => Validation.checkPassword(inputPassword.value, inputPassword));
     const loginPopupButton = new Button('Log In', ['login-btn']).buttonElement;
     loginPopupButton.addEventListener('click', () => this.loginUser(loginPopup, inputEmail, inputPassword));
-    const signUpButton = new BaseElement('p', ['sign-up-button']).element;
-    signUpButton.textContent = `Don't authorized yet? Sign Up!`;
+    const signUpP = new BaseElement('p').element;
+    const signUpSpan = new BaseElement('span', ['span__sign-up']).element;
+    signUpSpan.textContent = "Don't authorized yet?";
+    const signUpButton = new BaseElement('span', ['sign-up-button']).element;
+    signUpButton.textContent = 'SIGN UP!';
     signUpButton.addEventListener('click', () => this.handleCreateUser(loginPopup, inputEmail, inputPassword));
+    signUpP.append(signUpSpan, signUpButton);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
-    fragment.append(loginSign, loginForm, signUpButton);
+    fragment.append(loginSign, loginForm, signUpP);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
   }
@@ -56,7 +62,7 @@ class LoginPopup {
     });
     const data = await response.json();
     state.userName = data.name;
-    nameField.textContent = `Hi, ${state.userName}!`;
+    nameField.textContent = `HI, ${state.userName.toUpperCase()}!`;
     state.token = data.token;
     state.userId = data.userId;
     loginPopup.remove();
