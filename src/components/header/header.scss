@@ -70,6 +70,33 @@
 
 .login-container {
   display: flex;
-  gap: 7vw;
+  gap: 3vw;
   padding-right: 10px;
 }
+
+.user-name-field {
+  display: flex;
+  //width: 10vw;
+  align-items: center;
+  font-weight: 500;
+  color: $main-green;
+}
+
+/*.user-name-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 1rem;
+  border: 3px solid $main-light-blue;
+  background-color: $main-green;
+
+    span {
+      color: $main-light-blue;
+      font-size: 1.7rem;
+      font-weight: 700;
+      line-height: 2rem;
+    }
+}*/

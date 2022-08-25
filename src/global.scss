@@ -3,6 +3,10 @@
 @import './assets/scss/fonts.scss';
 @import './assets/scss/mixins.scss';
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
