@@ -8,15 +8,15 @@ export const apiStrings = {
 
 export const HEADER_NAV_ITEMS = [
   {
-    name: 'Учебник',
+    name: 'УЧЕБНИК',
     role: 'tutorial',
   },
   {
-    name: 'Игры',
+    name: 'ИГРЫ',
     role: 'games',
   },
   {
-    name: 'Статистика',
+    name: 'СТАТИСТИКА',
     role: 'statistics',
   },
 ];

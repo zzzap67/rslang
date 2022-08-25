@@ -1,0 +1,75 @@
+@import '../../assets/scss/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 10vh;
+}
+
+.header-nav-ul {
+  display: flex;
+  justify-content: space-between;
+  gap: 7vw;
+  margin-right: 7vw;
+}
+
+.header-nav-li {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+    &:after {
+      display: block;
+      position: absolute;
+      left: 50%;
+      width: 0;
+      height: 2px;
+      background-color: $main-gray;
+      content: "";
+      transition: width 0.3s ease-in-out;
+      transform: translateX(-50%);
+    }
+
+    &:hover:after,
+    &:focus:after {
+	    width: 100%;
+    }
+}
+
+.btn.header__btn {
+  position: relative;
+  display: inline-block;
+  background-color: $main-green;
+  border-radius: 15px;
+  padding: 5px 25px;
+  transition: 0.3s;
+
+    &:hover {
+      color: $main-white;
+    }
+}
+
+.header__btn:before {
+	content:'';
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 0;
+	height: 100%;
+	background: rgba(255,255,255,0.3);
+	border-radius: 20px;
+	transition: all 0.3s ease;
+}
+
+.header__btn:hover:before {
+	width: 100%;
+}
+
+.login-container {
+  display: flex;
+  gap: 7vw;
+  padding-right: 10px;
+}
