@@ -41,6 +41,7 @@ class Groups {
   async handleHardWords(): Promise<void> {
     if (state.group != 7) {
       const hardWords = await HardWordsCheck.getHardWords();
+      if (!hardWords) return;
       state.page = 0;
       state.group = 7;
       if (!hardWords) {
@@ -52,9 +53,7 @@ class Groups {
 
   async handleHardWordsStart(): Promise<void> {
     const hardWords = await HardWordsCheck.getHardWords();
-    if (!hardWords) {
-      return;
-    }
+    if (!hardWords) return;
     new HardWordsPage(hardWords);
   }
 
