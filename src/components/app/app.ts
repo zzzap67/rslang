@@ -1,4 +1,5 @@
 import BaseElement from '../base-element/base-element';
+import Footer from '../footer/footer';
 import Header from '../header/header';
 import MainContainer from '../main-container/main-container';
 import { state } from '../store/state';
@@ -15,7 +16,7 @@ class App {
     window.addEventListener('beforeunload', this.setState);
     const wrapper = new BaseElement('div', ['wrapper']).element;
     wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
-    this.container.append(wrapper);
+    this.container.append(wrapper, new Footer().footerElement);
   }
 
   public getState(): void {
