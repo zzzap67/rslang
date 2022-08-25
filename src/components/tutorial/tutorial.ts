@@ -7,7 +7,6 @@ import { ICard } from '../types/interfaces';
 import Groups from './groups';
 import Pages from './pages';
 import HardWordsCheck from './hard-words-check';
-import './tutorial.css';
 
 class Tutorial {
   constructor() {
