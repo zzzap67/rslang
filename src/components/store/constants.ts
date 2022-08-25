@@ -8,6 +8,10 @@ export const apiStrings = {
 
 export const HEADER_NAV_ITEMS = [
   {
+    name: 'ГЛАВНАЯ',
+    role: 'main',
+  },
+  {
     name: 'УЧЕБНИК',
     role: 'tutorial',
   },
