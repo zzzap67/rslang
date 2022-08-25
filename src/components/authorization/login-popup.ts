@@ -36,10 +36,15 @@ class LoginPopup {
     loginPopupButton.addEventListener('click', () => this.loginUser(loginPopup, inputEmail, inputPassword));
     const signUpButton = new BaseElement('p', ['sign-up-button']).element;
     signUpButton.textContent = `Don't authorized yet? Sign Up!`;
-    signUpButton.addEventListener('click', () => this.handleCreateUser(loginPopup, inputEmail, inputPassword));
+    const logOutButton = new BaseElement('p', ['log-out-button']).element;
+    logOutButton.textContent = 'Log Out';
+    logOutButton.addEventListener('click', () => this.logOut());
+    signUpButton.addEventListener('click', () =>
+      this.handleCreateUser(loginPopup, inputEmail, inputPassword, logOutButton)
+    );
     document.body.append(overlay);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
-    fragment.append(closePopupButton, loginSign, loginForm, signUpButton);
+    fragment.append(closePopupButton, loginSign, loginForm, signUpButton, logOutButton);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
     Validation.handleEsc(loginPopup, overlay);
@@ -77,20 +82,30 @@ class LoginPopup {
         localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
         state.userId = data.userId;
         console.log(data.userId);
-        const overlay = document.body.querySelector('.overlay') as HTMLElement;
-        overlay?.remove();
-        loginPopup.remove();
+        this.closePopup();
       })
       .catch(() => {
         new WarningPopup('Нет такого пользователя :(');
       });
   }
 
+  private logOut() {
+    state.userId = '';
+    state.userName = '';
+    localStorage.setItem('currentToken', '');
+    localStorage.setItem('refreshToken', '');
+    const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
+    userNameField.textContent = '';
+    this.closePopup();
+  }
+
   private handleCreateUser(
     loginPopup: HTMLElement,
     inputEmail: HTMLInputElement,
-    inputPassword: HTMLInputElement
+    inputPassword: HTMLInputElement,
+    logOutButton: HTMLElement
   ): void {
+    logOutButton.remove();
     const signUpSign = loginPopup.querySelector('.login-sign') as HTMLElement;
     const loginButton = loginPopup.querySelector('.login-btn') as HTMLElement;
     const loginForm = loginPopup.querySelector('.login-form') as HTMLElement;
@@ -134,7 +149,15 @@ class LoginPopup {
     });
     await response.json();
     this.loginUser(loginPopup, inputEmail, inputPassword);
-    loginPopup.remove();
+    this.closePopup();
+  }
+
+  private closePopup() {
+    const overlay = document.body.querySelector('.overlay');
+    const popup = document.body.querySelector('.popup');
+    console.log(popup);
+    overlay?.remove();
+    popup?.remove();
   }
 }
 export default LoginPopup;

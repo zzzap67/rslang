@@ -115,6 +115,10 @@ body {
   gap: 10px;
 }
 
+.log-out-button {
+  cursor: pointer;
+}
+
 .input-login:valid {
   border-color: green;
 }
