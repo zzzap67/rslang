@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const EslingPlugin = require('eslint-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const baseConfig = {
   entry: path.resolve(__dirname, './src/index'),
@@ -11,10 +12,22 @@ const baseConfig = {
   module: {
     rules: [
       {
-        test: /\.css$/i,
-        use: ['style-loader', 'css-loader'],
+        test: /\.s[ac]ss$/i,
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
       { test: /\.ts$/i, use: 'ts-loader' },
+      {
+        test: /\.(eot|svg|ttf|woff|woff2)$/,
+        use: [
+          {
+            loader: 'file-loader?name=./assets/fonts/[name].[ext]',
+          },
+        ],
+      },
+      {
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   resolve: {
@@ -32,10 +45,9 @@ const baseConfig = {
     new CleanWebpackPlugin(),
     new EslingPlugin({ extensions: 'ts' }),
     new CopyWebpackPlugin({
-      patterns: [
-        { from: './src/assets/images', to: 'img' },
-      ],
+      patterns: [{ from: './src/assets/images', to: 'img' }],
     }),
+    new MiniCssExtractPlugin(),
   ],
 };
 

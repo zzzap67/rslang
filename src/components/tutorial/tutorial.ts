@@ -1,3 +1,4 @@
+import './tutorial.scss';
 import BaseElement from '../base-element/base-element';
 import TutorialCard from './card';
 import { apiStrings } from '../store/constants';
@@ -10,9 +11,11 @@ import './tutorial.css';
 
 class Tutorial {
   constructor() {
+    //const body = document.body;
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
     const cardsContainer = new BaseElement('div', ['cards-container']).element;
     const pagesContainer = new BaseElement('div', ['groups-pages-container']).element;
+    //const groupsContainer = new BaseElement('div', ['groups-container']).element;
     mainContainer.innerHTML = '';
     console.log(state.group, state.page);
     pagesContainer.append(new Groups().groupsContainerElement, new Pages().pagesButtonsElement);

@@ -1,4 +1,5 @@
 import BaseElement from '../base-element/base-element';
+import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
 
@@ -23,6 +24,10 @@ class HeaderNav {
     if (!target.classList.contains('header-nav-li')) return;
     if (target.dataset.role === 'tutorial') {
       new Tutorial();
+    }
+    if (target.dataset.role === 'main') {
+      const mainPageContent = new MainContainer();
+      mainPageContent.render();
     }
   }
 }
