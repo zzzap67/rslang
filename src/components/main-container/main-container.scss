@@ -1,16 +1,18 @@
 @import '../../assets/scss/variables.scss';
 
 .main {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  //height: 100%;
 }
 
 .main__img {
+  display: block;
   position: absolute;
   top: 10vh;
   left: 30vw;
   width: 60vw;
-  height: 78vh;
+  height: 50vh;
   background-image: url(../../assets/images/main-picture.png);
   background-size: 100%;
   background-repeat: no-repeat;
