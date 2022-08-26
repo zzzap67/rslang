@@ -26,16 +26,9 @@ body {
     font-weight: 300;
     background-image: url(./assets/images/bg-beige.png);
     background-size: 100%;
-    background-position: 0 0;
+    background-position: 0 10vh;
     background-repeat: no-repeat;
     color: $main-gray;
-}
-
-.wrapper {
-  margin: 0 auto;
-  max-width: 1280px;
-  min-height: 90%;
-  padding: 0 2vw;
 }
 
 h1,

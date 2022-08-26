@@ -1,3 +1,4 @@
+import Sprint from '../../games/sprint/sprint';
 import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
@@ -28,6 +29,21 @@ class HeaderNav {
     if (target.dataset.role === 'main') {
       const mainPageContent = new MainContainer();
       mainPageContent.render();
+    }
+    if (target.dataset.role === 'games') {
+      const sprint: Sprint = new Sprint();
+      sprint.addTimer();
+      sprint.setTimer();
+
+      const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
+      falseBtn.addEventListener('click', () => {
+        sprint.onBtnFalseClick();
+      });
+
+      const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
+      trueBtn.addEventListener('click', () => {
+        sprint.onBtnTrueClick();
+      });
     }
   }
 }
