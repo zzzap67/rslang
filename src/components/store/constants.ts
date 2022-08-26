@@ -1,0 +1,31 @@
+export const apiStrings = {
+  API_ADDRESS: 'https://react-rslang-be-team141.herokuapp.com',
+  API_USERS: '/users',
+  API_SIGN_IN: '/signin',
+  API_WORDS: '/words',
+  API_AGGREGATED_WORDS: '/aggregatedWords',
+  API_TOKENS: '/tokens',
+};
+
+export const TOKEN_EXPIRATION_TIME = 4.5 * 60 * 60 * 1000;
+
+export const HEADER_NAV_ITEMS = [
+  {
+    name: 'ГЛАВНАЯ',
+    role: 'main',
+  },
+  {
+    name: 'УЧЕБНИК',
+    role: 'tutorial',
+  },
+  {
+    name: 'ИГРЫ',
+    role: 'games',
+  },
+  {
+    name: 'СТАТИСТИКА',
+    role: 'statistics',
+  },
+];
+
+export const EMAIL_REGEXP = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
