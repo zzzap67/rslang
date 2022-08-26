@@ -8,6 +8,7 @@ import { apiStrings, EMAIL_REGEXP, TOKEN_EXPIRATION_TIME } from '../store/consta
 import { state } from '../store/state';
 //import Validation from './validation';
 import WarningPopup from './warning-popup';
+import Validation from './validation';
 
 class LoginPopup {
   loginPopupElement: HTMLElement;
@@ -58,7 +59,7 @@ class LoginPopup {
     fragment.append(closePopupButton, loginSign, loginForm, signUpButton, logOutButton);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
-    //Validation.handleEsc(loginPopup, overlay);
+    Validation.handleEsc(loginPopup, overlay);
   }
 
   private async loginUser(
@@ -66,7 +67,7 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    //if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для логина')) return;
+    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для логина')) return;
     const nameField = document.body.querySelector('.user-name-field') as HTMLElement;
     const email = inputEmail.value;
     const password = inputPassword.value;
@@ -141,7 +142,7 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    //if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для подписки')) return;
+    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для подписки')) return;
     const email = inputEmail.value;
     const password = inputPassword.value;
     const userName = inputName.value;
