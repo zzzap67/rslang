@@ -22,7 +22,7 @@ class HardWordsCheck {
     const userId = state.userId;
     const DIFFICULTY_HARD_API = '?filter={"userWord.difficulty":"hard"}';
     CheckJwt.checkJwt();
-    const token = state.token;
+    const token = localStorage.getItem('currentToken');
     try {
       const response = await fetch(
         `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_AGGREGATED_WORDS}${DIFFICULTY_HARD_API}`,
