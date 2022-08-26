@@ -24,3 +24,9 @@ export interface IState {
   userName: string;
   userId: string;
 }
+
+export interface IUserWord {
+  id: string;
+  difficulty: string;
+  wordId: string;
+}

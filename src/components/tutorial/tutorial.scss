@@ -67,3 +67,26 @@
 .hard-card-in-tutorial {
   background-color: burlywood;
 }
+
+.btn.selected {
+  background-color: orange;
+  color: blue;
+  font-weight: bold;
+}
+
+.btn-checked {
+  background-color: green;
+  font-weight: bold;
+}
+
+.btn-hidden {
+  display: none;
+}
+
+.card-hard {
+  background-color: rgb(247, 136, 85);
+}
+
+.card-studied {
+  background-color: rgb(136, 230, 136);
+}
