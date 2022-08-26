@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  min-width: 100%;
   min-height: 80vh;
   background-image: url(../../assets/images/5910390.jpg);
   background-size: cover;
@@ -23,6 +23,7 @@
   border-radius: 15px;
   border: none;
   box-sizing: content-box;
+  display: none;
 }
 
 .sprint__game-info {
@@ -143,4 +144,83 @@
 
 .sprint__btn-true {
   background-color: $main-green;
+}
+
+.sprint__results-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  background-color: rgba($main-green, 0.3);
+  border-radius: 15px;
+  border: none;
+  box-sizing: content-box;
+}
+
+.results__h2,
+.results__h3 {
+  display: block;
+  text-align: center;
+  color: $main-gray-blue;
+  
+    span {
+      font-family: "Poppins";
+    }
+}
+
+.results__h2 {
+
+}
+
+.results__circle-outer {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(45deg, $main-red, $main-white);
+  border-radius: 75px;
+  overflow: hidden;
+}
+
+.results__circle-inner {
+  position: absolute;
+  top: 50;
+  left: 0;
+  width: 150px;
+  height: 67%;
+  background: linear-gradient(45deg, #3d7477, #99cfff);
+  transition: .5s ease;
+}
+
+.results__percents {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 50px;
+  left: 0;
+  text-align: center;
+  font-family: "Poppins";
+  z-index: 5;
+}
+
+.results__link {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba($main-yellow, 0.8);
+  border-radius: 5px;
+
+  &:hover {
+ 
+    background-color: $main-yellow;
+    cursor: pointer;
+  } 
+
+  &:active {
+    color: rgba($main-white, 0.3);
+  }
 }

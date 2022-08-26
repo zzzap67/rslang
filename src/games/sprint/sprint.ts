@@ -1,5 +1,6 @@
 import './sprint.scss';
 import Timer from './timer';
+import SprintResults from './sprintResults';
 
 class Sprint {
   private sprintHtml = `
@@ -28,7 +29,12 @@ class Sprint {
 
   constructor() {
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
-    mainContainer.innerHTML = this.sprintHtml;
+    // UNCOMMENT THE NEXT CODE LINE TO LOOK AT SPRINT GAME WINDOW
+    //(also set "DISPLAY: NONE" for '.sprint__results-field' and "DISPLAY: BLOCK" for '.sprint__ game-field' in sprint.scss)
+
+    //mainContainer.innerHTML = this.sprintHtml;
+    mainContainer.innerHTML = '';
+    mainContainer.append(new SprintResults().resultsElement);
   }
 
   public addTimer() {
