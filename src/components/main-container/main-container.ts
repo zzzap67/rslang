@@ -3,6 +3,7 @@ import BaseElement from '../base-element/base-element';
 
 class MainContainer {
   public mainContainerElement: HTMLElement;
+  private mainWrapper = new BaseElement('div', ['main__wrapper']).element;
   private mainImg = new BaseElement('div', ['main__img']).element;
   private mainHeading = new BaseElement('div', ['main__heading']).element;
   private html = `
@@ -14,7 +15,8 @@ class MainContainer {
   constructor() {
     const mainContainer = new BaseElement('main', ['main']).element;
     this.mainHeading.innerHTML = this.html;
-    mainContainer.append(this.mainHeading, this.mainImg);
+    this.mainWrapper.append(this.mainHeading, this.mainImg);
+    mainContainer.append(this.mainWrapper);
     this.mainContainerElement = mainContainer;
   }
 
@@ -22,7 +24,7 @@ class MainContainer {
     const mainContainer = document.querySelector('.main') as HTMLElement;
     mainContainer.innerHTML = '';
     this.mainHeading.innerHTML = this.html;
-    mainContainer.append(this.mainHeading, this.mainImg);
+    mainContainer.append(this.mainWrapper);
   }
 }
 

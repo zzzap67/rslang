@@ -1,4 +1,4 @@
-import BaseElement from '../base-element/base-element';
+//import BaseElement from '../base-element/base-element';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import MainContainer from '../main-container/main-container';
@@ -14,9 +14,13 @@ class App {
   public start(): void {
     document.addEventListener('DOMContentLoaded', this.getState);
     window.addEventListener('beforeunload', this.setState);
-    const wrapper = new BaseElement('div', ['wrapper']).element;
-    wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
-    this.container.append(wrapper, new Footer().footerElement);
+    //const wrapper = new BaseElement('div', ['wrapper']).element;
+    //wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
+    this.container.append(
+      new Header().headerElement,
+      new MainContainer().mainContainerElement,
+      new Footer().footerElement
+    );
   }
 
   public getState(): void {

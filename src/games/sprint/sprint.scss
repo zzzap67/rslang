@@ -1,0 +1,226 @@
+@import '../../assets/scss/variables.scss';
+
+.sprint__main-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 100%;
+  min-height: 80vh;
+  background-image: url(../../assets/images/5910390.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}
+
+.sprint__game-field {
+  display: flex;
+  flex-direction: column;
+  row-gap: 50px;
+  width: 500px;
+  height: 500px;
+  background-color: rgba($main-gray, 0.3);
+  border-radius: 15px;
+  border: none;
+  box-sizing: content-box;
+  display: none;
+}
+
+.sprint__game-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  padding: 10px 30px 0 30px;
+}
+
+.sprint__sound-switcher-disabled {
+  position: absolute;
+  width: 3.7rem;
+  height: 5px;
+  top: calc(50% - 2px);
+  left: 0;
+  transform: rotate(-45deg);
+  background-color: $main-red;
+  visibility: hidden;
+}
+
+.sprint__sound-switcher {
+  position: relative;
+  width: 3.5rem;
+  height: 3.5rem;
+  background-image: url(../../assets/images/icon-sound.png);
+  background-size: calc(100% - 0.5rem);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color: $main-light-gray;
+  border-radius: 5px;
+}
+
+.sprint__timer {
+
+}
+
+.base-timer {
+  display: flex;
+	justify-content: center;
+	align-items: center;
+	position: relative;
+}
+
+
+.base-timer h2 {
+  display: flex;
+  position: absolute;
+	width: 100px;
+	align-items: center;
+	justify-content: center;
+  font-family: 'Poppins';
+}
+
+.sprint__timer-svg {
+  width: 100px;
+  height: 100px;
+	transform: rotate(-90deg);
+}
+
+
+.circle_animation {
+	stroke-dasharray: 289; /* this value is the pixel circumference of the circle */
+	stroke-dashoffset: 0;
+	transition: all 1s linear;
+}
+
+
+.sprint__points {
+  font-family: 'Poppins';
+  text-align: center;
+}
+
+.sprint__game-window {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  
+}
+
+.sprint__words-wrapper {
+  width: 90%;
+  padding: 50px;
+  text-align: center;
+  background-color: $main-yellow;
+  border-radius: 10px;
+}
+
+.sprint_en-word {
+  margin-bottom: 30px;
+}
+
+.sprint__ru-word {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.sprint__btns-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  padding: 30px;
+}
+
+.sprint__btn-false,
+.sprint__btn-true {
+  width: 100px;
+  padding: 10px;
+  font-weight: 500;
+  border-radius: 5px;
+}
+
+.sprint__btn-false {
+  background-color: $main-red;
+}
+
+.sprint__btn-true {
+  background-color: $main-green;
+}
+
+.sprint__results-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 500px;
+  height: 500px;
+  background-color: rgba($main-green, 0.3);
+  border-radius: 15px;
+  border: none;
+  box-sizing: content-box;
+}
+
+.results__h2,
+.results__h3 {
+  display: block;
+  text-align: center;
+  color: $main-gray-blue;
+  
+    span {
+      font-family: "Poppins";
+    }
+}
+
+.results__h2 {
+
+}
+
+.results__circle-outer {
+  position: relative;
+  display: flex;
+  flex-direction: column-reverse;
+  width: 150px;
+  height: 150px;
+  background: linear-gradient(45deg, $main-red, $main-white);
+  border-radius: 75px;
+  overflow: hidden;
+}
+
+.results__circle-inner {
+  position: absolute;
+  top: 50;
+  left: 0;
+  width: 150px;
+  height: 67%;
+  background: linear-gradient(45deg, #3d7477, #99cfff);
+  transition: .5s ease;
+}
+
+.results__percents {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  top: 50px;
+  left: 0;
+  text-align: center;
+  font-family: "Poppins";
+  z-index: 5;
+}
+
+.results__link {
+  position: relative;
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba($main-yellow, 0.8);
+  border-radius: 5px;
+
+  &:hover {
+ 
+    background-color: $main-yellow;
+    cursor: pointer;
+  } 
+
+  &:active {
+    color: rgba($main-white, 0.3);
+  }
+}
