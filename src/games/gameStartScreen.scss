@@ -1,0 +1,93 @@
+@import '../assets/scss/variables.scss';
+
+.game__start-scr-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  min-width: 100%;
+  min-height: 80vh;
+  background-color: #ffffff;
+  background-size: 50%;
+  background-position: 0 0;
+  background-repeat: no-repeat;
+  margin: 0 auto;
+}
+
+.game__image {
+  width: 500px;
+  height: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  background-image: url(../assets/images/bg-sprint-start-2.jpg);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.game__field-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  row-gap: 50px;
+  max-width: 500px;
+  max-height: 500px;
+  margin-bottom: 20px;
+  border-radius: 15px;
+  border: none;
+  box-sizing: content-box;
+}
+
+.game__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.game__name {
+  text-align: center;
+}
+
+.game__info {
+  font-size: 1.5rem;
+  font-weight: 400;
+  text-align: center;
+}
+
+.game__level-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
+.game__level-choice {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+}
+
+.game__btns-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.game__btn-level {
+  width: 60px;
+  height: 60px;
+  border-radius: 30px;
+  background-color: rgba($main-soft-blue, 0.7);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: $main-gray-blue;
+
+  &:hover {
+    background-color: $main-soft-blue;
+    color: $main-white;
+  }
+
+  &:active {
+    border: 2px solid $main-white;
+  }
+}
