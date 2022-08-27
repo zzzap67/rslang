@@ -16,6 +16,21 @@ export interface ICard {
   wordTranslate: string;
 }
 
+export interface ICards extends Array<ICard> { }
+
+export interface IAudioCallCard {
+  id: string;
+  word: string;
+  image: string;
+  audio: string;
+  wordTranslate: string;
+}
+
+export interface IAudioCallAnswers {
+  wordTranslate: string;
+  correct: boolean;
+}
+
 export interface IState {
   [key: string]: number | string;
   token: string;
