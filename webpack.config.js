@@ -25,7 +25,7 @@ const baseConfig = {
         ],
       },
       {
-        test: /\.(?:ico|gif|png|jpg|jpeg|webp)$/i,
+        test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3)$/i,
         type: 'asset/resource',
       },
     ],
@@ -45,7 +45,10 @@ const baseConfig = {
     new CleanWebpackPlugin(),
     new EslingPlugin({ extensions: 'ts' }),
     new CopyWebpackPlugin({
-      patterns: [{ from: './src/assets/images', to: 'img' }],
+      patterns: [
+        { from: './src/assets/images', to: 'img' },
+        { from: './src/assets/sounds', to: 'sounds' },
+      ],
     }),
     new MiniCssExtractPlugin(),
   ],
