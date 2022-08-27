@@ -1,0 +1,36 @@
+.answer-btn-hidden {
+  display: none;
+}
+
+.answer-btn.answer-btn-correct {
+  background-color: green;
+}
+
+.answer-btn.answer-btn-wrong {
+  background-color: red;
+}
+
+.word-container {
+  padding : 20px;
+  font: 3em bold;
+  color: ORANGE;
+}
+
+.answer-btn {
+  padding: 10px;
+  margin: 10px;
+  background-color: lightgrey;
+}
+
+.card-image {
+  width: 200px;
+  height: 200px;
+}
+
+.audio-btn {
+  background-color: limegreen;
+  color: white;
+  width: 45px;
+  height: 45px;
+  font-size: 0.8em;
+}

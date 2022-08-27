@@ -10,7 +10,7 @@ class Pages {
   constructor() {
     const pageButtonsContainer = new BaseElement('div', ['pages-container']).element;
     this.numberOfPages = 30;
-    if (state.group != 7) {
+    if (state.group != 6) {
       const firstButton = new Button('<<', ['page-btn']).buttonElement;
       firstButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(firstButton);

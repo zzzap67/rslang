@@ -7,8 +7,8 @@ import { ICard } from '../types/interfaces';
 
 class TutorialCard {
   cardElement: HTMLElement;
-  difficultButton: HTMLElement;
-  constructor(card: ICard) {
+
+  constructor(card: ICard, hardType: number, studiedType: number) {
     const tutorialCard = new BaseElement('div', ['card']).element;
     tutorialCard.dataset.wordId = card.id;
     this.cardElement = tutorialCard;
@@ -18,17 +18,35 @@ class TutorialCard {
     const cardRussianWord = new BaseElement('p', ['card-word', 'card-russian-word']).element;
     const audioButton = new Button('Play', ['audio-btn']).buttonElement;
     const difficultButton = new Button('Сложное', ['difficult-btn']).buttonElement;
-    this.difficultButton = difficultButton;
     const discardButton = new Button('Изученное', ['difficult-btn']).buttonElement;
+    difficultButton.id = 'hard-btn-' + card.id;
+    discardButton.id = 'studied-btn-' + card.id;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${card.image}')`;
     cardEnglishWord.textContent = `${card.word}`;
     cardTranscription.textContent = `${card.transcription}`;
     cardRussianWord.textContent = `${card.wordTranslate}`;
     audioButton.addEventListener('click', () => this.handleAudio(card));
     tutorialCard.append(cardImage, cardEnglishWord, cardTranscription, cardRussianWord, audioButton);
-    if (state.userName) {
-      difficultButton.addEventListener('click', () => this.handleDifficultButton(card.id, tutorialCard));
-      tutorialCard.append(difficultButton, discardButton);
+    if (state.userId) {
+      if (hardType) {
+        difficultButton.classList.add('btn-checked');
+        tutorialCard.classList.add('card-hard');
+      }
+      difficultButton.addEventListener('click', () =>
+        this.handleDifficultButton(card.id, tutorialCard, difficultButton)
+      );
+      tutorialCard.append(difficultButton);
+
+      if (studiedType) {
+        discardButton.classList.add('btn-checked');
+        tutorialCard.classList.add('card-studied');
+        difficultButton.classList.remove('btn-checked');
+        difficultButton.classList.add('btn-hidden');
+      }
+      discardButton.addEventListener('click', () =>
+        this.handleStudiedButton(card.id, tutorialCard, difficultButton, discardButton)
+      );
+      tutorialCard.append(discardButton);
     }
   }
 
@@ -55,28 +73,127 @@ class TutorialCard {
     });
   }
 
-  async handleDifficultButton(wordId: string, card: HTMLElement): Promise<void> {
+  async handleDifficultButton(wordId: string, card: HTMLElement, button: HTMLElement): Promise<void> {
     const userId = state.userId;
-    const token = state.token;
+    const token = localStorage.getItem('currentToken');
     const responseBody = {
       difficulty: 'hard',
       optional: {},
     };
+    if (button.classList.contains('btn-checked')) {
+      responseBody.difficulty = 'easy';
+    }
+
     CheckJwt.checkJwt();
-    const response = await fetch(
-      `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(responseBody),
+    try {
+      const checkWord = await fetch(
+        `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      let methodType = 'PUT';
+      const status = checkWord.status;
+      if (status === 404) {
+        methodType = 'POST';
       }
-    );
-    await response.json();
-    card.classList.add('hard-card-in-tutorial');
+
+      const response = await fetch(
+        `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
+        {
+          method: methodType,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(responseBody),
+        }
+      );
+      await response.json();
+      if (responseBody.difficulty === 'hard') {
+        button.classList.add('btn-checked');
+        card.classList.add('card-hard');
+      } else {
+        button.classList.remove('btn-checked');
+        card.classList.remove('card-hard');
+      }
+    } catch (e) {
+      const err = e as Error;
+      console.log(err.name);
+    }
+  }
+
+  async handleStudiedButton(
+    wordId: string,
+    card: HTMLElement,
+    hardButton: HTMLElement,
+    button: HTMLElement
+  ): Promise<void> {
+    const userId = state.userId;
+    const token = localStorage.getItem('currentToken');
+    const responseBody = {
+      difficulty: 'studied',
+      optional: {},
+    };
+    if (button.classList.contains('btn-checked')) {
+      responseBody.difficulty = 'easy';
+    }
+
+    CheckJwt.checkJwt();
+    try {
+      const checkWord = await fetch(
+        `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
+        {
+          method: 'GET',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      let methodType = 'PUT';
+      const status = checkWord.status;
+      if (status === 404) {
+        methodType = 'POST';
+      }
+
+      const response = await fetch(
+        `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
+        {
+          method: methodType,
+          headers: {
+            Authorization: `Bearer ${token}`,
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(responseBody),
+        }
+      );
+      await response.json();
+      if (responseBody.difficulty === 'studied') {
+        button.classList.add('btn-checked');
+        hardButton.classList.remove('btn-checked');
+        hardButton.classList.add('btn-hidden');
+        card.classList.remove('card-hard');
+        card.classList.add('card-studied');
+      } else {
+        button.classList.remove('btn-checked');
+        card.classList.remove('card-studied');
+        hardButton.classList.remove('btn-hidden');
+      }
+    } catch (e) {
+      const err = e as Error;
+      console.log(err.name);
+    }
   }
 }
 

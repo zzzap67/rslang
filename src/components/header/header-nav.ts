@@ -3,6 +3,7 @@ import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
+import Audiocall from '../games/audiocall/audiocall';
 
 class HeaderNav {
   public navContainer: HTMLElement;
@@ -44,6 +45,7 @@ class HeaderNav {
       trueBtn.addEventListener('click', () => {
         sprint.onBtnTrueClick();
       });
+      new Audiocall(-1, -1);
     }
   }
 }
