@@ -1,6 +1,7 @@
 import './sprint.scss';
 import Timer from './timer';
-import SprintResults from './sprintResults';
+//import SprintResults from './sprintResults';
+import GameStartScreen from '../gameStartScreen';
 
 class Sprint {
   private sprintHtml = `
@@ -32,9 +33,10 @@ class Sprint {
     // UNCOMMENT THE NEXT CODE LINE TO LOOK AT SPRINT GAME WINDOW
     //(also set "DISPLAY: NONE" for '.sprint__results-field' and "DISPLAY: BLOCK" for '.sprint__ game-field' in sprint.scss)
 
-    //mainContainer.innerHTML = this.sprintHtml;
+    //mainContainer.innerHTML = this.sprintHtml; //--> Sprint Game Screen
     mainContainer.innerHTML = '';
-    mainContainer.append(new SprintResults().resultsElement);
+    //mainContainer.append(new SprintResults().resultsElement); //--> Sprint Reusults screen
+    mainContainer.append(new GameStartScreen('sprint').startScrElement); // --> Game Start Screen
   }
 
   public addTimer() {
