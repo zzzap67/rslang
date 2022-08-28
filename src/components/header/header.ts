@@ -9,6 +9,7 @@ class Header {
   public headerElement: HTMLElement;
   constructor() {
     const header = new BaseElement('header', ['header']).element;
+    const headerWrapper = new BaseElement('header', ['header__wrapper']).element;
     const logoContainer = new BaseElement('div', ['logo-container']).element;
     const navContainer = new HeaderNav().navContainer;
     const loginContainer = new BaseElement('div', ['login-container']).element;
@@ -16,7 +17,8 @@ class Header {
     const userNameField = new BaseElement('div', ['user-name-field']).element;
     logInButton.addEventListener('click', this.handlelogIn);
     loginContainer.append(logInButton, userNameField);
-    header.append(logoContainer, navContainer, loginContainer);
+    headerWrapper.append(logoContainer, navContainer, loginContainer);
+    header.append(headerWrapper);
     this.headerElement = header;
   }
 

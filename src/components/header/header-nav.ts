@@ -35,11 +35,12 @@ class HeaderNav {
 
   private showGamesMenu() {
     const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
-    console.log('listen');
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
     });
     gamesUl.style.opacity = '100';
+    gamesUl.style.top = '50px';
+    gamesUl.style.zIndex = '1000';
   }
 
   private handleGamesUl(e: Event) {

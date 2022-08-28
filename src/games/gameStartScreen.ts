@@ -18,7 +18,7 @@ class GameStartScreen {
       gameInfo = this.audioCallInfo;
     }
 
-    //const mainContainer = document.querySelector('.main__wrapper') as HTMLElement;
+    document.body.style.backgroundImage = 'none';
     const mainContainer = new BaseElement('div', ['main__wrapper']).element;
     mainContainer.innerHTML = `
     <div class="game__start-scr-wrapper">

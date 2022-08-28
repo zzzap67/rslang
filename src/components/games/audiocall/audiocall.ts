@@ -71,6 +71,13 @@ class Audiocall {
     }
   }
   private levelSelect(): void {
+    //put to the Start careen start
+    const gameList = document.querySelector('.header__games-ul') as HTMLElement;
+    gameList.style.opacity = '0';
+    gameList.style.top = '0';
+    gameList.style.zIndex = '-10';
+    //
+
     this.mainContainer.innerHTML = '';
     this.mainContainer.innerHTML = '<div>SELECT LEVEL</div>';
 
@@ -131,7 +138,7 @@ class Audiocall {
       const btn = this.mainContainer.querySelector('#level-button-' + j) as HTMLElement;
       btn.removeEventListener('click', this.checkAnswer);
     }
-    const cardImage = this.mainContainer.querySelector('.card-image') as HTMLHtmlElement;
+    const cardImage = this.mainContainer.querySelector('.call__card-image') as HTMLHtmlElement;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${this.roundWord.image}')`;
 
     const target = e.target as HTMLElement;
@@ -174,11 +181,17 @@ class Audiocall {
   }
 
   private startLevel(): void {
+    document.body.style.backgroundImage = 'url(' + require('../../../assets/images/5910390.jpg') + ')';
+    document.body.style.backgroundPosition = 'center';
+
     this.mainContainer.innerHTML = '';
     console.log('level start', this.currentLevel, this.wordsData[0].length);
+    const callGameWrapper = new BaseElement('div', ['call__game-wrapper']).element;
+
     if (this.currentLevel <= this.wordsData[0].length) {
       const i = this.currentLevel - 1;
-      this.mainContainer.innerHTML = `<div>Round ${i + 1} / ${this.wordsData[0].length}</div>`;
+      const roundNumber = new BaseElement('h2', ['call__round']).element;
+      roundNumber.textContent = `Round ${i + 1} / ${this.wordsData[0].length}`;
       this.roundAnswers = [];
       this.roundWord = { id: '', word: '', image: '', audio: '', wordTranslate: '' };
       this.roundWord.id = this.wordsData[0][i].id;
@@ -201,21 +214,20 @@ class Audiocall {
         this.roundAnswers[ind] = temp;
       }
 
-      const wordContainer = new BaseElement('div', ['word-container']).element;
+      const wordContainer = new BaseElement('div', ['call__word-container']).element;
 
-      const cardImage = new BaseElement('div', ['card-image']).element;
-      const cardEnglishWord = new BaseElement('p', ['card-word', 'card-english-word']).element;
-      const audioButton = new Button('\uD834\uDD60', ['audio-btn']).buttonElement;
+      const cardImage = new BaseElement('div', ['call__card-image']).element;
+      const cardEnglishWord = new BaseElement('p', ['call__card-word', 'call__card-english-word']).element;
+      const audioButton = new Button('', ['call__audio-btn']).buttonElement;
 
-      cardImage.style.backgroundImage = `url(./img/question.png)`;
       cardEnglishWord.textContent = `${this.roundWord.word}`;
       audioButton.addEventListener('click', this.replySound);
       wordContainer.append(cardImage, cardEnglishWord, audioButton);
 
-      const answersContainer = new BaseElement('div', ['answer-container']).element;
+      const answersContainer = new BaseElement('div', ['call__answer-container']).element;
 
       for (let i = 0; i < this.roundAnswers.length; i++) {
-        const answerButton = new Button(this.roundAnswers[i].wordTranslate, ['answer-btn']).buttonElement;
+        const answerButton = new Button(this.roundAnswers[i].wordTranslate, ['call__answer-btn']).buttonElement;
         answerButton.id = 'level-button-' + i;
         if (this.roundAnswers[i].correct) {
           this.currentAnswer = i;
@@ -225,12 +237,13 @@ class Audiocall {
       }
 
       const nextContainer = new BaseElement('div', ['next-container']).element;
-      const nextButton = new Button('NEXT', ['answer-btn', 'answer-btn-hidden']).buttonElement;
+      const nextButton = new Button('NEXT', ['call__answer-btn', 'answer-btn-hidden']).buttonElement;
       nextButton.id = 'next-button';
       nextButton.addEventListener('click', this.nextLevel);
       nextContainer.append(nextButton);
 
-      this.mainContainer.append(wordContainer, answersContainer, nextContainer);
+      callGameWrapper.append(roundNumber, wordContainer, answersContainer, nextContainer);
+      this.mainContainer.append(callGameWrapper);
       this.playSound('');
     } else {
       this.showResults();
@@ -263,28 +276,28 @@ class Audiocall {
   private showResults() {
     this.mainContainer.innerHTML = '';
 
-    const resultContainer = new BaseElement('div', ['result-container']).element;
+    const resultContainer = new BaseElement('div', ['call__result-container']).element;
 
-    const scoreContainer = new BaseElement('div', ['groups-container']).element;
-    const rightContainer = new BaseElement('div', ['right-container']).element;
-    const buttonsContainer = new BaseElement('div', ['groups-container']).element;
+    const scoreContainer = new BaseElement('h2', ['call__score']).element; //'div', ['call__groups-container']
+    const rightContainer = new BaseElement('div', ['call__right-container']).element;
+    const buttonsContainer = new BaseElement('div', ['call__groups-container']).element;
 
-    scoreContainer.innerHTML = `RESULT: ${this.correctAnswers} / ${this.wordsData[0].length}</div>`;
-    const rWordTitle = new BaseElement('div', ['word']).element;
+    scoreContainer.textContent = `Result: ${this.correctAnswers} / ${this.wordsData[0].length}`;
+    const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
     rWordTitle.textContent = `Правильные ответы`;
     rightContainer.append(rWordTitle);
     this.correctWords.forEach((item) => {
-      const rWord = new BaseElement('div', ['word']).element;
+      const rWord = new BaseElement('div', ['call__word']).element;
       rWord.textContent = `${this.wordsData[0][item].word} - ${this.wordsData[0][item].wordTranslate}`;
       rightContainer.append(rWord);
     });
 
-    const buttonRestart = new Button('Начать заново', ['level-btn']).buttonElement;
+    const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
     buttonRestart.id = 'restart-button-1';
     buttonRestart.addEventListener('click', this.restart);
     buttonsContainer.append(buttonRestart);
 
-    const buttonReselect = new Button('Выбрать уровень', ['level-btn']).buttonElement;
+    const buttonReselect = new Button('Выбрать уровень', ['call__level-btn']).buttonElement;
     buttonReselect.id = 'restart-button-2';
     buttonReselect.addEventListener('click', this.restart);
     buttonsContainer.append(buttonReselect);

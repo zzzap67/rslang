@@ -20,15 +20,17 @@ html::-webkit-scrollbar {
 }
 
 body {
-    color: #000;
-    background: #fff;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 300;
-    background-image: url(./assets/images/bg-beige.png);
-    background-size: 100%;
-    background-position: 0 70px;
-    background-repeat: no-repeat;
-    color: $main-gray;
+  display: flex;
+  flex-direction: column;
+  color: #000;
+  background: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  background-image: url(./assets/images/bg-beige.png);
+  background-size: 100%;
+  background-position: 0 70px;
+  background-repeat: no-repeat;
+  color: $main-gray;
 }
 
 h1,
