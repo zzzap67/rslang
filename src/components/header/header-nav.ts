@@ -43,24 +43,26 @@ class HeaderNav {
   }
 
   private handleGamesUl(e: Event) {
+    console.log(e.target);
     const target = e.target as HTMLElement;
     if (target.classList.contains('header__nav-call')) {
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
-      const sprint: Sprint = new Sprint();
-      sprint.addTimer();
-      sprint.setTimer();
+      new Sprint();
+      // const sprint: Sprint = new Sprint();
+      // sprint.addTimer();
+      // sprint.setTimer();
 
-      const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
-      falseBtn.addEventListener('click', () => {
-        sprint.onBtnFalseClick();
-      });
+      // const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
+      // falseBtn.addEventListener('click', () => {
+      //   sprint.onBtnFalseClick();
+      // });
 
-      const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
-      trueBtn.addEventListener('click', () => {
-        sprint.onBtnTrueClick();
-      });
+      // const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
+      // trueBtn.addEventListener('click', () => {
+      //   sprint.onBtnTrueClick();
+      // });
     }
   }
 
