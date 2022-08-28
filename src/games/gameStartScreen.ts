@@ -1,3 +1,4 @@
+import BaseElement from '../components/base-element/base-element';
 import './gameStartScreen.scss';
 
 class GameStartScreen {
@@ -17,7 +18,8 @@ class GameStartScreen {
       gameInfo = this.audioCallInfo;
     }
 
-    const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    //const mainContainer = document.querySelector('.main__wrapper') as HTMLElement;
+    const mainContainer = new BaseElement('div', ['main__wrapper']).element;
     mainContainer.innerHTML = `
     <div class="game__start-scr-wrapper">
       <div class="game__image"></div>
