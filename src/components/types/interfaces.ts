@@ -16,7 +16,7 @@ export interface ICard {
   wordTranslate: string;
 }
 
-export interface ICards extends Array<ICard> { }
+export type ICards = Array<ICard>;
 
 export interface IAudioCallCard {
   id: string;

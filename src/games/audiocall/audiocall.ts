@@ -1,9 +1,9 @@
 import './audiocall.scss';
-import BaseElement from '../../base-element/base-element';
-import Button from '../../buttons/button';
-import { apiStrings } from '../../store/constants';
+import BaseElement from '../../components/base-element/base-element';
+import Button from '../../components/buttons/button';
+import { apiStrings } from '../../components/store/constants';
 // import { state } from '../../store/state';
-import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
+import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../components/types/interfaces';
 // import LevelSelector from './level-selector';
 // import CheckJwt from '../../authorization/chek-jwt';
 

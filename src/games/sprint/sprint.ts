@@ -1,9 +1,17 @@
 import './sprint.scss';
 import Timer from './timer';
-//import SprintResults from './sprintResults';
 import GameStartScreen from '../gameStartScreen';
+import { ICard } from '../../components/types/interfaces';
+import { apiStrings } from '../../components/store/constants';
+// import SprintResults from './sprintResults';
 
 class Sprint {
+  rightAnswers: ICard[];
+  wrongAnswers: ICard[];
+  NUMBER_OF_SETS = 4;
+  NUMBER_OF_PAGES = 30;
+  pageId: number;
+  groupId: number;
   private sprintHtml = `
   <div class="sprint__main-wrapper">
     <div class="sprint__game-field">
@@ -12,7 +20,7 @@ class Sprint {
           <div class="sprint__sound-switcher-disabled"></div>
         </div>
         <div id="timer" class="sprint__timer"></div>
-        <h2 class="sprint__points">58</h2>
+        <h2 class="sprint__points">0</h2>
       </div>
       <div class="sprint__game-window">
         <div class="sprint__words-wrapper">
@@ -28,15 +36,53 @@ class Sprint {
   </div>
   `;
 
-  constructor() {
+  constructor(groupId: number, pageId: number) {
+    this.pageId = pageId;
+    this.groupId = groupId;
+    this.rightAnswers = this.getAnswers();
+    this.wrongAnswers = this.getAnswers();
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
     // UNCOMMENT THE NEXT CODE LINE TO LOOK AT SPRINT GAME WINDOW
     //(also set "DISPLAY: NONE" for '.sprint__results-field' and "DISPLAY: BLOCK" for '.sprint__ game-field' in sprint.scss)
 
-    //mainContainer.innerHTML = this.sprintHtml; //--> Sprint Game Screen
     mainContainer.innerHTML = '';
-    //mainContainer.append(new SprintResults().resultsElement); //--> Sprint Reusults screen
+    mainContainer.innerHTML = this.sprintHtml;
+    this.addTimer();
+    this.setTimer();
+    console.log(this.rightAnswers);
+    // mainContainer.append(new SprintResults().resultsElement); //--> Sprint Reusults screen
     mainContainer.append(new GameStartScreen('sprint').startScrElement); // --> Game Start Screen
+  }
+
+  private createPagesSet() {
+    const pagesSets = new Set();
+    while (pagesSets.size < this.NUMBER_OF_SETS) {
+      pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));
+    }
+    return [...pagesSets];
+  }
+
+  private getAnswers() {
+    const rightAnswersSet: ICard[] = [];
+    const pagesSet = this.createPagesSet();
+    pagesSet.forEach(async (page) => {
+      try {
+        const response = await fetch(
+          `${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${page}&group=${this.groupId}`
+        );
+        const data = await response.json();
+        const dataWords = data.map((item: ICard) => {
+          return {
+            englishWord: item.word,
+            russianWord: item.wordTranslate,
+          };
+        });
+        rightAnswersSet.push(...dataWords);
+      } catch (err) {
+        console.log('this is an error' + err);
+      }
+    });
+    return rightAnswersSet;
   }
 
   public addTimer() {
@@ -57,7 +103,7 @@ class Sprint {
 
     const interval = setInterval(() => {
       timeCaption.innerText = `${time - i}`;
-      if (i++ == time) {
+      if (i++ === time) {
         clearInterval(interval);
       } else {
         strokeDashoffset = step * i;

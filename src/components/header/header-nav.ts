@@ -1,9 +1,9 @@
-import Sprint from '../../games/sprint/sprint';
 import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
-import Audiocall from '../games/audiocall/audiocall';
+import Audiocall from '../../games/audiocall/audiocall';
+import Sprint from '../../games/sprint/sprint';
 
 class HeaderNav {
   public navContainer: HTMLElement;
@@ -32,20 +32,21 @@ class HeaderNav {
       mainPageContent.render();
     }
     if (target.dataset.role === 'games') {
-      const sprint: Sprint = new Sprint();
-      sprint.addTimer();
-      sprint.setTimer();
+      // const sprint: Sprint = new Sprint();
+      // sprint.addTimer();
+      // sprint.setTimer();
 
-      const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
-      falseBtn.addEventListener('click', () => {
-        sprint.onBtnFalseClick();
-      });
+      // const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
+      // falseBtn.addEventListener('click', () => {
+      //   sprint.onBtnFalseClick();
+      // });
 
-      const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
-      trueBtn.addEventListener('click', () => {
-        sprint.onBtnTrueClick();
-      });
-      new Audiocall(-1, -1);
+      // const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
+      // trueBtn.addEventListener('click', () => {
+      //   sprint.onBtnTrueClick();
+      // });
+      new Sprint(1, -1);
+      // new Audiocall(-1, -1);
     }
   }
 }
