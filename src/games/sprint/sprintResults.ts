@@ -1,4 +1,5 @@
 import BaseElement from '../../components/base-element/base-element';
+import Sprint from './sprint';
 
 class SprintResults {
   public resultsElement: HTMLElement;
@@ -19,6 +20,12 @@ class SprintResults {
     const results = new BaseElement('div', ['sprint__main-wrapper']).element;
     results.innerHTML = this.resultsHtml;
     this.resultsElement = results;
+    const oneMoreTimeButton = results.querySelector('.results__link');
+    oneMoreTimeButton?.addEventListener('click', this.newGame, { once: true });
+  }
+
+  private newGame() {
+    new Sprint(1, 1);
   }
 }
 

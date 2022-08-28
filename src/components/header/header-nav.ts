@@ -2,7 +2,7 @@ import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
-import Audiocall from '../../games/audiocall/audiocall';
+// import Audiocall from '../../games/audiocall/audiocall';
 import Sprint from '../../games/sprint/sprint';
 
 class HeaderNav {
@@ -45,7 +45,7 @@ class HeaderNav {
       // trueBtn.addEventListener('click', () => {
       //   sprint.onBtnTrueClick();
       // });
-      new Sprint(1, -1);
+      new Sprint(1, 1);
       // new Audiocall(-1, -1);
     }
   }
