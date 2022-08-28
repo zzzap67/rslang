@@ -1,18 +1,46 @@
 @import '../../assets/scss/variables.scss';
 
 .header {
+  position: relative;
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 10vh;
+  height: 70px;
   background-color: $main-yellow;
 }
 
 .header-nav-ul {
+  position: relative;
   display: flex;
   justify-content: space-between;
   gap: 7vw;
   margin-right: 7vw;
+}
+
+.header__nav-li_games {
+  
+}
+
+.header__games-ul {
+  position: absolute;
+  top: 50px;
+  //left: 20px;
+  //top: 0;
+  left: 0;
+  transition: 0.5s;
+  opacity: 50;
+
+    li {
+      margin-bottom: 5px;
+      background-color: $main-yellow;
+      border-radius: 5px;
+      padding: 5px;
+    }
+}
+
+.header__nav-sprint,
+.header__nav-call {
+
 }
 
 .header-nav-li {
