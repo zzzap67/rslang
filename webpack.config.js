@@ -15,6 +15,10 @@ const baseConfig = {
         test: /\.s[ac]ss$/i,
         use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
+      {
+        test: /\.css$/,
+        loader: 'css-loader',
+      },
       { test: /\.ts$/i, use: 'ts-loader' },
       {
         test: /\.(eot|svg|ttf|woff|woff2)$/,
@@ -27,6 +31,17 @@ const baseConfig = {
       {
         test: /\.(?:ico|gif|png|jpg|jpeg|webp|mp3)$/i,
         type: 'asset/resource',
+      },
+      {
+        test: /\.html$/,
+        use: [
+          {
+            loader: 'html-loader',
+            /*options: {
+              minimize: true,
+            },*/
+          },
+        ],
       },
     ],
   },
