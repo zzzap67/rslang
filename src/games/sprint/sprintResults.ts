@@ -25,7 +25,7 @@ class SprintResults {
     const percentCircle = results.querySelector('.results__circle-inner') as HTMLElement;
     scoreField.innerHTML = score.toString();
     serieField.innerHTML = maxSerie.toString();
-    percentField.innerHTML = Math.round(percentage).toString();
+    percentField.innerHTML = `${Math.round(percentage).toString()}%`;
     percentCircle.style.height = `${percentage}%`;
     this.resultsElement = results;
     const oneMoreTimeButton = results.querySelector('.results__link');
