@@ -1,4 +1,4 @@
-import BaseElement from '../../components/base-element/base-element';
+import BaseElement from '../../base-element/base-element';
 
 class Timer {
   public timerElement: HTMLElement;

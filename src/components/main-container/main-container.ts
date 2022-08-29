@@ -21,6 +21,8 @@ class MainContainer {
   }
 
   public render() {
+    //Use the next syntax for inline background images
+    document.body.style.backgroundImage = 'url(' + require('../../assets/images/bg-beige.png') + ')';
     const mainContainer = document.querySelector('.main') as HTMLElement;
     mainContainer.innerHTML = '';
     this.mainHeading.innerHTML = this.html;

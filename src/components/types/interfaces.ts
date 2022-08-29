@@ -16,7 +16,7 @@ export interface ICard {
   wordTranslate: string;
 }
 
-export interface ICards extends Array<ICard> { }
+export type ICards = Array<ICard>;
 
 export interface IAudioCallCard {
   id: string;
@@ -31,13 +31,19 @@ export interface IAudioCallAnswers {
   correct: boolean;
 }
 
+export interface ISprintAnswer {
+  englishWord: string;
+  russianWord: string;
+}
+
 export interface IState {
-  [key: string]: number | string;
+  [key: string]: number | string | boolean;
   token: string;
   group: number;
   page: number;
   userName: string;
   userId: string;
+  sprintAudio: boolean;
 }
 
 export interface IUserWord {

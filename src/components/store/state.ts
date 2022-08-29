@@ -6,4 +6,5 @@ export const state: IState = {
   page: 0,
   userName: '',
   userId: '',
+  sprintAudio: true,
 };

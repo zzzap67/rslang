@@ -1,11 +1,19 @@
 @import '../../assets/scss/variables.scss';
 
 .header {
-  position: relative;
   display: flex;
+  min-height: 70px;
+  background-color: $main-yellow;
+}
+
+.header__wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  max-width: 1280px;
+  height: 100%;
   justify-content: flex-end;
   align-items: center;
-  height: 70px;
   background-color: $main-yellow;
 }
 
@@ -23,17 +31,17 @@
 
 .header__games-ul {
   position: absolute;
-  top: 50px;
-  //left: 20px;
-  //top: 0;
+  display: block;
+  top: 0;
   left: 0;
   transition: 0.5s;
-  opacity: 50;
-  z-index: 1000;
+  opacity: 0;
+  z-index: -10;
 
     li {
       margin-bottom: 5px;
       background-color: $main-yellow;
+      border: 1px solid $main-white;
       border-radius: 5px;
       padding: 5px;
     }

@@ -1,4 +1,4 @@
-@import '../assets/scss/variables.scss';
+@import '../../assets/scss/variables.scss';
 
 .game__start-scr-wrapper {
   display: flex;
@@ -20,7 +20,7 @@
   height: 500px;
   max-width: 500px;
   max-height: 500px;
-  background-image: url(../assets/images/bg-sprint-start-2.jpg);
+  background-image: url(../../assets/images/bg-sprint-start-2.jpg);
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;

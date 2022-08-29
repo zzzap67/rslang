@@ -1,0 +1,14 @@
+@import '../../assets/scss/variables.scss';
+
+.close-popup-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  cursor: pointer;
+  color: $main-light-gray;
+  transition: 0.5s;
+
+  &:hover {
+    transform: scale(1.2);
+  }
+}

@@ -1,3 +1,5 @@
+import './close-popup-button.scss';
+
 import BaseElement from '../base-element/base-element';
 
 class ClosePopupButton {

@@ -1,17 +1,19 @@
-import Sprint from '../../games/sprint/sprint';
+import Audiocall from '../games/audiocall/audiocall';
+import GameStartScreen from '../games/gameStartScreen';
 import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
-import Audiocall from '../games/audiocall/audiocall';
 
 class HeaderNav {
   public navContainer: HTMLElement;
+  private gamesUl: HTMLElement;
 
   constructor() {
     const navContainer = new BaseElement('nav', ['nav']).element;
     const navUl = new BaseElement('ul', ['header-nav-ul']).element;
     const gamesUl = new BaseElement('ul', ['header__games-ul']).element;
+    this.gamesUl = gamesUl;
     const liSprint = new BaseElement('li', ['header__nav-sprint']).element;
     liSprint.textContent = 'Спринт';
     const liCall = new BaseElement('li', ['header__nav-call']).element;
@@ -35,35 +37,26 @@ class HeaderNav {
 
   private showGamesMenu() {
     const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
-    console.log('listen');
+    gamesUl.style.display = 'block';
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
     });
     gamesUl.style.opacity = '100';
+    gamesUl.style.top = '50px';
+    gamesUl.style.zIndex = '1000';
   }
 
   private handleGamesUl(e: Event) {
-    console.log(e.target);
     const target = e.target as HTMLElement;
     if (target.classList.contains('header__nav-call')) {
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
-      new Sprint();
-      // const sprint: Sprint = new Sprint();
-      // sprint.addTimer();
-      // sprint.setTimer();
-
-      // const falseBtn = document.querySelector('.sprint__btn-false') as HTMLElement;
-      // falseBtn.addEventListener('click', () => {
-      //   sprint.onBtnFalseClick();
-      // });
-
-      // const trueBtn = document.querySelector('.sprint__btn-true') as HTMLElement;
-      // trueBtn.addEventListener('click', () => {
-      //   sprint.onBtnTrueClick();
-      // });
+      const mainContainer = document.body.querySelector('.main') as HTMLElement;
+      mainContainer.innerHTML = '';
+      mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
+    this.gamesUl.style.display = 'none';
   }
 
   private handleNavUl(e: Event) {
