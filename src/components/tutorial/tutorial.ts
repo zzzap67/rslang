@@ -6,6 +6,7 @@ import { state } from '../store/state';
 import { ICard, IUserWord } from '../types/interfaces';
 import Groups from './groups';
 import Pages from './pages';
+import GamesLinks from './games-links';
 import CheckJwt from '../authorization/chek-jwt';
 
 class Tutorial {
@@ -20,7 +21,11 @@ class Tutorial {
     this.userWords = [];
     mainContainer.innerHTML = '';
     console.log(state.group, state.page);
-    pagesContainer.append(new Groups().groupsContainerElement, new Pages().pagesButtonsElement);
+    pagesContainer.append(
+      new Groups().groupsContainerElement,
+      new Pages().pagesButtonsElement,
+      new GamesLinks().linksElement
+    );
     mainContainer.append(pagesContainer, cardsContainer);
 
     this.getUserWords().then(() => {
