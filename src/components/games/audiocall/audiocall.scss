@@ -1,4 +1,4 @@
-@import '../../assets/scss/variables.scss';
+@import '../../../assets/scss/variables.scss';
 
 .call__game-wrapper {
   display: flex;
@@ -60,7 +60,7 @@
   width: 200px;
   height: 200px;
   border: 1px solid $main-white;
-  background-image: url('../../assets/images/question-flat.png');
+  background-image: url('../../../assets/images/question-flat.png');
   background-size: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -73,7 +73,7 @@
   width: 50px;
   height: 50px;
   font-size: 0.8em;
-  background-image: url('../../assets/images/audio.png');
+  background-image: url('../../../assets/images/audio.png');
   background-size: 100%;
   background-color: $main-white;
   border-radius: 25px;
@@ -177,7 +177,7 @@
     display: block;
     left: -1.6rem;
     background-color: $main-white;
-    background-image: url('../../assets/images/audio.png');
+    background-image: url('../../../assets/images/audio.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;
@@ -207,7 +207,7 @@
     display: none;
     left: -1.2rem;
     background-color: $main-white;
-    background-image: url('../../assets/images/audio.png');
+    background-image: url('../../../assets/images/audio.png');
     background-size: 100%;
     background-repeat: no-repeat;
     background-position: center;

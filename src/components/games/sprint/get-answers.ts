@@ -1,5 +1,5 @@
-import { apiStrings } from '../../components/store/constants';
-import { ICard, ISprintAnswer } from '../../components/types/interfaces';
+import { apiStrings } from '../../store/constants';
+import { ICard, ISprintAnswer } from '../../types/interfaces';
 
 class GetSprintAnswers {
   answers: ISprintAnswer[] = [];

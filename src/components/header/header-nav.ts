@@ -1,5 +1,5 @@
-import Audiocall from '../../games/audiocall/audiocall';
-import GameStartScreen from '../../games/gameStartScreen';
+import Audiocall from '../games/audiocall/audiocall';
+import GameStartScreen from '../games/gameStartScreen';
 import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';

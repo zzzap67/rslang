@@ -1,4 +1,4 @@
-@import '../../assets/scss/variables.scss';
+@import '../../../assets/scss/variables.scss';
 
 .sprint__main-wrapper {
   display: flex;
@@ -6,7 +6,7 @@
   align-items: center;
   min-width: 100%;
   min-height: 80vh;
-  background-image: url(../../assets/images/5910390.jpg);
+  background-image: url(../../../assets/images/5910390.jpg);
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -50,7 +50,7 @@
   position: relative;
   width: 3.5rem;
   height: 3.5rem;
-  background-image: url(../../assets/images/icon-sound.png);
+  background-image: url(../../../assets/images/icon-sound.png);
   background-size: calc(100% - 0.5rem);
   background-position: center;
   background-repeat: no-repeat;

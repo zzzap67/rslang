@@ -1,5 +1,6 @@
-import BaseElement from '../components/base-element/base-element';
+import BaseElement from '../base-element/base-element';
 import Audiocall from './audiocall/audiocall';
+
 import './gameStartScreen.scss';
 import Sprint from './sprint/sprint';
 

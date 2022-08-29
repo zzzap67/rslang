@@ -1,8 +1,8 @@
 import './sprint.scss';
 import Timer from './timer';
-import { ICard, ISprintAnswer } from '../../components/types/interfaces';
-import { apiStrings } from '../../components/store/constants';
-import { temporarySprint } from '../../components/store/hard-code-sprint';
+import { ICard, ISprintAnswer } from '../../types/interfaces';
+import { apiStrings } from '../../store/constants';
+import { temporarySprint } from '../../store/hard-code-sprint';
 import SprintResults from './sprintResults';
 // import GetSprintAnswers from './get-answers';
 

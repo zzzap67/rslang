@@ -1,5 +1,5 @@
-import BaseElement from '../../components/base-element/base-element';
-import GameStartScreen from '../gameStartScreen';
+import BaseElement from '../../base-element/base-element';
+import GameStartScreen from '../../games/gameStartScreen';
 
 class SprintResults {
   public resultsElement: HTMLElement;
