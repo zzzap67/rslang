@@ -1,6 +1,5 @@
 import './sprint.scss';
 import Timer from './timer';
-// import GameStartScreen from '../gameStartScreen';
 import { ICard, ISprintAnswer } from '../../components/types/interfaces';
 import { apiStrings } from '../../components/store/constants';
 import { temporarySprint } from '../../components/store/hard-code-sprint';
@@ -50,9 +49,6 @@ class Sprint {
     this.wrongAnswers = temporarySprint.slice().reverse();
     const mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContainer = mainContainer;
-    // UNCOMMENT THE NEXT CODE LINE TO LOOK AT SPRINT GAME WINDOW
-    //(also set "DISPLAY: NONE" for '.sprint__results-field' and "DISPLAY: BLOCK" for '.sprint__ game-field' in sprint.scss)
-
     mainContainer.innerHTML = '';
     mainContainer.innerHTML = this.sprintHtml;
     this.addTimer();
@@ -65,8 +61,6 @@ class Sprint {
     this.wrongButton.addEventListener('click', (e: Event) => this.handleButton(e));
     this.startTime = Date.now();
     this.startGame();
-
-    // mainContainer.append(new GameStartScreen('sprint').startScrElement); // --> Game Start Screen
   }
 
   private startGame() {
