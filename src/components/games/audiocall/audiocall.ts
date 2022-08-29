@@ -78,20 +78,37 @@ class Audiocall {
     gameList.style.zIndex = '-10';
     //
 
-    this.mainContainer.innerHTML = '';
-    this.mainContainer.innerHTML = '<div>SELECT LEVEL</div>';
+    const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    mainContainer.innerHTML = '';
 
-    const groupsContainer = new BaseElement('div', ['groups-container']).element;
-    const NUMBER_OF_GROUPS = 6;
+    const startrScreen = new BaseElement('div', ['game__start-scr-wrapper']).element;
+    startrScreen.innerHTML = `
+    <div class="game__image"></div>
+      <div class="game__field-wrapper">
+        <div class="game__info-wrapper">
+            <h2 class="game__name">Аудиовызов</h2>
+            <p class="game__info">Тренировка Аудиовызов улучшает твое восприятие речи на слух</p>
+        </div>
+        <div class="game__level-wrapper">
+            <p class="game__level-choice">Выбери уровень:</p>
+            <div class="game__btns-wrapper">
+                <button class="game__btn-level" data-level="1">A1</button>
+                <button class="game__btn-level" data-level="2">A2</button>
+                <button class="game__btn-level" data-level="3">B1</button>
+                <button class="game__btn-level" data-level="4">B2</button>
+                <button class="game__btn-level" data-level="5">C1</button>
+                <button class="game__btn-level" data-level="6">C2</button>
+            </div>
+        </div>
+      </div>
+    `;
+    const levelButtons = startrScreen.querySelectorAll('.game__btn-level');
+    levelButtons.forEach((item) => {
+      const button = item as HTMLElement;
+      button.addEventListener('click', this.setLevel);
+    });
 
-    for (let i = 1; i <= NUMBER_OF_GROUPS; i++) {
-      const groupButton = new Button(`${i}`, ['level-btn']).buttonElement;
-      groupButton.id = 'level-button-' + i;
-      groupButton.addEventListener('click', this.setLevel);
-      groupsContainer.append(groupButton);
-    }
-
-    this.mainContainer.append(groupsContainer);
+    this.mainContainer.append(startrScreen);
   }
 
   private prepareGame(): void {
@@ -116,6 +133,7 @@ class Audiocall {
       this.pagesNums.push(roll[0]);
     }
 
+    console.log(this.groupID, this.pageID, 'start');
     // 2. Get Words
     this.getWordsData().then(() => {
       // 3. Play Game
@@ -128,7 +146,7 @@ class Audiocall {
 
   private setLevel(e: Event): void {
     const target = e.target as HTMLElement;
-    const groupNumber = Number(target.id.split('-')[2]) - 1;
+    const groupNumber = Number(target.dataset.level) - 1;
     this.groupID = groupNumber;
     this.prepareGame();
   }
@@ -138,8 +156,11 @@ class Audiocall {
       const btn = this.mainContainer.querySelector('#level-button-' + j) as HTMLElement;
       btn.removeEventListener('click', this.checkAnswer);
     }
-    const cardImage = this.mainContainer.querySelector('.call__card-image') as HTMLHtmlElement;
+    const cardImage = this.mainContainer.querySelector('.call__card-image') as HTMLElement;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${this.roundWord.image}')`;
+
+    const cardEnglishWord = this.mainContainer.querySelector('.call__card-english-word') as HTMLElement;
+    cardEnglishWord.textContent = `${this.roundWord.word}`;
 
     const target = e.target as HTMLElement;
     const groupNumber = Number(target.id.split('-')[2]);
@@ -220,7 +241,7 @@ class Audiocall {
       const cardEnglishWord = new BaseElement('p', ['call__card-word', 'call__card-english-word']).element;
       const audioButton = new Button('', ['call__audio-btn']).buttonElement;
 
-      cardEnglishWord.textContent = `${this.roundWord.word}`;
+      cardEnglishWord.textContent = ``;
       audioButton.addEventListener('click', this.replySound);
       wordContainer.append(cardImage, cardEnglishWord, audioButton);
 

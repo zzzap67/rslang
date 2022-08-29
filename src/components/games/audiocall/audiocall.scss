@@ -16,8 +16,8 @@
       }
 }
 
-.answer-btn-hidden {
-  display: none;
+.call__answer-btn.answer-btn-hidden {
+  display: none !important;
 }
 
 .call__answer-btn.answer-btn-correct {
@@ -37,6 +37,7 @@
 .call__card-word {
   font-family: 'Raleway';
   font-size: 2.5rem;
+  min-height: 3rem;
 }
 
 .call__answer-btn {
@@ -146,7 +147,7 @@
 }
 
 .call__score {
-  
+
 }
 
 .call__right-container {
@@ -182,7 +183,7 @@
     background-repeat: no-repeat;
     background-position: center;
   }
-  
+
   &::after {
     position: absolute;
     content: '';
