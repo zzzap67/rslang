@@ -31,6 +31,11 @@ export interface IAudioCallAnswers {
   correct: boolean;
 }
 
+export interface ISprintAnswer {
+  englishWord: string;
+  russianWord: string;
+}
+
 export interface IState {
   [key: string]: number | string;
   token: string;
