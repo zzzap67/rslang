@@ -1,3 +1,5 @@
+import './overlay.scss';
+
 import BaseElement from '../base-element/base-element';
 import ClosePopupButton from '../buttons/close-popup-button';
 

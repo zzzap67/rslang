@@ -37,6 +37,7 @@ class HeaderNav {
 
   private showGamesMenu() {
     const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
+    gamesUl.style.display = 'block';
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
     });
@@ -55,7 +56,7 @@ class HeaderNav {
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
-    this.gamesUl.remove();
+    this.gamesUl.style.display = 'none';
   }
 
   private handleNavUl(e: Event) {

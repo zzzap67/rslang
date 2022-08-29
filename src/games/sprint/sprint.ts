@@ -14,10 +14,16 @@ class Sprint {
   mainContainer: HTMLElement;
   NUMBER_OF_SETS = 4;
   NUMBER_OF_PAGES = 30;
-  ONE_MINUTE = 600000;
   pageId: number;
   groupId: number;
   startTime: number;
+  correctAnswers = 0;
+  correctAnswersArr: ISprintAnswer[] = [];
+  wrongAnswersArr: string[] = [];
+  correctAnswersSeries: number[] = [];
+  score = 0;
+  correctPercentage = 0;
+  wrongPersentage = 0;
   private sprintHtml = `
   <div class="sprint__main-wrapper">
     <div class="sprint__game-field">
@@ -66,7 +72,16 @@ class Sprint {
   private startGame() {
     setTimeout(() => {
       this.stopGame.call(this);
-    }, 3000);
+    }, 10000);
+    this.correctAnswers = 0;
+    this.correctAnswersArr = [];
+    this.wrongAnswersArr = [];
+    this.correctAnswersSeries = [];
+    this.correctPercentage = 0;
+    this.wrongPersentage = 0;
+    this.score = 0;
+    const startAudio = new Audio('./sounds/sprint-start.mp3');
+    startAudio.play();
     this.goRound();
   }
 
@@ -92,12 +107,19 @@ class Sprint {
   }
 
   private stopGame() {
-    console.log(this.rightButton);
     this.rightButton.removeEventListener('click', (e: Event) => this.handleButton(e));
     this.wrongButton.removeEventListener('click', (e: Event) => this.handleButton(e));
-    console.log('stop');
+    this.correctAnswersSeries.push(this.correctAnswers);
     this.mainContainer.innerHTML = '';
-    this.mainContainer.append(new SprintResults().resultsElement); //--> Sprint Reusults screen
+    const maxSerie = Math.max(...this.correctAnswersSeries);
+    const allAnswers = this.correctPercentage + this.wrongPersentage;
+    const PERCENTS = 100;
+    const percentage = (PERCENTS / allAnswers) * this.correctPercentage;
+    this.mainContainer.append(new SprintResults(this.score, maxSerie, percentage).resultsElement);
+    console.log(this.score);
+    console.log(this.correctAnswersArr);
+    console.log(Math.max(...this.correctAnswersSeries));
+    console.log(this.wrongAnswersArr);
   }
 
   private defineRightWrongWord() {
@@ -186,9 +208,14 @@ class Sprint {
 
   private onBtnFalseClick() {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
+    const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     gameField.style.border = '5px solid #df605b';
-    const audio = new Audio('./sounds/wrong.mp3');
+    const audio = new Audio('./sounds/sprint-wrong.mp3');
     audio.play();
+    this.correctAnswersSeries.push(this.correctAnswers);
+    this.wrongAnswersArr.push(englishWord);
+    this.correctAnswers = 0;
+    this.wrongPersentage++;
 
     setTimeout(() => {
       gameField.style.border = 'none';
@@ -197,13 +224,31 @@ class Sprint {
 
   private onBtnTrueClick() {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
+    const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
+    const russianWord = gameField.querySelector('.sprint__ru-word')?.textContent as string;
     gameField.style.border = '5px solid #86c662';
-    const audio = new Audio('./sounds/correct.mp3');
+    const audio = new Audio('./sounds/sprint-correct.mp3');
     audio.play();
+    this.correctAnswers++;
+    this.addPoints();
+    const correctAnswer: ISprintAnswer = {
+      englishWord: englishWord,
+      russianWord: russianWord,
+    };
+    this.correctAnswersArr.push(correctAnswer);
+    this.correctPercentage++;
 
     setTimeout(() => {
       gameField.style.border = 'none';
     }, 300);
+  }
+
+  private addPoints() {
+    let points = 10;
+    if (this.correctAnswers > 3) points = 20;
+    if (this.correctAnswers > 6) points = 30;
+    if (this.correctAnswers > 9) points = 40;
+    this.score += points;
   }
 }
 

@@ -11,6 +11,7 @@ class GameStartScreen {
   private gameName: string;
 
   constructor(gameName: string) {
+    console.log('start');
     this.gameName = gameName;
     let name = '';
     let gameInfo = '';
