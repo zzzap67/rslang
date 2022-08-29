@@ -37,12 +37,13 @@ export interface ISprintAnswer {
 }
 
 export interface IState {
-  [key: string]: number | string;
+  [key: string]: number | string | boolean;
   token: string;
   group: number;
   page: number;
   userName: string;
   userId: string;
+  sprintAudio: boolean;
 }
 
 export interface IUserWord {

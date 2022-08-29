@@ -4,6 +4,7 @@ import { ICard, ISprintAnswer } from '../../types/interfaces';
 import { apiStrings } from '../../store/constants';
 import { temporarySprint } from '../../store/hard-code-sprint';
 import SprintResults from './sprintResults';
+import { state } from '../../store/state';
 // import GetSprintAnswers from './get-answers';
 
 class Sprint {
@@ -25,7 +26,6 @@ class Sprint {
   wrongPersentage = 0;
   startTimeoutId: NodeJS.Timeout;
   timerTimeoutId: NodeJS.Timeout;
-  isAudio = true;
   private sprintHtml = `
   <div class="sprint__main-wrapper">
     <div class="sprint__game-field">
@@ -62,14 +62,18 @@ class Sprint {
     this.addTimer();
     this.setTimer();
     const audioButton = mainContainer.querySelector('.sprint__sound-switcher') as HTMLElement;
-    audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioButton));
+    const audioDisabled = audioButton.querySelector('.sprint__sound-switcher-disabled') as HTMLElement;
+    if (!state.sprintAudio) {
+      audioDisabled.classList.add('sprint__sound-switcher-disabled-active');
+    }
+    audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioDisabled));
     const rightButton = mainContainer.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = mainContainer.querySelector('.sprint__btn-false') as HTMLElement;
     this.rightButton = rightButton;
     this.wrongButton = wrongButton;
     this.rightButton.addEventListener('click', (e: Event) => this.handleButton(e));
     this.wrongButton.addEventListener('click', (e: Event) => this.handleButton(e));
-    document.addEventListener('keydown', (e: Event) => this.handleKeys(e));
+    document.addEventListener('keydown', this.handleKeys);
     this.startTimeoutId = setTimeout(() => {
       this.stopGame.call(this);
     }, 10000);
@@ -87,7 +91,7 @@ class Sprint {
     this.correctPercentage = 0;
     this.wrongPersentage = 0;
     this.score = 0;
-    if (this.isAudio) {
+    if (state.sprintAudio) {
       const startAudio = new Audio('./sounds/sprint-start.mp3');
       startAudio.play();
     }
@@ -116,8 +120,10 @@ class Sprint {
   }
 
   private stopGame() {
-    const endAudio = new Audio('./sounds/game-end.mp3');
-    endAudio.play();
+    if (state.sprintAudio) {
+      const endAudio = new Audio('./sounds/game-end.mp3');
+      endAudio.play();
+    }
     this.correctAnswersSeries.push(this.correctAnswers);
     const maxSerie = Math.max(...this.correctAnswersSeries);
     const allAnswers = this.correctPercentage + this.wrongPersentage;
@@ -125,6 +131,7 @@ class Sprint {
     const percentage = (PERCENTS / allAnswers) * this.correctPercentage;
     this.mainContainer.innerHTML = '';
     this.mainContainer.append(new SprintResults(this.score, maxSerie, percentage).resultsElement);
+    document.removeEventListener('keydown', this.handleKeys);
   }
 
   private defineRightWrongWord() {
@@ -215,7 +222,7 @@ class Sprint {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     gameField.style.border = '5px solid #df605b';
-    if (this.isAudio) {
+    if (state.sprintAudio) {
       const audio = new Audio('./sounds/sprint-wrong.mp3');
       audio.play();
     }
@@ -234,7 +241,7 @@ class Sprint {
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     const russianWord = gameField.querySelector('.sprint__ru-word')?.textContent as string;
     gameField.style.border = '5px solid #86c662';
-    if (this.isAudio) {
+    if (state.sprintAudio) {
       const audio = new Audio('./sounds/sprint-correct.mp3');
       audio.play();
     }
@@ -261,22 +268,28 @@ class Sprint {
   }
 
   private runTimerSound() {
-    const timerAudio = new Audio('./sounds/ticking-timer.mp3');
-    timerAudio.play();
-  }
-
-  private handleKeys(e: Event) {
-    console.log(e);
-  }
-
-  private handleAudioSwitcher(audioButton: HTMLElement) {
-    this.isAudio = !this.isAudio;
-    const soundDisabled = audioButton.querySelector('.sprint__sound-switcher-disabled') as HTMLElement;
-    if (soundDisabled.style.visibility === 'hidden') {
-      soundDisabled.style.visibility = 'visible';
-    } else {
-      soundDisabled.style.visibility = 'hidden';
+    if (state.sprintAudio) {
+      const timerAudio = new Audio('./sounds/ticking-timer.mp3');
+      timerAudio.play();
     }
+  }
+
+  private handleKeys(e: KeyboardEvent) {
+    console.log(e);
+    const rightButton = document.body.querySelector('.sprint__btn-true') as HTMLElement;
+    const wrongButton = document.body.querySelector('.sprint__btn-false') as HTMLElement;
+    const mouseEvent = new Event('click');
+    if (e.key === 'ArrowRight') {
+      rightButton.dispatchEvent(mouseEvent);
+    }
+    if (e.key === 'ArrowLeft') {
+      wrongButton.dispatchEvent(mouseEvent);
+    }
+  }
+
+  private handleAudioSwitcher(audioDisabled: HTMLElement) {
+    state.sprintAudio = !state.sprintAudio;
+    audioDisabled.classList.toggle('sprint__sound-switcher-disabled-active');
   }
 }
 

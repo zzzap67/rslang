@@ -46,6 +46,10 @@
   visibility: hidden;
 }
 
+.sprint__sound-switcher-disabled-active{
+  visibility: visible;
+}
+
 .sprint__sound-switcher {
   position: relative;
   width: 3.5rem;
@@ -56,6 +60,7 @@
   background-repeat: no-repeat;
   background-color: $main-light-gray;
   border-radius: 5px;
+  cursor: pointer;
 }
 
 .sprint__timer {
