@@ -181,7 +181,7 @@ class Audiocall {
   }
 
   private startLevel(): void {
-    document.body.style.backgroundImage = 'url(' + require('../../../assets/images/5910390.jpg') + ')';
+    document.body.style.backgroundImage = 'url(' + require('../../assets/images/5910390.jpg') + ')';
     document.body.style.backgroundPosition = 'center';
 
     this.mainContainer.innerHTML = '';
