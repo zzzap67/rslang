@@ -2,7 +2,7 @@ import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
-// import Audiocall from '../../games/audiocall/audiocall';
+import Audiocall from '../../games/audiocall/audiocall';
 import Sprint from '../../games/sprint/sprint';
 
 class HeaderNav {
@@ -50,7 +50,7 @@ class HeaderNav {
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
-      new Sprint();
+      new Sprint(-1, -1);
       // const sprint: Sprint = new Sprint();
       // sprint.addTimer();
       // sprint.setTimer();
