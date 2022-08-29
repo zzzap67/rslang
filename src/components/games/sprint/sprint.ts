@@ -128,7 +128,7 @@ class Sprint {
     const maxSerie = Math.max(...this.correctAnswersSeries);
     const allAnswers = this.correctPercentage + this.wrongPersentage;
     const PERCENTS = 100;
-    const percentage = (PERCENTS / allAnswers) * this.correctPercentage;
+    const percentage = (PERCENTS / allAnswers) * this.correctPercentage || 0;
     this.mainContainer.innerHTML = '';
     this.mainContainer.append(new SprintResults(this.score, maxSerie, percentage).resultsElement);
     document.removeEventListener('keydown', this.handleKeys);
