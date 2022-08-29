@@ -24,6 +24,8 @@ class Sprint {
   score = 0;
   correctPercentage = 0;
   wrongPersentage = 0;
+  startTimeoutId: NodeJS.Timeout;
+  timerTimeoutId: NodeJS.Timeout;
   private sprintHtml = `
   <div class="sprint__main-wrapper">
     <div class="sprint__game-field">
@@ -66,13 +68,16 @@ class Sprint {
     this.rightButton.addEventListener('click', (e: Event) => this.handleButton(e));
     this.wrongButton.addEventListener('click', (e: Event) => this.handleButton(e));
     this.startTime = Date.now();
+    this.startTimeoutId = setTimeout(() => {
+      this.stopGame.call(this);
+    }, 10000);
+    this.timerTimeoutId = setTimeout(() => {
+      this.runTimerSound.call(this);
+    }, 3600);
     this.startGame();
   }
 
   private startGame() {
-    setTimeout(() => {
-      this.stopGame.call(this);
-    }, 10000);
     this.correctAnswers = 0;
     this.correctAnswersArr = [];
     this.wrongAnswersArr = [];
@@ -107,19 +112,15 @@ class Sprint {
   }
 
   private stopGame() {
-    this.rightButton.removeEventListener('click', (e: Event) => this.handleButton(e));
-    this.wrongButton.removeEventListener('click', (e: Event) => this.handleButton(e));
+    const endAudio = new Audio('./sounds/game-end.mp3');
+    endAudio.play();
     this.correctAnswersSeries.push(this.correctAnswers);
-    this.mainContainer.innerHTML = '';
     const maxSerie = Math.max(...this.correctAnswersSeries);
     const allAnswers = this.correctPercentage + this.wrongPersentage;
     const PERCENTS = 100;
     const percentage = (PERCENTS / allAnswers) * this.correctPercentage;
+    this.mainContainer.innerHTML = '';
     this.mainContainer.append(new SprintResults(this.score, maxSerie, percentage).resultsElement);
-    console.log(this.score);
-    console.log(this.correctAnswersArr);
-    console.log(Math.max(...this.correctAnswersSeries));
-    console.log(this.wrongAnswersArr);
   }
 
   private defineRightWrongWord() {
@@ -249,6 +250,11 @@ class Sprint {
     if (this.correctAnswers > 6) points = 30;
     if (this.correctAnswers > 9) points = 40;
     this.score += points;
+  }
+
+  private runTimerSound() {
+    const timerAudio = new Audio('./sounds/ticking-timer.mp3');
+    timerAudio.play();
   }
 }
 

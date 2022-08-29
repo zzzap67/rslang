@@ -1,3 +1,5 @@
+import './warning-popup.scss';
+
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import WarningOverlay from '../overlay/warning-overlay';
