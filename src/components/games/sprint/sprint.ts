@@ -16,7 +16,6 @@ class Sprint {
   NUMBER_OF_PAGES = 30;
   pageId: number;
   groupId: number;
-  startTime: number;
   correctAnswers = 0;
   correctAnswersArr: ISprintAnswer[] = [];
   wrongAnswersArr: string[] = [];
@@ -26,6 +25,7 @@ class Sprint {
   wrongPersentage = 0;
   startTimeoutId: NodeJS.Timeout;
   timerTimeoutId: NodeJS.Timeout;
+  isAudio = true;
   private sprintHtml = `
   <div class="sprint__main-wrapper">
     <div class="sprint__game-field">
@@ -61,13 +61,15 @@ class Sprint {
     mainContainer.innerHTML = this.sprintHtml;
     this.addTimer();
     this.setTimer();
+    const audioButton = mainContainer.querySelector('.sprint__sound-switcher') as HTMLElement;
+    audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioButton));
     const rightButton = mainContainer.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = mainContainer.querySelector('.sprint__btn-false') as HTMLElement;
     this.rightButton = rightButton;
     this.wrongButton = wrongButton;
     this.rightButton.addEventListener('click', (e: Event) => this.handleButton(e));
     this.wrongButton.addEventListener('click', (e: Event) => this.handleButton(e));
-    this.startTime = Date.now();
+    document.addEventListener('keydown', (e: Event) => this.handleKeys(e));
     this.startTimeoutId = setTimeout(() => {
       this.stopGame.call(this);
     }, 10000);
@@ -85,8 +87,10 @@ class Sprint {
     this.correctPercentage = 0;
     this.wrongPersentage = 0;
     this.score = 0;
-    const startAudio = new Audio('./sounds/sprint-start.mp3');
-    startAudio.play();
+    if (this.isAudio) {
+      const startAudio = new Audio('./sounds/sprint-start.mp3');
+      startAudio.play();
+    }
     this.goRound();
   }
 
@@ -211,8 +215,10 @@ class Sprint {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     gameField.style.border = '5px solid #df605b';
-    const audio = new Audio('./sounds/sprint-wrong.mp3');
-    audio.play();
+    if (this.isAudio) {
+      const audio = new Audio('./sounds/sprint-wrong.mp3');
+      audio.play();
+    }
     this.correctAnswersSeries.push(this.correctAnswers);
     this.wrongAnswersArr.push(englishWord);
     this.correctAnswers = 0;
@@ -228,8 +234,10 @@ class Sprint {
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     const russianWord = gameField.querySelector('.sprint__ru-word')?.textContent as string;
     gameField.style.border = '5px solid #86c662';
-    const audio = new Audio('./sounds/sprint-correct.mp3');
-    audio.play();
+    if (this.isAudio) {
+      const audio = new Audio('./sounds/sprint-correct.mp3');
+      audio.play();
+    }
     this.correctAnswers++;
     this.addPoints();
     const correctAnswer: ISprintAnswer = {
@@ -255,6 +263,20 @@ class Sprint {
   private runTimerSound() {
     const timerAudio = new Audio('./sounds/ticking-timer.mp3');
     timerAudio.play();
+  }
+
+  private handleKeys(e: Event) {
+    console.log(e);
+  }
+
+  private handleAudioSwitcher(audioButton: HTMLElement) {
+    this.isAudio = !this.isAudio;
+    const soundDisabled = audioButton.querySelector('.sprint__sound-switcher-disabled') as HTMLElement;
+    if (soundDisabled.style.visibility === 'hidden') {
+      soundDisabled.style.visibility = 'visible';
+    } else {
+      soundDisabled.style.visibility = 'hidden';
+    }
   }
 }
 
