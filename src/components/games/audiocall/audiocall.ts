@@ -39,7 +39,10 @@ class Audiocall {
     this.nextLevel = this.nextLevel.bind(this);
     this.playSound = this.playSound.bind(this);
     this.replySound = this.replySound.bind(this);
+    this.wordSound = this.wordSound.bind(this);
     this.restart = this.restart.bind(this);
+    this.keyPress = this.keyPress.bind(this);
+    this.enterPress = this.enterPress.bind(this);
     this.audio = new Audio();
 
     // 1. Level selector
@@ -152,6 +155,7 @@ class Audiocall {
   }
 
   private checkAnswer(e: Event): void {
+    window.removeEventListener('keydown', this.keyPress);
     for (let j = 0; j < 5; j++) {
       const btn = this.mainContainer.querySelector('#level-button-' + j) as HTMLElement;
       btn.removeEventListener('click', this.checkAnswer);
@@ -265,6 +269,8 @@ class Audiocall {
 
       callGameWrapper.append(roundNumber, wordContainer, answersContainer, nextContainer);
       this.mainContainer.append(callGameWrapper);
+      window.addEventListener('keydown', this.keyPress);
+      window.addEventListener('keydown', this.enterPress);
       this.playSound('');
     } else {
       this.showResults();
@@ -282,6 +288,13 @@ class Audiocall {
   private replySound() {
     this.playSound('');
   }
+
+  private wordSound(e: Event): void {
+    const target = e.target as HTMLElement;
+    const url = `${apiStrings.API_ADDRESS}/${this.wordsData[0][Number(target.dataset.level)].audio}`;
+    this.playSound(url);
+  }
+
   private playSound(urlPath: string) {
     if (this.audio) {
       this.audio.pause();
@@ -303,14 +316,29 @@ class Audiocall {
     const rightContainer = new BaseElement('div', ['call__right-container']).element;
     const buttonsContainer = new BaseElement('div', ['call__groups-container']).element;
 
-    scoreContainer.textContent = `Result: ${this.correctAnswers} / ${this.wordsData[0].length}`;
+    scoreContainer.textContent = `Результат: ${this.correctAnswers} / ${this.wordsData[0].length}`;
     const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
     rWordTitle.textContent = `Правильные ответы`;
     rightContainer.append(rWordTitle);
     this.correctWords.forEach((item) => {
       const rWord = new BaseElement('div', ['call__word']).element;
       rWord.textContent = `${this.wordsData[0][item].word} - ${this.wordsData[0][item].wordTranslate}`;
+      rWord.dataset.level = item.toString();
+      rWord.addEventListener('click', this.wordSound);
       rightContainer.append(rWord);
+    });
+
+    const rWordTitleWrong = new BaseElement('div', ['call__word', 'call__word-answers']).element;
+    rWordTitleWrong.textContent = `Неправильные ответы`;
+    rightContainer.append(rWordTitleWrong);
+    this.wordsData[0].forEach((item, index) => {
+      if (this.correctWords.indexOf(index) < 0) {
+        const rWord = new BaseElement('div', ['call__word', 'call__word-wrong']).element;
+        rWord.textContent = `${this.wordsData[0][index].word} - ${this.wordsData[0][index].wordTranslate}`;
+        rWord.dataset.level = index.toString();
+        rWord.addEventListener('click', this.wordSound);
+        rightContainer.append(rWord);
+      }
     });
 
     const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
@@ -329,6 +357,27 @@ class Audiocall {
 
     console.log(this.correctAnswers);
     console.log(this.correctWords);
+  }
+
+  private keyPress(e: KeyboardEvent) {
+    if ([1, 2, 3, 4, 5].includes(Number(e.key))) {
+      console.log('press', e.key);
+      let kNumber = parseInt(e.key);
+      kNumber -= 1;
+      const btn = this.mainContainer.querySelector('#level-button-' + kNumber) as HTMLElement;
+      btn.click();
+    }
+  }
+  private enterPress(e: KeyboardEvent) {
+    if (e.code === 'Enter') {
+      console.log('enter');
+      const nextButton = this.mainContainer.querySelector('#next-button') as HTMLElement;
+      if (nextButton) {
+        if (!nextButton.classList.contains('answer-btn-hidden')) {
+          this.nextLevel();
+        }
+      }
+    }
   }
 }
 
