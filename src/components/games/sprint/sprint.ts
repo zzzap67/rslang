@@ -2,14 +2,13 @@ import './sprint.scss';
 import Timer from './timer';
 import { ICard, ISprintAnswer } from '../../types/interfaces';
 import { apiStrings } from '../../store/constants';
-import { temporarySprint } from '../../store/hard-code-sprint';
 import SprintResults from './sprintResults';
 import { state } from '../../store/state';
-// import GetSprintAnswers from './get-answers';
+import Loader from '../../loader/loader';
 
 class Sprint {
-  rightAnswers: ISprintAnswer[];
-  wrongAnswers: ISprintAnswer[];
+  rightAnswers: ISprintAnswer[] = [];
+  wrongAnswers: ISprintAnswer[] = [];
   rightButton: HTMLElement;
   wrongButton: HTMLElement;
   mainContainer: HTMLElement;
@@ -38,13 +37,14 @@ class Sprint {
       </div>
       <div class="sprint__game-window">
         <div class="sprint__words-wrapper">
-          <h2 class="sprint_en-word">Agree</h2>
-          <h3 class="sprint__ru-word">Соглашаться</h3>
+          <h2 class="sprint_en-word"></h2>
+          <h3 class="sprint__ru-word"></h3>
         </div>
         <div class="sprint__btns-wrapper">
           <button class="sprint__btn-false">Не верно</button>
           <button class="sprint__btn-true">Верно</button>
         </div>
+        <button class="sprint__stop">Stop</button>
       </div>
     </div>
   </div>
@@ -53,8 +53,7 @@ class Sprint {
   constructor(groupId: number, pageId: number) {
     this.pageId = pageId;
     this.groupId = groupId;
-    this.rightAnswers = temporarySprint.slice();
-    this.wrongAnswers = temporarySprint.slice().reverse();
+    console.log(groupId);
     const mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContainer = mainContainer;
     mainContainer.innerHTML = '';
@@ -67,6 +66,8 @@ class Sprint {
       audioDisabled.classList.add('sprint__sound-switcher-disabled-active');
     }
     audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioDisabled));
+    const stopButton = mainContainer.querySelector('.sprint__stop') as HTMLElement;
+    stopButton.addEventListener('click', () => this.stopGame());
     const rightButton = mainContainer.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = mainContainer.querySelector('.sprint__btn-false') as HTMLElement;
     this.rightButton = rightButton;
@@ -75,15 +76,15 @@ class Sprint {
     this.wrongButton.addEventListener('click', (e: Event) => this.handleButton(e));
     document.addEventListener('keydown', this.handleKeys);
     this.startTimeoutId = setTimeout(() => {
-      this.stopGame.call(this);
-    }, 10000);
+      this.endGame.call(this);
+    }, 30000);
     this.timerTimeoutId = setTimeout(() => {
       this.runTimerSound.call(this);
     }, 3600);
-    this.startGame();
+    this.getAnswers(this.createPagesSet(), groupId).then(() => this.startGame());
   }
 
-  private startGame() {
+  private startGame(): void {
     this.correctAnswers = 0;
     this.correctAnswersArr = [];
     this.wrongAnswersArr = [];
@@ -98,7 +99,7 @@ class Sprint {
     this.goRound();
   }
 
-  private goRound() {
+  private goRound(): void {
     const wordIndex = Math.floor(Math.random() * this.rightAnswers.length);
     const roundRightWord = this.rightAnswers.splice(wordIndex, 1)[0];
     const sprintEnWord = document.body.querySelector('.sprint_en-word') as HTMLElement;
@@ -119,7 +120,7 @@ class Sprint {
     }
   }
 
-  private stopGame() {
+  private endGame(): void {
     if (state.sprintAudio) {
       const endAudio = new Audio('./sounds/game-end.mp3');
       endAudio.play();
@@ -134,7 +135,14 @@ class Sprint {
     document.removeEventListener('keydown', this.handleKeys);
   }
 
-  private defineRightWrongWord() {
+  public stopGame(): void {
+    console.log('stop');
+    console.log(this.timerTimeoutId);
+    clearTimeout(this.timerTimeoutId);
+    clearTimeout(this.startTimeoutId);
+  }
+
+  private defineRightWrongWord(): boolean {
     const randomNumber = Math.random();
     if (randomNumber < 0.5) {
       return true;
@@ -142,13 +150,13 @@ class Sprint {
     return false;
   }
 
-  getWrongWord() {
+  getWrongWord(): ISprintAnswer {
     const wrongWordIndex = Math.floor(Math.random() * this.wrongAnswers.length);
     const roundWrongWord = this.wrongAnswers[wrongWordIndex];
     return roundWrongWord;
   }
 
-  private handleButton(e: Event) {
+  private handleButton(e: Event): void {
     const target = e.target as HTMLElement;
     if (target.dataset.sprint === 'right') {
       this.onBtnTrueClick();
@@ -158,45 +166,40 @@ class Sprint {
     this.goRound();
   }
 
-  private createPagesSet() {
-    const pagesSets = new Set();
+  private createPagesSet(): number[] {
+    const pagesSets: Set<number> = new Set();
     while (pagesSets.size < this.NUMBER_OF_SETS) {
       pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));
     }
     return [...pagesSets];
   }
 
-  private async getAnswers() {
-    // const answersSet: ISprintAnswer[] = [];
-    const pagesSet = this.createPagesSet();
-    pagesSet.forEach(async (page) => {
-      try {
-        const response = await fetch(
-          `${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${page}&group=${this.groupId}`
-        );
-        const data = await response.json();
-        const dataWords: ISprintAnswer[] = data.map((item: ICard) => {
-          return {
-            englishWord: item.word,
-            russianWord: item.wordTranslate,
-          };
-        });
-
-        dataWords.forEach((word) => {
-          this.rightAnswers.push(word);
-        });
-      } catch (err) {
-        console.log('this is an error' + err);
+  async getAnswers(pagesSet: number[], groupId: number) {
+    const sprintEnWord = document.body.querySelector('.sprint_en-word') as HTMLElement;
+    const loader = new Loader().loaderElement;
+    sprintEnWord.append(loader);
+    for (const page of pagesSet) {
+      const response = await fetch(`${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${page}&group=${groupId}`);
+      const data = await response.json();
+      const dataWords: ISprintAnswer[] = data.map((item: ICard) => {
+        return {
+          englishWord: item.word,
+          russianWord: item.wordTranslate,
+        };
+      });
+      for (const word of dataWords) {
+        this.rightAnswers.push(word);
+        this.wrongAnswers.push(word);
       }
-    });
+    }
   }
 
-  public addTimer() {
+  public addTimer(): void {
     const timerContainer = document.querySelector('.sprint__timer') as HTMLElement;
     timerContainer.append(new Timer().timerElement);
   }
 
-  public setTimer() {
+  public setTimer(): void {
     const time = 60;
     let i = 0;
     const finalOffset = 289;
@@ -218,7 +221,7 @@ class Sprint {
     }, 1000);
   }
 
-  private onBtnFalseClick() {
+  private onBtnFalseClick(): void {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     gameField.style.border = '5px solid #df605b';
@@ -236,7 +239,7 @@ class Sprint {
     }, 300);
   }
 
-  private onBtnTrueClick() {
+  private onBtnTrueClick(): void {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
     const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
     const russianWord = gameField.querySelector('.sprint__ru-word')?.textContent as string;
@@ -259,22 +262,24 @@ class Sprint {
     }, 300);
   }
 
-  private addPoints() {
+  private addPoints(): void {
     let points = 10;
     if (this.correctAnswers > 3) points = 20;
     if (this.correctAnswers > 6) points = 30;
     if (this.correctAnswers > 9) points = 40;
     this.score += points;
+    const scoreField = this.mainContainer.querySelector('.sprint__points') as HTMLElement;
+    scoreField.textContent = this.score.toString();
   }
 
-  private runTimerSound() {
+  private runTimerSound(): void {
     if (state.sprintAudio) {
       const timerAudio = new Audio('./sounds/ticking-timer.mp3');
       timerAudio.play();
     }
   }
 
-  private handleKeys(e: KeyboardEvent) {
+  private handleKeys(e: KeyboardEvent): void {
     console.log(e);
     const rightButton = document.body.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = document.body.querySelector('.sprint__btn-false') as HTMLElement;
@@ -287,7 +292,7 @@ class Sprint {
     }
   }
 
-  private handleAudioSwitcher(audioDisabled: HTMLElement) {
+  private handleAudioSwitcher(audioDisabled: HTMLElement): void {
     state.sprintAudio = !state.sprintAudio;
     audioDisabled.classList.toggle('sprint__sound-switcher-disabled-active');
   }
