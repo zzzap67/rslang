@@ -1,4 +1,4 @@
-import './tutorial.scss';
+//import './tutorial.scss';
 import BaseElement from '../base-element/base-element';
 import TutorialCard from './card';
 import { apiStrings } from '../store/constants';
