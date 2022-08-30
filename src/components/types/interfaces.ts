@@ -39,8 +39,10 @@ export interface ISprintAnswer {
 export interface IState {
   [key: string]: number | string | boolean;
   token: string;
+  refreshToken: string;
   group: number;
   page: number;
+  tokenExpireTime: number;
   userName: string;
   userId: string;
   sprintAudio: boolean;

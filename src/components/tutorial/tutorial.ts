@@ -39,15 +39,15 @@ class Tutorial {
   private async getUserWords(): Promise<void> {
     if (state.userId != '') {
       const userId = state.userId;
-      CheckJwt.checkJwt();
-      const token = localStorage.getItem('currentToken');
+      await CheckJwt.checkJwt();
+      // const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}`,
           {
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${state.token}`,
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
@@ -118,15 +118,15 @@ class Tutorial {
     } else {
       const userId = state.userId;
       const DIFFICULTY_HARD_API = '?filter={"userWord.difficulty":"hard"}&wordsPerPage=3600';
-      CheckJwt.checkJwt();
-      const token = localStorage.getItem('currentToken');
+      await CheckJwt.checkJwt();
+      //const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_AGGREGATED_WORDS}${DIFFICULTY_HARD_API}`,
           {
             method: 'GET',
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${state.token}`,
               Accept: 'application/json',
               'Content-Type': 'application/json',
             },
