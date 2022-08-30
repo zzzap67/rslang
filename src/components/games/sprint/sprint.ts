@@ -45,6 +45,10 @@ class Sprint {
           <button class="sprint__btn-false">Не верно</button>
           <button class="sprint__btn-true">Верно</button>
         </div>
+        <div class=" sprint__btns-wrapper sprint__arrows-wrapper">
+          <span class="sprint__arrow-left">&#11013;</span>
+          <span class="sprint__arrow-right">&#10145;</span>
+      </div>
       </div>
     </div>
   </div>

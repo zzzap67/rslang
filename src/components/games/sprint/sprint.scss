@@ -18,7 +18,7 @@
 .sprint__game-field {
   display: flex;
   flex-direction: column;
-  row-gap: 50px;
+  row-gap: 30px;
   width: 500px;
   height: 500px;
   background-color: $main-white;
@@ -114,8 +114,12 @@
 }
 
 .sprint__words-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   width: 90%;
-  padding: 50px;
+  height: 240px;
+  padding: 35px 5px;
   text-align: center;
   background-color: $main-yellow;
   border-radius: 10px;
@@ -134,8 +138,23 @@
   display: flex;
   justify-content: space-between;
   width: 60%;
-  padding: 30px;
+  padding: 30px 30px 10px 30px;
 }
+
+.sprint__arrows-wrapper {
+  padding: 0 65px;
+}
+
+.sprint__arrow-left,
+.sprint__arrow-right {
+    display: inline-block;
+    padding: 3px 5px;
+    border: 1px solid rgba($main-gray, 0.5);
+    border-radius: 3px;
+    font-weight: 700;
+    box-shadow: -6px -6px 3px -6px rgba(34, 60, 80, 0.6) inset;
+}
+
 
 .sprint__btn-false,
 .sprint__btn-true {
