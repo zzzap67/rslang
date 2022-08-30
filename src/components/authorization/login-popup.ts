@@ -86,13 +86,17 @@ class LoginPopup {
       .then(async (response) => {
         const data = await response.json();
         state.userName = data.name;
+        state.refreshToken = data.refreshToken;
+        state.token = data.token;
         nameField.textContent = `Hi, ${state.userName}!`;
-        localStorage.setItem('currentToken', data.token);
-        localStorage.setItem('refreshToken', data.refreshToken);
+        //localStorage.setItem('currentToken', data.token);
+        //localStorage.setItem('refreshToken', data.refreshToken);
         const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
-        localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
+        state.tokenExpireTime = tokenExpireTime;
+        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
         state.userId = data.userId;
         console.log(data.userId);
+        localStorage.setItem('state', JSON.stringify(state));
         this.closePopup();
       })
       .catch(() => {
@@ -103,10 +107,17 @@ class LoginPopup {
   private logOut() {
     state.userId = '';
     state.userName = '';
-    localStorage.setItem('currentToken', '');
-    localStorage.setItem('refreshToken', '');
+    state.token = '';
+    state.page = 0;
+    state.token = '';
+    state.refreshToken = '';
+    state.tokenExpireTime = 0;
+
+    // localStorage.setItem('currentToken', '');
+    // localStorage.setItem('refreshToken', '');
     const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
     userNameField.textContent = '';
+    localStorage.setItem('state', JSON.stringify(state));
     this.closePopup();
   }
 
@@ -116,7 +127,8 @@ class LoginPopup {
     inputPassword: HTMLInputElement,
     logOutButton: HTMLElement
   ): void {
-    logOutButton.remove();
+    // logOutButton.remove();
+    console.log(logOutButton);
     const signUpSign = loginPopup.querySelector('.login-sign') as HTMLElement;
     const loginButton = loginPopup.querySelector('.login-btn') as HTMLElement;
     const loginForm = loginPopup.querySelector('.login-form') as HTMLElement;

@@ -75,7 +75,7 @@ class TutorialCard {
 
   async handleDifficultButton(wordId: string, card: HTMLElement, button: HTMLElement): Promise<void> {
     const userId = state.userId;
-    const token = localStorage.getItem('currentToken');
+    // const token = localStorage.getItem('currentToken');
     const responseBody = {
       difficulty: 'hard',
       optional: {},
@@ -84,14 +84,14 @@ class TutorialCard {
       responseBody.difficulty = 'easy';
     }
 
-    CheckJwt.checkJwt();
+    await CheckJwt.checkJwt();
     try {
       const checkWord = await fetch(
         `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${state.token}`,
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
@@ -109,7 +109,7 @@ class TutorialCard {
         {
           method: methodType,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${state.token}`,
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
@@ -137,7 +137,7 @@ class TutorialCard {
     button: HTMLElement
   ): Promise<void> {
     const userId = state.userId;
-    const token = localStorage.getItem('currentToken');
+    // const token = localStorage.getItem('currentToken');
     const responseBody = {
       difficulty: 'studied',
       optional: {},
@@ -146,14 +146,14 @@ class TutorialCard {
       responseBody.difficulty = 'easy';
     }
 
-    CheckJwt.checkJwt();
+    await CheckJwt.checkJwt();
     try {
       const checkWord = await fetch(
         `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}/${wordId}`,
         {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${state.token}`,
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
@@ -171,7 +171,7 @@ class TutorialCard {
         {
           method: methodType,
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${state.token}`,
             Accept: 'application/json',
             'Content-Type': 'application/json',
           },
