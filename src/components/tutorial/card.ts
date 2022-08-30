@@ -1,3 +1,4 @@
+import './card.scss';
 import CheckJwt from '../authorization/chek-jwt';
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
@@ -13,20 +14,43 @@ class TutorialCard {
     tutorialCard.dataset.wordId = card.id;
     this.cardElement = tutorialCard;
     const cardImage = new BaseElement('div', ['card-image']).element;
-    const cardEnglishWord = new BaseElement('p', ['card-word', 'card-english-word']).element;
-    const cardTranscription = new BaseElement('p', ['card-word', 'card-transcription']).element;
-    const cardRussianWord = new BaseElement('p', ['card-word', 'card-russian-word']).element;
-    const audioButton = new Button('Play', ['audio-btn']).buttonElement;
+    const wordInfoWrapper = new BaseElement('div', ['card__word-info-wrapper']).element;
+    const cardInfo = new BaseElement('div', ['card__info']).element;
+    const cardLabel = new BaseElement('div', ['card__label']).element;
+    const wordInfo = new BaseElement('h3', ['card__word-info']).element;
+    const meaningWrapper = new BaseElement('p', ['card__meaning-wrapper']).element;
+    const exmpleWrapper = new BaseElement('p', ['card__example-wrapper']).element;
+    const wordMeaning = new BaseElement('span', ['card__word-meaning']).element;
+    const wordMeaningTranslate = new BaseElement('span', ['card__word-meaning-translate']).element;
+    const wordExample = new BaseElement('span', ['card__word-example']).element;
+    const wordExampleTranslate = new BaseElement('span', ['card__word-example-translate']).element;
+    const btnsWrapper = new BaseElement('div', ['card__btns-wrapper']).element;
+    //const cardEnglishWord = new BaseElement('p', ['card-word', 'card-english-word']).element;
+    //const cardTranscription = new BaseElement('p', ['card-word', 'card-transcription']).element;
+    //const cardRussianWord = new BaseElement('p', ['card-word', 'card-russian-word']).element;
+    const audioButton = new BaseElement('div', ['audio-btn']).element;
     const difficultButton = new Button('Сложное', ['difficult-btn']).buttonElement;
     const discardButton = new Button('Изученное', ['difficult-btn']).buttonElement;
     difficultButton.id = 'hard-btn-' + card.id;
     discardButton.id = 'studied-btn-' + card.id;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${card.image}')`;
-    cardEnglishWord.textContent = `${card.word}`;
-    cardTranscription.textContent = `${card.transcription}`;
-    cardRussianWord.textContent = `${card.wordTranslate}`;
+    wordInfo.textContent = `${card.word} - ${card.transcription} - ${card.wordTranslate}`;
+    wordMeaning.innerHTML = `${card.textMeaning} <span> &mdash; </span>`;
+    wordMeaningTranslate.textContent = card.textMeaningTranslate;
+    wordExample.innerHTML = `${card.textExample} <span> &mdash; </span>`;
+    wordExampleTranslate.textContent = card.textExampleTranslate;
+    meaningWrapper.append(wordMeaning, wordMeaningTranslate);
+    exmpleWrapper.append(wordExample, wordExampleTranslate);
+    //wordMeaning.textContent = `${card.textMeaning} - ${card.textMeaningTranslate}`;
+    //wordExample.textContent = `${card.textExample} - ${card.textExampleTranslate}`;
+    //btnsWrapper.append(difficultButton, discardButton);
+    wordInfoWrapper.append(wordInfo, audioButton);
+    cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
+    //cardTranscription.textContent = `${card.transcription}`;
+    //cardEnglishWord.textContent = `${card.word}`;
+    //cardRussianWord.textContent = `${card.wordTranslate}`;
     audioButton.addEventListener('click', () => this.handleAudio(card));
-    tutorialCard.append(cardImage, cardEnglishWord, cardTranscription, cardRussianWord, audioButton);
+    tutorialCard.append(cardImage, cardInfo);
     if (state.userId) {
       if (hardType) {
         difficultButton.classList.add('btn-checked');
@@ -35,7 +59,7 @@ class TutorialCard {
       difficultButton.addEventListener('click', () =>
         this.handleDifficultButton(card.id, tutorialCard, difficultButton)
       );
-      tutorialCard.append(difficultButton);
+      btnsWrapper.append(difficultButton);
 
       if (studiedType) {
         discardButton.classList.add('btn-checked');
@@ -46,7 +70,7 @@ class TutorialCard {
       discardButton.addEventListener('click', () =>
         this.handleStudiedButton(card.id, tutorialCard, difficultButton, discardButton)
       );
-      tutorialCard.append(discardButton);
+      btnsWrapper.append(discardButton);
     }
   }
 
