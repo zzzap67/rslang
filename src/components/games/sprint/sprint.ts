@@ -12,13 +12,13 @@ class Sprint {
   rightButton: HTMLElement;
   wrongButton: HTMLElement;
   mainContainer: HTMLElement;
-  NUMBER_OF_SETS = 4;
+  NUMBER_OF_SETS = 2;
   NUMBER_OF_PAGES = 30;
   pageId: number;
   groupId: number;
   correctAnswers = 0;
   correctAnswersArr: ISprintAnswer[] = [];
-  wrongAnswersArr: string[] = [];
+  wrongAnswersArr: ISprintAnswer[] = [];
   correctAnswersSeries: number[] = [];
   score = 0;
   correctPercentage = 0;
@@ -69,8 +69,6 @@ class Sprint {
       audioDisabled.classList.add('sprint__sound-switcher-disabled-active');
     }
     audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioDisabled));
-    const stopButton = mainContainer.querySelector('.sprint__stop') as HTMLElement;
-    stopButton.addEventListener('click', () => this.stopGame());
     const rightButton = mainContainer.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = mainContainer.querySelector('.sprint__btn-false') as HTMLElement;
     this.rightButton = rightButton;
@@ -83,7 +81,9 @@ class Sprint {
     }, 30000);
     this.timerTimeoutId = setTimeout(() => {
       this.runTimerSound.call(this);
-    }, 3600);
+    }, 25800);
+    const sprintWrapper = mainContainer.querySelector('.sprint__main-wrapper') as HTMLElement;
+    sprintWrapper?.addEventListener('mouseleave', () => this.interruptGame());
     this.getAnswers(this.createPagesSet(), groupId).then(() => this.startGame());
   }
 
@@ -103,6 +103,10 @@ class Sprint {
   }
 
   private goRound(): void {
+    if (!this.rightAnswers.length) {
+      this.overcomeWords();
+      return;
+    }
     const wordIndex = Math.floor(Math.random() * this.rightAnswers.length);
     const roundRightWord = this.rightAnswers.splice(wordIndex, 1)[0];
     const sprintEnWord = document.body.querySelector('.sprint_en-word') as HTMLElement;
@@ -118,9 +122,16 @@ class Sprint {
       this.wrongButton.dataset.sprint = 'wrong';
     } else {
       sprintRuWord.textContent = roundWrongWord.russianWord;
+      sprintEnWord.dataset.rightEnglishWord = roundRightWord.englishWord;
+      sprintRuWord.dataset.rightRussianWord = roundRightWord.russianWord;
       this.rightButton.dataset.sprint = 'wrong';
       this.wrongButton.dataset.sprint = 'right';
     }
+  }
+
+  private overcomeWords(): void {
+    this.stopGame();
+    this.endGame();
   }
 
   private endGame(): void {
@@ -134,15 +145,21 @@ class Sprint {
     const PERCENTS = 100;
     const percentage = (PERCENTS / allAnswers) * this.correctPercentage || 0;
     this.mainContainer.innerHTML = '';
-    this.mainContainer.append(new SprintResults(this.score, maxSerie, percentage).resultsElement);
+    this.mainContainer.append(
+      new SprintResults(this.score, maxSerie, percentage, this.groupId, this.correctAnswersArr, this.wrongAnswersArr)
+        .resultsElement
+    );
     document.removeEventListener('keydown', this.handleKeys);
   }
 
+  private interruptGame() {
+    document.addEventListener('click', () => this.stopGame(), { once: true });
+  }
+
   public stopGame(): void {
-    console.log('stop');
-    console.log(this.timerTimeoutId);
     clearTimeout(this.timerTimeoutId);
     clearTimeout(this.startTimeoutId);
+    document.removeEventListener('keydown', this.handleKeys);
   }
 
   private defineRightWrongWord(): boolean {
@@ -203,7 +220,7 @@ class Sprint {
   }
 
   public setTimer(): void {
-    const time = 60;
+    const time = 30;
     let i = 0;
     const finalOffset = 289;
     const step = finalOffset / time;
@@ -226,14 +243,19 @@ class Sprint {
 
   private onBtnFalseClick(): void {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
-    const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
+    const englishWord = gameField.querySelector('.sprint_en-word') as HTMLElement;
+    const russianWord = gameField.querySelector('.sprint__ru-word') as HTMLElement;
     gameField.style.border = '5px solid #df605b';
     if (state.sprintAudio) {
       const audio = new Audio('./sounds/sprint-wrong.mp3');
       audio.play();
     }
     this.correctAnswersSeries.push(this.correctAnswers);
-    this.wrongAnswersArr.push(englishWord);
+    const wrongAnswer: ISprintAnswer = {
+      englishWord: englishWord.dataset.rightEnglishWord as string,
+      russianWord: russianWord.dataset.rightRussianWord as string,
+    };
+    this.wrongAnswersArr.push(wrongAnswer);
     this.correctAnswers = 0;
     this.wrongPersentage++;
 
@@ -277,7 +299,7 @@ class Sprint {
 
   private runTimerSound(): void {
     if (state.sprintAudio) {
-      const timerAudio = new Audio('./sounds/ticking-timer.mp3');
+      const timerAudio = new Audio('./sounds/ticking-timer-four-sec.mp3');
       timerAudio.play();
     }
   }
