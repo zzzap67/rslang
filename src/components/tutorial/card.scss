@@ -1,0 +1,161 @@
+@import '../../assets/scss/variables.scss';
+
+.card {
+  display: flex;
+  gap: 20px;
+  width: 70%;
+  height: 200px;
+  margin: 0 auto;
+  background-color: $main-white;
+  border: 1px solid $main-green;
+  box-sizing: content-box;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.card-image {
+  height: 12.5rem;
+  min-width: 12.5rem;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 5px;
+}
+
+.card__info {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 100%;
+  padding: 10px;
+}
+
+.card__label {
+  position: absolute;
+  top: 140px;
+  left: calc(100% - 60px);
+  width: 0;
+  height: 0;
+  border-bottom: 60px solid $main-green; //green = easy level - 1
+  border-left: 60px solid transparent;
+}
+
+.card__word-info-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.card__word-info {
+
+}
+
+.card__meaning-wrapper {
+
+}
+
+.card__example-wrapper {
+
+}
+
+.card__word-meaning {
+  display: inline-block;
+  font-weight: 400;
+
+    span {
+      font-weight: 700;
+    }
+
+    i {
+      font-style: italic;
+      color: red;
+      font-weight: 500;
+    }
+}
+
+.card__word-meaning-translate {
+  display: inline-block;
+  font-weight: 400;
+}
+
+.card__word-example {
+  font-weight: 400;
+
+  span {
+    font-weight: 700;
+  }
+
+  b {
+    color: red;
+  }
+}
+
+.card__word-example-translate {
+  font-weight: 400;
+}
+
+.card__btns-wrapper {
+  display: flex;
+  height: 30px;
+  gap: 20px;
+}
+
+.card__audio-btn {
+  width: 25px;
+  height: 25px;
+  background-image: url(../../assets/images/audio.png);
+  background-size: 100%;
+  background-color: $main-white;
+  border-radius: 15px;
+  box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.36);
+  cursor: pointer;
+
+    &:active {
+      box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.36);
+    }
+}
+
+.difficult-btn {
+  width: 120px;
+  height: 30px;
+  padding: 5px 10px;
+  color: $main-yellow;
+  margin-bottom: 20px;
+  font-weight: 700;
+  background-color: $main-white;
+  border: 2px solid $main-yellow;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.26);
+
+    &:hover {
+      color: $main-white;
+      background-color: $main-yellow;
+    }
+
+    &:active {
+      box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.36);
+    }
+}
+
+.hard-card-in-tutorial {
+  background-color: burlywood;
+}
+
+.btn-checked {
+  background-color: $main-yellow;
+  color: $main-white;
+  border-color: $main-white;
+}
+
+.btn-hidden {
+  display: none;
+}
+
+.card-hard {
+  background-color: $main-red;
+}
+
+.card-studied {
+  background-color: $main-green;
+}

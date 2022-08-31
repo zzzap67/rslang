@@ -3,10 +3,11 @@ import { state } from '../store/state';
 
 class CheckJwt {
   static async checkJwt(): Promise<void> {
-    const tokenExpireTime = Number(localStorage.getItem('tokenExpireTime'));
+    const tokenExpireTime = Number(state.tokenExpireTime);
     const userId = state.userId;
-    const refreshToken = localStorage.getItem('refreshToken');
-    if (Date.now() >= tokenExpireTime) {
+    const refreshToken = state.refreshToken;
+    console.log(Date.now(), tokenExpireTime);
+    if (Date.now() >= tokenExpireTime - 100000000) {
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_TOKENS}`,
@@ -20,10 +21,19 @@ class CheckJwt {
           }
         );
         const data = await response.json();
+        console.log(data);
+
+        state.refreshToken = data.refreshToken;
+        state.token = data.token;
+        //localStorage.setItem('currentToken', data.token);
+        //localStorage.setItem('refreshToken', data.refreshToken);
         const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
-        localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
-        localStorage.setItem('currentToken', data.token);
-        localStorage.setItem('refreshToken', data.refreshToken);
+        state.tokenExpireTime = tokenExpireTime;
+        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
+        localStorage.setItem('state', JSON.stringify(state));
+        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
+        //localStorage.setItem('currentToken', data.token);
+        //localStorage.setItem('refreshToken', data.refreshToken);
       } catch (err) {
         console.log(err);
       }

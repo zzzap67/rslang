@@ -8,7 +8,7 @@
   gap: 20px;
   min-width: 100%;
   min-height: 80vh;
-  background-color: #ffffff;
+  background-color: $main-white;
   background-size: 50%;
   background-position: 0 0;
   background-repeat: no-repeat;
@@ -81,6 +81,8 @@
   font-size: 1.2rem;
   font-weight: 700;
   color: $main-gray-blue;
+  border: 1px solid $main-white;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.36);
 
   &:hover {
     background-color: $main-soft-blue;
@@ -89,5 +91,6 @@
 
   &:active {
     border: 2px solid $main-white;
+    box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.36);
   }
 }

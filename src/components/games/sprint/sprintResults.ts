@@ -6,13 +6,18 @@ class SprintResults {
 
   private resultsHtml = `
     <div class="sprint__results-field">
-      <h3 class="results__h3">Твой результат <span class="score-field">465</span> очков</h3>
-      <h4 class="results__h2">Длина серии <span class="serie-field">5</span></h4>
+      <h2 class="results__h2">Твой результат: <span class="score-field">465</span> очков</h2>
+      <h3 class="results__h3">Длина серии: <span class="serie-field">5</span></h3>
+      <div>
+        <button class="results__link">Сыграть еще раз</button>
+        <button class="results__link">Выбрать уровень</button>
+      </div>
+
       <div class="results__circle-outer">
           <div class="results__circle-inner"></div>
           <h2 class="results__percents">67%</h2>
       </div>
-      <h3 class="results__link">Сыграть еще раз</h3>
+      
     </div>
   `;
 

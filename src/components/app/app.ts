@@ -1,4 +1,5 @@
 //import BaseElement from '../base-element/base-element';
+import CheckJwt from '../authorization/chek-jwt';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 import MainContainer from '../main-container/main-container';
@@ -29,6 +30,7 @@ class App {
     for (const key in state) {
       state[key] = stateFromStorage[key];
     }
+    CheckJwt.checkJwt();
     Header.printUserName();
   }
 
