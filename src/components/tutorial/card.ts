@@ -28,7 +28,7 @@ class TutorialCard {
     //const cardEnglishWord = new BaseElement('p', ['card-word', 'card-english-word']).element;
     //const cardTranscription = new BaseElement('p', ['card-word', 'card-transcription']).element;
     //const cardRussianWord = new BaseElement('p', ['card-word', 'card-russian-word']).element;
-    const audioButton = new BaseElement('div', ['audio-btn']).element;
+    const audioButton = new BaseElement('div', ['card__audio-btn']).element;
     const difficultButton = new Button('Сложное', ['difficult-btn']).buttonElement;
     const discardButton = new Button('Изученное', ['difficult-btn']).buttonElement;
     difficultButton.id = 'hard-btn-' + card.id;

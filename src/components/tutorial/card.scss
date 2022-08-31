@@ -7,7 +7,7 @@
   height: 200px;
   margin: 0 auto;
   background-color: $main-white;
-  border: 1px solid $main-yellow;
+  border: 1px solid $main-green;
   box-sizing: content-box;
   border-radius: 5px;
   margin-bottom: 20px;
@@ -20,7 +20,6 @@
   background-position: center;
   background-repeat: no-repeat;
   border-radius: 5px;
-  //border: 1px solid $main-yellow;
 }
 
 .card__info {
@@ -29,7 +28,7 @@
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
-  row-gap: 10px;
+  min-height: 100%;
   padding: 10px;
 }
 
@@ -98,15 +97,16 @@
 
 .card__btns-wrapper {
   display: flex;
+  height: 30px;
   gap: 20px;
 }
 
-.audio-btn {
+.card__audio-btn {
   width: 25px;
   height: 25px;
   background-image: url(../../assets/images/audio.png);
   background-size: 100%;
-  background-color: transparent;
+  background-color: $main-white;
   border-radius: 15px;
   box-shadow: 0px 2px 5px 2px rgba(0, 0, 0, 0.36);
   cursor: pointer;
@@ -136,4 +136,26 @@
     &:active {
       box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.36);
     }
+}
+
+.hard-card-in-tutorial {
+  background-color: burlywood;
+}
+
+.btn-checked {
+  background-color: $main-yellow;
+  color: $main-white;
+  border-color: $main-white;
+}
+
+.btn-hidden {
+  display: none;
+}
+
+.card-hard {
+  background-color: $main-red;
+}
+
+.card-studied {
+  background-color: $main-green;
 }

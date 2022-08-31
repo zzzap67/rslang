@@ -1,0 +1,50 @@
+@import '../../assets/scss/variables.scss';
+
+.pages-container {
+  display: flex;
+  gap: 0.4rem;
+  width: 350px;
+  margin: 0 auto;
+}
+
+.page-btn {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  padding-top: 2px;
+  color: $main-yellow;
+  font-family: 'Poppins';
+  line-height: 1.5rem;
+  font-weight: 500;
+  background-color: transparent;
+  border-radius: 0;
+
+    &:hover {
+      color: $main-yellow;
+      font-size: 1.4rem;
+    }
+
+    &:active {
+      font-size: 1.4rem;
+    }
+}
+
+
+.btn.selected {
+  border: 1px solid $main-yellow;
+  font-size: 1.4rem;
+}
+
+.page__btn-disabled {
+  color: $main-gray;
+  cursor: auto;
+
+  &:hover {
+    color: $main-gray;
+    font-size: 1rem;
+  }
+
+  &:active {
+    font-size: 1rem;
+  }
+}

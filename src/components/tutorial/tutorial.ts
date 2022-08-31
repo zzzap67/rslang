@@ -1,4 +1,4 @@
-//import './tutorial.scss';
+import './tutorial.scss';
 import BaseElement from '../base-element/base-element';
 import TutorialCard from './card';
 import { apiStrings } from '../store/constants';
@@ -23,8 +23,8 @@ class Tutorial {
     console.log(state.group, state.page);
     pagesContainer.append(
       new Groups().groupsContainerElement,
-      new Pages().pagesButtonsElement,
-      new GamesLinks().linksElement
+      new GamesLinks().linksElement,
+      new Pages().pagesButtonsElement
     );
     mainContainer.append(pagesContainer, cardsContainer);
 
