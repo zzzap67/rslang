@@ -12,7 +12,6 @@ class GameStartScreen {
   private gameName: string;
 
   constructor(gameName: string) {
-    console.log('start');
     this.gameName = gameName;
     let name = '';
     let gameInfo = '';
@@ -35,12 +34,12 @@ class GameStartScreen {
         <div class="game__level-wrapper">
             <p class="game__level-choice">Выбери уровень:</p>
             <div class="game__btns-wrapper">
-                <button class="game__btn-level" data-level="1">A1</button>
-                <button class="game__btn-level" data-level="2">A2</button>
-                <button class="game__btn-level" data-level="3">B1</button>
-                <button class="game__btn-level" data-level="4">B2</button>
-                <button class="game__btn-level" data-level="5">C1</button>
-                <button class="game__btn-level" data-level="6">C2</button>
+                <button class="game__btn-level" data-level="0">A1</button>
+                <button class="game__btn-level" data-level="1">A2</button>
+                <button class="game__btn-level" data-level="2">B1</button>
+                <button class="game__btn-level" data-level="3">B2</button>
+                <button class="game__btn-level" data-level="4">C1</button>
+                <button class="game__btn-level" data-level="5">C2</button>
             </div>
         </div>
       </div>
