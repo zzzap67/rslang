@@ -5,6 +5,10 @@
   background-color: $main-gray-blue;
 }
 
+.footer__hidden {
+  display: none;
+}
+
 .footer__wrapper {
   display: flex;
   flex-direction: row;
