@@ -26,6 +26,17 @@
   background-repeat: no-repeat;
 }
 
+.game__image__call {
+  width: 500px;
+  height: 500px;
+  max-width: 500px;
+  max-height: 500px;
+  background-image: url(../../assets/images/bg-call-start.png);
+  background-size: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .game__field-wrapper {
   display: flex;
   flex-direction: column;
