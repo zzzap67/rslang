@@ -1,7 +1,7 @@
 import './tutorial.scss';
 import BaseElement from '../base-element/base-element';
 import TutorialCard from './card';
-import { apiStrings } from '../store/constants';
+import { apiStrings, LEVEL_COLORS } from '../store/constants';
 import { state } from '../store/state';
 import { ICard, IUserWord } from '../types/interfaces';
 import Groups from './groups';
@@ -15,18 +15,18 @@ class Tutorial {
   constructor() {
     //const body = document.body;
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    const tutorialWrapper = new BaseElement('div', ['tutorial__wrapper']).element;
     const cardsContainer = new BaseElement('div', ['cards-container']).element;
     const pagesContainer = new BaseElement('div', ['groups-pages-container']).element;
-    //const groupsContainer = new BaseElement('div', ['groups-container']).element;
+    const groupsContainer = new BaseElement('div', ['groups-links-container']).element;
     this.userWords = [];
     mainContainer.innerHTML = '';
     console.log(state.group, state.page);
-    pagesContainer.append(
-      new Groups().groupsContainerElement,
-      new GamesLinks().linksElement,
-      new Pages().pagesButtonsElement
-    );
-    mainContainer.append(pagesContainer, cardsContainer);
+
+    groupsContainer.append(new Groups().groupsContainerElement, new GamesLinks().linksElement);
+    pagesContainer.append(groupsContainer, new Pages().pagesButtonsElement);
+    tutorialWrapper.append(pagesContainer, cardsContainer);
+    mainContainer.append(tutorialWrapper);
 
     this.getUserWords().then(() => {
       console.log(this.userWords);
@@ -150,6 +150,11 @@ class Tutorial {
         console.log(err.name);
       }
     }
+  }
+
+  public setLabel(id: number) {
+    const cardLabel = document.querySelector('card__label') as HTMLElement;
+    cardLabel.style.borderColor = LEVEL_COLORS[id];
   }
 }
 
