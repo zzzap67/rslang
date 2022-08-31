@@ -65,24 +65,29 @@ class Pages {
 
   private handlePageButton(e: Event): void {
     const target = e.target as HTMLElement;
+    let newPage = state.page;
+
     if (target.textContent === '>') {
-      state.page++;
+      newPage++;
     } else if (target.textContent === '<') {
-      state.page--;
+      newPage--;
     } else if (target.textContent === '<<') {
-      state.page = 0;
+      newPage = 0;
     } else if (target.textContent === '>>') {
-      state.page = 29;
+      newPage = 29;
     } else {
-      state.page = Number(target.textContent) - 1;
+      newPage = Number(target.textContent) - 1;
     }
-    if (state.page < 0) {
-      state.page = 0;
+    if (newPage < 0) {
+      newPage = 0;
     }
-    if (state.page > 29) {
-      state.page = 29;
+    if (newPage > 29) {
+      newPage = 29;
     }
-    new Tutorial();
+    if (newPage !== state.page) {
+      state.page = newPage;
+      new Tutorial();
+    }
   }
 }
 

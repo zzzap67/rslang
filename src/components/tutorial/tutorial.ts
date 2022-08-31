@@ -29,7 +29,6 @@ class Tutorial {
     mainContainer.append(tutorialWrapper);
 
     this.getUserWords().then(() => {
-      console.log(this.userWords);
       this.renderTutorial(cardsContainer, state.group).then(() => {
         // HardWordsCheck.checkHardWords();
       });
@@ -107,11 +106,21 @@ class Tutorial {
           `${apiStrings.API_ADDRESS}${apiStrings.API_WORDS}?page=${state.page}&group=${state.group}`
         );
         const data = await response.json();
+        let studiedCount = 0;
         data.forEach((item: ICard) => {
-          cardsContainer.append(
-            new TutorialCard(item, this.getHardType(item.id), this.getStudiedType(item.id)).cardElement
-          );
+          const studiedType = this.getStudiedType(item.id);
+          studiedCount += studiedType;
+          cardsContainer.append(new TutorialCard(item, this.getHardType(item.id), studiedType).cardElement);
         });
+
+        if (studiedCount === 20) {
+          const pageNumber = document.body.querySelector('.pages__btn-selected') as HTMLElement;
+          pageNumber.classList.add('pages__btn-selected-studied');
+          const gameButton1 = document.body.querySelector('.tutorial-games-link-1') as HTMLButtonElement;
+          gameButton1.disabled = true;
+          const gameButton2 = document.body.querySelector('.tutorial-games-link-2') as HTMLButtonElement;
+          gameButton2.disabled = true;
+        }
       } catch (err) {
         console.log('this is an error' + err);
       }

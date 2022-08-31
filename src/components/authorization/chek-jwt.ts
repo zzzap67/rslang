@@ -6,8 +6,7 @@ class CheckJwt {
     const tokenExpireTime = Number(state.tokenExpireTime);
     const userId = state.userId;
     const refreshToken = state.refreshToken;
-    console.log(Date.now(), tokenExpireTime);
-    if (Date.now() >= tokenExpireTime - 100000000) {
+    if (Date.now() >= tokenExpireTime) {
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_TOKENS}`,
@@ -21,7 +20,6 @@ class CheckJwt {
           }
         );
         const data = await response.json();
-        console.log(data);
 
         state.refreshToken = data.refreshToken;
         state.token = data.token;

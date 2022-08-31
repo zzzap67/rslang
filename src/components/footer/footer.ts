@@ -8,7 +8,7 @@ class Footer {
     footer.innerHTML = `
     <div class="footer__wrapper">
       <div class="footer__logo">
-      <a href="https://rs.school/" class="footer__link_logo" target="blank">
+      <a href="https://rs.school/js/" class="footer__link_logo" target="blank">
           <div class="footer__img"></div>
       </a>
       </div>
