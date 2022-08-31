@@ -79,7 +79,7 @@ class SprintResults {
     rightContainer.append(rWordTitle);
     correctAnswers.forEach((item) => {
       const rWord = new BaseElement('div', ['call__word']).element;
-      rWord.textContent = `${item.russianWord} - ${item.englishWord}`;
+      rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
       // rWord.dataset.level = item.toString();
       // rWord.addEventListener('click', this.wordSound);
       rightContainer.append(rWord);
@@ -90,7 +90,7 @@ class SprintResults {
     rightContainer.append(rWordTitleWrong);
     wrongAnswers.forEach((item) => {
       const rWord = new BaseElement('div', ['call__word', 'call__word-wrong']).element;
-      rWord.textContent = `${item.russianWord} - ${item.englishWord}`;
+      rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
       // rWord.dataset.level = index.toString();
       // rWord.addEventListener('click', this.wordSound);
       rightContainer.append(rWord);

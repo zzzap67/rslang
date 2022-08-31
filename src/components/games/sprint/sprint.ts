@@ -111,6 +111,8 @@ class Sprint {
     const roundRightWord = this.rightAnswers.splice(wordIndex, 1)[0];
     const sprintEnWord = document.body.querySelector('.sprint_en-word') as HTMLElement;
     const sprintRuWord = document.body.querySelector('.sprint__ru-word') as HTMLElement;
+    sprintEnWord.dataset.rightEnglishWord = roundRightWord.englishWord;
+    sprintRuWord.dataset.rightRussianWord = roundRightWord.russianWord;
     sprintEnWord.textContent = roundRightWord.englishWord;
     let roundWrongWord = this.getWrongWord();
     while (roundWrongWord.russianWord === roundRightWord.russianWord) {
@@ -122,8 +124,6 @@ class Sprint {
       this.wrongButton.dataset.sprint = 'wrong';
     } else {
       sprintRuWord.textContent = roundWrongWord.russianWord;
-      sprintEnWord.dataset.rightEnglishWord = roundRightWord.englishWord;
-      sprintRuWord.dataset.rightRussianWord = roundRightWord.russianWord;
       this.rightButton.dataset.sprint = 'wrong';
       this.wrongButton.dataset.sprint = 'right';
     }
@@ -188,9 +188,14 @@ class Sprint {
 
   private createPagesSet(): number[] {
     const pagesSets: Set<number> = new Set();
-    while (pagesSets.size < this.NUMBER_OF_SETS) {
-      pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));
+    if (this.pageId !== -1) {
+      pagesSets.add(this.pageId);
+    } else {
+      while (pagesSets.size < this.NUMBER_OF_SETS) {
+        pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));
+      }
     }
+
     return [...pagesSets];
   }
 
@@ -266,8 +271,8 @@ class Sprint {
 
   private onBtnTrueClick(): void {
     const gameField = document.querySelector('.sprint__game-field') as HTMLElement;
-    const englishWord = gameField.querySelector('.sprint_en-word')?.textContent as string;
-    const russianWord = gameField.querySelector('.sprint__ru-word')?.textContent as string;
+    const englishWord = gameField.querySelector('.sprint_en-word') as HTMLElement;
+    const russianWord = gameField.querySelector('.sprint__ru-word') as HTMLElement;
     gameField.style.border = '5px solid #86c662';
     if (state.sprintAudio) {
       const audio = new Audio('./sounds/sprint-correct.mp3');
@@ -276,8 +281,8 @@ class Sprint {
     this.correctAnswers++;
     this.addPoints();
     const correctAnswer: ISprintAnswer = {
-      englishWord: englishWord,
-      russianWord: russianWord,
+      englishWord: englishWord.dataset.rightEnglishWord as string,
+      russianWord: russianWord.dataset.rightRussianWord as string,
     };
     this.correctAnswersArr.push(correctAnswer);
     this.correctPercentage++;
