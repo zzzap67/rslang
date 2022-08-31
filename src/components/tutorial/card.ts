@@ -2,7 +2,7 @@ import './card.scss';
 import CheckJwt from '../authorization/chek-jwt';
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
-import { apiStrings } from '../store/constants';
+import { apiStrings, LEVEL_COLORS } from '../store/constants';
 import { state } from '../store/state';
 import { ICard } from '../types/interfaces';
 
@@ -39,6 +39,7 @@ class TutorialCard {
     meaningWrapper.append(wordMeaning, wordMeaningTranslate);
     exmpleWrapper.append(wordExample, wordExampleTranslate);
     wordInfoWrapper.append(wordInfo, audioButton);
+    cardLabel.style.borderBottomColor = `${LEVEL_COLORS[state.group]}`;
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
     audioButton.addEventListener('click', () => this.handleAudio(card));
     tutorialCard.append(cardImage, cardInfo);
@@ -161,6 +162,8 @@ class TutorialCard {
       responseBody.difficulty = 'easy';
     }
 
+    let studiedWords = document.body.querySelectorAll('.card-studied').length;
+    const prevStudiedWords = studiedWords;
     await CheckJwt.checkJwt();
     try {
       const checkWord = await fetch(
@@ -194,16 +197,35 @@ class TutorialCard {
         }
       );
       await response.json();
+      console.log(studiedWords);
       if (responseBody.difficulty === 'studied') {
         button.classList.add('btn-checked');
         hardButton.classList.remove('btn-checked');
         hardButton.classList.add('btn-hidden');
         card.classList.remove('card-hard');
         card.classList.add('card-studied');
+        studiedWords++;
       } else {
         button.classList.remove('btn-checked');
         card.classList.remove('card-studied');
         hardButton.classList.remove('btn-hidden');
+        studiedWords--;
+      }
+      console.log(studiedWords);
+      if (studiedWords === 20 && prevStudiedWords !== 20) {
+        const pageNumber = document.body.querySelector('.pages__btn-selected') as HTMLElement;
+        pageNumber.classList.add('pages__btn-selected-studied');
+        const gameButton1 = document.body.querySelector('.tutorial-games-link-1') as HTMLButtonElement;
+        gameButton1.disabled = true;
+        const gameButton2 = document.body.querySelector('.tutorial-games-link-2') as HTMLButtonElement;
+        gameButton2.disabled = true;
+      } else if (studiedWords !== 20 && prevStudiedWords === 20) {
+        const pageNumber = document.body.querySelector('.pages__btn-selected') as HTMLElement;
+        pageNumber.classList.remove('pages__btn-selected-studied');
+        const gameButton1 = document.body.querySelector('.tutorial-games-link-1') as HTMLButtonElement;
+        gameButton1.disabled = false;
+        const gameButton2 = document.body.querySelector('.tutorial-games-link-2') as HTMLButtonElement;
+        gameButton2.disabled = false;
       }
     } catch (e) {
       const err = e as Error;

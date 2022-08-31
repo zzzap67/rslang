@@ -14,11 +14,19 @@ class GamesLinks {
     gamesLabel.textContent = 'Сыграй в игру: ';
     console.log(state.group);
     if (state.group < 6) {
-      const groupButtonSprint = new Button(`Спринт`, ['games__link-btn', 'tutorial-games-link']).buttonElement;
+      const groupButtonSprint = new Button(`Спринт`, [
+        'games__link-btn',
+        'tutorial-games-link',
+        'tutorial-games-link-1',
+      ]).buttonElement;
       groupButtonSprint.dataset.level = '0';
       groupButtonSprint.addEventListener('click', this.handleLinksButtons);
       linksContainer.append(gamesLabel, groupButtonSprint);
-      const groupButtonAC = new Button(`Аудиовызов`, ['games__link-btn', 'tutorial-games-link']).buttonElement;
+      const groupButtonAC = new Button(`Аудиовызов`, [
+        'games__link-btn',
+        'tutorial-games-link',
+        'tutorial-games-link-2',
+      ]).buttonElement;
       groupButtonAC.dataset.level = '1';
       groupButtonAC.addEventListener('click', this.handleLinksButtons);
       linksContainer.append(groupButtonAC);

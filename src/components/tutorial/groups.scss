@@ -10,8 +10,9 @@
     }
 }
 
-.group__selected {
-
+.group-btn.group__selected, .group-hard-btn.group__selected {
+  color: $main-white;
+  background-color: $main-yellow;
 }
 
 .group-btn,

@@ -46,6 +46,10 @@
     }
 }
 
+.btn.pages__btn-selected-studied {
+  color: green;
+}
+
 .page__btn-disabled {
   color: $main-gray;
   cursor: auto;
