@@ -56,7 +56,7 @@ class GameStartScreen {
 
   private handleButtons(level: number) {
     if (this.gameName === 'sprint') {
-      new Sprint(level, 1);
+      new Sprint(level, -1);
     } else {
       new Audiocall(level, 1);
     }
