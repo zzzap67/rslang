@@ -42,6 +42,7 @@ class TutorialCard {
     cardLabel.style.borderBottomColor = `${LEVEL_COLORS[state.group]}`;
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
     audioButton.addEventListener('click', () => this.handleAudio(card));
+    tutorialCard.style.borderColor = `${LEVEL_COLORS[state.group]}`;
     tutorialCard.append(cardImage, cardInfo);
     if (state.userId) {
       if (hardType) {
