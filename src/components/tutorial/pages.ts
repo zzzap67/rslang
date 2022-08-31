@@ -1,3 +1,4 @@
+import './pages.scss';
 import BaseElement from '../base-element/base-element';
 import Button from '../buttons/button';
 import { state } from '../store/state';
@@ -11,13 +12,17 @@ class Pages {
     const pageButtonsContainer = new BaseElement('div', ['pages-container']).element;
     this.numberOfPages = 30;
     if (state.group != 6) {
-      const firstButton = new Button('<<', ['page-btn']).buttonElement;
+      const firstButton = new Button('<<', ['page-btn', 'first-btn']).buttonElement;
       firstButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(firstButton);
 
-      const prevButton = new Button('<', ['page-btn']).buttonElement;
+      const prevButton = new Button('<', ['page-btn', 'page__arrow-left']).buttonElement;
       prevButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(prevButton);
+
+      const nextButton = new Button('>', ['page-btn', 'page__arrow-right']).buttonElement;
+
+      const lastButton = new Button('>>', ['page-btn', 'last-btn']).buttonElement;
 
       let pageStart = state.page;
       if (state.page <= 2) {
@@ -30,7 +35,15 @@ class Pages {
 
       for (let i = 1; i <= 5; i++) {
         let cssArray = [];
-        if (pageStart + i === state.page + 1) {
+        if (pageStart + i === state.page + 1 && pageStart + i === 1) {
+          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+          firstButton.classList.add('page__btn-disabled');
+          prevButton.classList.add('page__btn-disabled');
+        } else if (pageStart + i === state.page + 1 && pageStart + i === 30) {
+          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+          lastButton.classList.add('page__btn-disabled');
+          nextButton.classList.add('page__btn-disabled');
+        } else if (pageStart + i === state.page + 1) {
           cssArray = ['page-btn', 'page-btn-middle', 'selected'];
         } else {
           cssArray = ['page-btn', 'page-btn-middle'];
@@ -40,11 +53,9 @@ class Pages {
         pageButtonsContainer.append(pageButton);
       }
 
-      const nextButton = new Button('>', ['page-btn']).buttonElement;
       nextButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(nextButton);
 
-      const lastButton = new Button('>>', ['page-btn']).buttonElement;
       lastButton.addEventListener('click', this.handlePageButton);
       pageButtonsContainer.append(lastButton);
     }
