@@ -30,9 +30,20 @@
 }
 
 
-.btn.selected {
-  border: 1px solid $main-yellow;
+.btn.pages__btn-selected {
+  position: relative;
+  //border: 1px solid $main-yellow;
   font-size: 1.4rem;
+
+    &::after {
+      position: absolute;
+      display: block;
+      content: '';
+      left: 10%;
+      width: 80%;
+      height: 2px;
+      background-color: $main-yellow;
+    }
 }
 
 .page__btn-disabled {

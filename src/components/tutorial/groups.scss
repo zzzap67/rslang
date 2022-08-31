@@ -1,0 +1,48 @@
+@import '../../assets/scss/variables.scss';
+
+.groups-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+
+    h3 {
+      margin-top: 10px;
+    }
+}
+
+.group__selected {
+
+}
+
+.group-btn,
+.group-hard-btn {
+  width: 50px;
+  height: 40px;
+  padding: 5px;
+  text-align: left;
+  color: $main-yellow;
+  margin-bottom: 20px;
+  font-weight: 700;
+  background-color: $main-white;
+  border: 2px solid $main-yellow;
+  border-right-width: 25px;
+  border-radius: 5px;
+  box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.26);
+
+    &:hover {
+      color: $main-white;
+      background-color: $main-yellow;
+    }
+
+    &:active {
+      box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.36);
+    }
+}
+
+.group-hard-btn {
+  width: 140px;
+  border-right-width: 2px;
+  background-color: $main-red;
+  color: $main-white;
+  border-color: $main-white;
+}

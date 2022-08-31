@@ -29,3 +29,12 @@ export const HEADER_NAV_ITEMS = [
 ];
 
 export const EMAIL_REGEXP = '[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$';
+
+export const LEVEL_COLORS = [
+  'rgb(165, 214, 167)',
+  'rgb(129, 212, 250)',
+  'rgb(159, 168, 218)',
+  'rgb(188, 170, 164)',
+  'rgb(255, 204, 128)',
+  'rgb(239, 154, 154)',
+];

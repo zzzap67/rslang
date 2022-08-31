@@ -1,5 +1,22 @@
 @import '../../assets/scss/variables.scss';
 
+.tutorial__wrapper {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.groups-pages-container {
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 20px;
+}
+
+.groups-links-container {
+  display: flex;
+  justify-content: space-between;
+}
+
 /*.pages-container {
   display: flex;
   flex-direction: row;

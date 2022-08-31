@@ -25,9 +25,6 @@ class TutorialCard {
     const wordExample = new BaseElement('span', ['card__word-example']).element;
     const wordExampleTranslate = new BaseElement('span', ['card__word-example-translate']).element;
     const btnsWrapper = new BaseElement('div', ['card__btns-wrapper']).element;
-    //const cardEnglishWord = new BaseElement('p', ['card-word', 'card-english-word']).element;
-    //const cardTranscription = new BaseElement('p', ['card-word', 'card-transcription']).element;
-    //const cardRussianWord = new BaseElement('p', ['card-word', 'card-russian-word']).element;
     const audioButton = new BaseElement('div', ['card__audio-btn']).element;
     const difficultButton = new Button('Сложное', ['difficult-btn']).buttonElement;
     const discardButton = new Button('Изученное', ['difficult-btn']).buttonElement;
@@ -41,14 +38,8 @@ class TutorialCard {
     wordExampleTranslate.textContent = card.textExampleTranslate;
     meaningWrapper.append(wordMeaning, wordMeaningTranslate);
     exmpleWrapper.append(wordExample, wordExampleTranslate);
-    //wordMeaning.textContent = `${card.textMeaning} - ${card.textMeaningTranslate}`;
-    //wordExample.textContent = `${card.textExample} - ${card.textExampleTranslate}`;
-    //btnsWrapper.append(difficultButton, discardButton);
     wordInfoWrapper.append(wordInfo, audioButton);
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
-    //cardTranscription.textContent = `${card.transcription}`;
-    //cardEnglishWord.textContent = `${card.word}`;
-    //cardRussianWord.textContent = `${card.wordTranslate}`;
     audioButton.addEventListener('click', () => this.handleAudio(card));
     tutorialCard.append(cardImage, cardInfo);
     if (state.userId) {

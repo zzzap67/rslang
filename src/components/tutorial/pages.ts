@@ -36,15 +36,15 @@ class Pages {
       for (let i = 1; i <= 5; i++) {
         let cssArray = [];
         if (pageStart + i === state.page + 1 && pageStart + i === 1) {
-          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+          cssArray = ['page-btn', 'page-btn-middle', 'pages__btn-selected'];
           firstButton.classList.add('page__btn-disabled');
           prevButton.classList.add('page__btn-disabled');
         } else if (pageStart + i === state.page + 1 && pageStart + i === 30) {
-          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+          cssArray = ['page-btn', 'page-btn-middle', 'pages__btn-selected'];
           lastButton.classList.add('page__btn-disabled');
           nextButton.classList.add('page__btn-disabled');
         } else if (pageStart + i === state.page + 1) {
-          cssArray = ['page-btn', 'page-btn-middle', 'selected'];
+          cssArray = ['page-btn', 'page-btn-middle', 'pages__btn-selected'];
         } else {
           cssArray = ['page-btn', 'page-btn-middle'];
         }
