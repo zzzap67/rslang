@@ -19,8 +19,6 @@ class LoginPopup {
     const fragment = document.createDocumentFragment();
     const closePopupButton = new ClosePopupButton().closePopubButtonElement;
     const loginForm = new BaseElement('form', ['login-form']).element;
-    const loginSign = new BaseElement('p', ['login-sign']).element;
-    loginSign.textContent = 'Log In';
     const inputEmail = new BaseElement('input', ['input-login', 'input-email']).element as HTMLInputElement;
     inputEmail.setAttribute('type', 'email');
     inputEmail.setAttribute('placeholder', 'Your e-mail');
@@ -45,17 +43,15 @@ class LoginPopup {
     signUpButton.textContent = 'SIGN UP!';
     signUpP.append(signUpSpan, signUpButton);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
-    fragment.append(loginSign, loginForm, signUpP);
-    const logOutButton = new BaseElement('p', ['log-out-button']).element;
-    logOutButton.textContent = 'Log Out';
-    logOutButton.addEventListener('click', () => this.logOut());
+    fragment.append(loginForm, signUpP);
+
     signUpButton.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      this.handleCreateUser(loginPopup, inputEmail, inputPassword, logOutButton);
+      this.handleCreateUser(loginPopup, inputEmail, inputPassword);
     });
     document.body.append(overlay);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
-    fragment.append(closePopupButton, loginSign, loginForm, signUpButton, logOutButton);
+    fragment.append(closePopupButton, loginForm, signUpButton);
     loginPopup.append(fragment);
     this.loginPopupElement = loginPopup;
     Validation.handleEsc(loginPopup, overlay);
@@ -88,7 +84,7 @@ class LoginPopup {
         state.userName = data.name;
         state.refreshToken = data.refreshToken;
         state.token = data.token;
-        nameField.textContent = `Hi, ${state.userName}!`;
+        nameField.textContent = `${state.userName}`;
         //localStorage.setItem('currentToken', data.token);
         //localStorage.setItem('refreshToken', data.refreshToken);
         const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
@@ -102,6 +98,7 @@ class LoginPopup {
       .catch(() => {
         new WarningPopup('Нет такого пользователя :(');
       });
+    this.changeLoginBtn();
   }
 
   private logOut() {
@@ -115,36 +112,41 @@ class LoginPopup {
 
     // localStorage.setItem('currentToken', '');
     // localStorage.setItem('refreshToken', '');
+    const logOutBtn = document.querySelector('.header__logout-btn') as HTMLElement;
     const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
     userNameField.textContent = '';
     localStorage.setItem('state', JSON.stringify(state));
     this.closePopup();
+    logOutBtn.style.display = 'none';
   }
 
   private handleCreateUser(
     loginPopup: HTMLElement,
     inputEmail: HTMLInputElement,
-    inputPassword: HTMLInputElement,
-    logOutButton: HTMLElement
+    inputPassword: HTMLInputElement
+    //logOutButton: HTMLElement
   ): void {
     // logOutButton.remove();
-    console.log(logOutButton);
-    const signUpSign = loginPopup.querySelector('.login-sign') as HTMLElement;
+
+    const signUpLink = document.querySelector('.sign-up-button') as HTMLElement;
     const loginButton = loginPopup.querySelector('.login-btn') as HTMLElement;
     const loginForm = loginPopup.querySelector('.login-form') as HTMLElement;
     const signUpButton = new Button('Sign Up', ['sign-up-btn']).buttonElement;
     const inputName = new BaseElement('input', ['input-login', 'input-name']).element as HTMLInputElement;
+    signUpLink.style.display = 'none';
     inputName.setAttribute('type', 'text');
     inputName.setAttribute('placeholder', 'Your name (3 chars minimum)');
     inputName.setAttribute('autocomplete', 'off');
     inputName.setAttribute('required', 'true');
     inputName.setAttribute('minlength', '3');
     // inputName.addEventListener('change', () => Validation.checkName(inputName.value, inputName));
-    signUpSign.textContent = 'Sign Up';
     loginButton.remove();
     loginForm.prepend(inputName);
     loginForm.append(signUpButton);
-    signUpButton.addEventListener('click', () => this.createUser(loginPopup, inputName, inputEmail, inputPassword));
+    signUpButton.addEventListener('click', (e: Event) => {
+      e.preventDefault();
+      this.createUser(loginPopup, inputName, inputEmail, inputPassword);
+    });
   }
 
   private async createUser(
@@ -173,6 +175,14 @@ class LoginPopup {
     await response.json();
     this.loginUser(loginPopup, inputEmail, inputPassword);
     this.closePopup();
+  }
+
+  private changeLoginBtn() {
+    const logOutBtn = document.querySelector('.btn.header__logout-btn') as HTMLElement;
+    logOutBtn.style.display = 'inline-block';
+    logOutBtn.addEventListener('click', () => {
+      this.logOut();
+    });
   }
 
   private closePopup() {

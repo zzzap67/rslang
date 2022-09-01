@@ -13,10 +13,13 @@ class Header {
     const logoContainer = new BaseElement('div', ['logo-container']).element;
     const navContainer = new HeaderNav().navContainer;
     const loginContainer = new BaseElement('div', ['login-container']).element;
-    const logInButton = new Button('LOG IN', ['header__btn']).buttonElement;
+    const loginBtnsContainer = new BaseElement('div', ['login__btns-container']).element;
+    const logInButton = new Button('LOG IN', ['header__login-btn']).buttonElement;
+    const logOutButton = new Button('LOG OUT', ['header__logout-btn']).buttonElement;
     const userNameField = new BaseElement('div', ['user-name-field']).element;
     logInButton.addEventListener('click', this.handlelogIn);
-    loginContainer.append(logInButton, userNameField);
+    loginBtnsContainer.append(logInButton, logOutButton);
+    loginContainer.append(loginBtnsContainer, userNameField);
     headerWrapper.append(logoContainer, navContainer, loginContainer);
     header.append(headerWrapper);
     this.headerElement = header;
@@ -29,7 +32,7 @@ class Header {
   static printUserName() {
     const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
     if (state.userName) {
-      userNameField.textContent = `Hi, ${state.userName}!`;
+      userNameField.textContent = `${state.userName}`;
     }
   }
 }
