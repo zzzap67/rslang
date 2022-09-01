@@ -40,10 +40,13 @@ class HeaderNav {
 
   private handleGamesUl(e: Event) {
     const target = e.target as HTMLElement;
+    const footer = document.body.querySelector('.footer') as HTMLElement;
     if (target.classList.contains('header__nav-call')) {
+      footer.classList.add('footer__hidden');
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
+      footer.classList.add('footer__hidden');
       const mainContainer = document.body.querySelector('.main') as HTMLElement;
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
@@ -53,11 +56,14 @@ class HeaderNav {
 
   private handleNavUl(e: Event) {
     const target = e.target as HTMLElement;
+    const footer = document.body.querySelector('.footer') as HTMLElement;
     if (!target.classList.contains('header-nav-li')) return;
     if (target.dataset.role === 'tutorial') {
+      footer.classList.remove('footer__hidden');
       new Tutorial();
     }
     if (target.dataset.role === 'main') {
+      footer.classList.remove('footer__hidden');
       const mainPageContent = new MainContainer();
       mainPageContent.render();
     }

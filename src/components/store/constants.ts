@@ -37,4 +37,5 @@ export const LEVEL_COLORS = [
   'rgb(188, 170, 164)',
   'rgb(255, 204, 128)',
   'rgb(239, 154, 154)',
+  '#df605b',
 ];

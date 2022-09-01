@@ -79,7 +79,7 @@ class Audiocall {
 
     const startrScreen = new BaseElement('div', ['game__start-scr-wrapper']).element;
     startrScreen.innerHTML = `
-    <div class="game__image"></div>
+    <div class="game__image__call"></div>
       <div class="game__field-wrapper">
         <div class="game__info-wrapper">
             <h2 class="game__name">Аудиовызов</h2>
@@ -362,7 +362,7 @@ class Audiocall {
     }
   }
   private enterPress(e: KeyboardEvent) {
-    if (e.code === 'Enter') {
+    if (e.code === 'Enter' || e.code === 'Space') {
       console.log('enter');
       const nextButton = this.mainContainer.querySelector('#next-button') as HTMLElement;
       if (nextButton) {
