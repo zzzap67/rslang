@@ -69,8 +69,8 @@ class Sprint {
       audioDisabled.classList.add('sprint__sound-switcher-disabled-active');
     }
     audioButton.addEventListener('click', () => this.handleAudioSwitcher(audioDisabled));
-    const stopButton = mainContainer.querySelector('.sprint__stop') as HTMLElement;
-    stopButton.addEventListener('click', () => this.stopGame());
+    //const stopButton = mainContainer.querySelector('.sprint__stop') as HTMLElement;
+    //stopButton.addEventListener('click', () => this.stopGame());
     const rightButton = mainContainer.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = mainContainer.querySelector('.sprint__btn-false') as HTMLElement;
     this.rightButton = rightButton;

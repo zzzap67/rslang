@@ -74,13 +74,6 @@ class Audiocall {
     }
   }
   private levelSelect(): void {
-    //put to the Start careen start
-    const gameList = document.querySelector('.header__games-ul') as HTMLElement;
-    gameList.style.opacity = '0';
-    gameList.style.top = '0';
-    gameList.style.zIndex = '-10';
-    //
-
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
     mainContainer.innerHTML = '';
 

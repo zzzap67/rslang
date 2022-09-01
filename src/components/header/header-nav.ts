@@ -31,38 +31,11 @@ class HeaderNav {
       navUl.append(li);
     });
     navUl.addEventListener('click', (e: Event) => this.handleNavUl(e));
-    navContainer.append(navUl);
-    this.navContainer = navContainer;
-  }
-
-  private showGamesMenu() {
-    const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
-    const body = document.querySelector('body') as HTMLElement;
-
-    gamesUl.style.display = 'block';
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
-      gamesUl.classList.add('visible');
     });
-    gamesUl.style.opacity = '100';
-    gamesUl.style.top = '-20px';
-    gamesUl.style.zIndex = '1000';
-    body.addEventListener('mouseover', (e: Event) => {
-      this.hideGamesUl(e);
-    });
-  }
-
-  private hideGamesUl(e: Event) {
-    const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
-    //const liSprint = document.querySelector('.header__nav-sprint') as HTMLElement;
-    //const liCall = document.querySelector('.header__nav-call') as HTMLElement;
-    const target = e.target as HTMLElement;
-    if (!target.classList.contains('header__nav-ul') && gamesUl.classList.contains('visible')) {
-      gamesUl.classList.remove('visible');
-      gamesUl.style.opacity = '0';
-      gamesUl.style.top = '-100px';
-      gamesUl.style.zIndex = '-1000';
-    }
+    navContainer.append(navUl);
+    this.navContainer = navContainer;
   }
 
   private handleGamesUl(e: Event) {
@@ -75,7 +48,7 @@ class HeaderNav {
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
-    this.gamesUl.style.display = 'none';
+    //this.gamesUl.style.display = 'none';
   }
 
   private handleNavUl(e: Event) {
@@ -87,9 +60,6 @@ class HeaderNav {
     if (target.dataset.role === 'main') {
       const mainPageContent = new MainContainer();
       mainPageContent.render();
-    }
-    if (target.dataset.role === 'games') {
-      this.showGamesMenu();
     }
   }
 }
