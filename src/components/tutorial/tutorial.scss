@@ -1,20 +1,27 @@
 @import '../../assets/scss/variables.scss';
 
 .tutorial__wrapper {
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 10px;
 }
 
 .groups-pages-container {
-  width: 100%;
+  min-width: 100%;
   margin: 0 auto;
   margin-bottom: 20px;
 }
 
 .groups-links-container {
   display: flex;
-  justify-content: space-between;
+  //justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 100px;
+  row-gap: 0;
+  flex-wrap: wrap;
+  min-width: 100%;
 }
 
 /*.pages-container {

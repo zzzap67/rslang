@@ -31,19 +31,11 @@ class HeaderNav {
       navUl.append(li);
     });
     navUl.addEventListener('click', (e: Event) => this.handleNavUl(e));
-    navContainer.append(navUl);
-    this.navContainer = navContainer;
-  }
-
-  private showGamesMenu() {
-    const gamesUl = document.querySelector('.header__games-ul') as HTMLElement;
-    gamesUl.style.display = 'block';
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
     });
-    gamesUl.style.opacity = '100';
-    gamesUl.style.top = '50px';
-    gamesUl.style.zIndex = '1000';
+    navContainer.append(navUl);
+    this.navContainer = navContainer;
   }
 
   private handleGamesUl(e: Event) {
@@ -59,7 +51,7 @@ class HeaderNav {
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
-    this.gamesUl.style.display = 'none';
+    //this.gamesUl.style.display = 'none';
   }
 
   private handleNavUl(e: Event) {
@@ -74,9 +66,6 @@ class HeaderNav {
       footer.classList.remove('footer__hidden');
       const mainPageContent = new MainContainer();
       mainPageContent.render();
-    }
-    if (target.dataset.role === 'games') {
-      this.showGamesMenu();
     }
   }
 }
