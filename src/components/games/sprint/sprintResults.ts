@@ -63,52 +63,32 @@ class SprintResults {
   }
 
   private showStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
-    const outerResultContainer = this.resultsElement.querySelector('.results__circle-outer') as HTMLElement;
-    outerResultContainer.innerHTML = '';
     const allWordsSumm = correctAnswers.length + wrongAnswers.length;
-
     const resultContainer = new BaseElement('div', ['call__result-container']).element;
-
-    const scoreContainer = new BaseElement('h2', ['call__score']).element; //'div', ['call__groups-container']
+    const scoreContainer = new BaseElement('h2', ['call__score']).element;
     const rightContainer = new BaseElement('div', ['call__right-container']).element;
-    // const buttonsContainer = new BaseElement('div', ['call__groups-container']).element;
-
     scoreContainer.textContent = `Результат: ${correctAnswers.length} / ${allWordsSumm}`;
-    const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
-    rWordTitle.textContent = `Правильные ответы`;
-    rightContainer.append(rWordTitle);
-    correctAnswers.forEach((item) => {
-      const rWord = new BaseElement('div', ['call__word']).element;
-      rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
-      // rWord.dataset.level = item.toString();
-      // rWord.addEventListener('click', this.wordSound);
-      rightContainer.append(rWord);
-    });
-
-    const rWordTitleWrong = new BaseElement('div', ['call__word', 'call__word-answers']).element;
-    rWordTitleWrong.textContent = `Неправильные ответы`;
-    rightContainer.append(rWordTitleWrong);
-    wrongAnswers.forEach((item) => {
-      const rWord = new BaseElement('div', ['call__word', 'call__word-wrong']).element;
-      rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
-      // rWord.dataset.level = index.toString();
-      // rWord.addEventListener('click', this.wordSound);
-      rightContainer.append(rWord);
-    });
-
-    // const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
-    // buttonRestart.id = 'restart-button-1';
-    // buttonRestart.addEventListener('click', this.restart);
-    // buttonsContainer.append(buttonRestart);
-
-    // const buttonReselect = new Button('Выбрать уровень', ['call__level-btn']).buttonElement;
-    // buttonReselect.id = 'restart-button-2';
-    // buttonReselect.addEventListener('click', this.restart);
-    // buttonsContainer.append(buttonReselect);
-
+    if (correctAnswers.length) {
+      const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
+      rWordTitle.textContent = `Правильные ответы`;
+      rightContainer.append(rWordTitle);
+      correctAnswers.forEach((item) => {
+        const rWord = new BaseElement('div', ['call__word', 'sprint__result-word']).element;
+        rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
+        rightContainer.append(rWord);
+      });
+    }
+    if (wrongAnswers.length) {
+      const rWordTitleWrong = new BaseElement('div', ['call__word', 'call__word-answers']).element;
+      rWordTitleWrong.textContent = `Неправильные ответы`;
+      rightContainer.append(rWordTitleWrong);
+      wrongAnswers.forEach((item) => {
+        const rWord = new BaseElement('div', ['call__word', 'sprint__result-word', 'call__word-wrong']).element;
+        rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
+        rightContainer.append(rWord);
+      });
+    }
     resultContainer.append(scoreContainer, rightContainer);
-
-    outerResultContainer.remove();
     this.resultsElement.append(resultContainer);
   }
 }

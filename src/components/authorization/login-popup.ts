@@ -6,7 +6,6 @@ import ClosePopupButton from '../buttons/close-popup-button';
 import Overlay from '../overlay/overlay';
 import { apiStrings, EMAIL_REGEXP, TOKEN_EXPIRATION_TIME } from '../store/constants';
 import { state } from '../store/state';
-//import Validation from './validation';
 import WarningPopup from './warning-popup';
 import Validation from './validation';
 
@@ -21,13 +20,13 @@ class LoginPopup {
     const loginForm = new BaseElement('form', ['login-form']).element;
     const inputEmail = new BaseElement('input', ['input-login', 'input-email']).element as HTMLInputElement;
     inputEmail.setAttribute('type', 'email');
-    inputEmail.setAttribute('placeholder', 'Your e-mail');
+    inputEmail.setAttribute('placeholder', 'Твой e-mail');
     inputEmail.setAttribute('autocomplete', 'off');
     inputEmail.setAttribute('required', 'true');
     inputEmail.setAttribute('pattern', EMAIL_REGEXP);
     const inputPassword = new BaseElement('input', ['input-login', 'input-password']).element as HTMLInputElement;
     inputPassword.setAttribute('type', 'password');
-    inputPassword.setAttribute('placeholder', 'Your password (8 chars minimum)');
+    inputPassword.setAttribute('placeholder', 'Пароль (хотя бы 8 символов)');
     inputPassword.setAttribute('autocomplete', 'off');
     inputPassword.setAttribute('required', 'true');
     inputPassword.setAttribute('minlength', '8');
@@ -37,17 +36,17 @@ class LoginPopup {
       this.loginUser(loginPopup, inputEmail, inputPassword);
     });
     const signUpP = new BaseElement('p').element;
-    const signUpSpan = new BaseElement('span', ['span__sign-up']).element;
-    signUpSpan.textContent = "Don't authorized yet?";
+    const loginTitle = new BaseElement('span', ['span__sign-up']).element;
+    loginTitle.textContent = 'Вход в аккаунт';
     const signUpButton = new BaseElement('span', ['sign-up-button']).element;
-    signUpButton.textContent = 'SIGN UP!';
-    signUpP.append(signUpSpan, signUpButton);
+    signUpButton.textContent = 'Еще нет аккаута? Зарегистрироваться!';
+    signUpP.append(loginTitle, signUpButton);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
     fragment.append(loginForm, signUpP);
 
     signUpButton.addEventListener('click', (e: Event) => {
       e.preventDefault();
-      this.handleCreateUser(loginPopup, inputEmail, inputPassword);
+      this.handleCreateUser(loginPopup, inputEmail, inputPassword, loginTitle);
     });
     document.body.append(overlay);
     loginForm.append(inputEmail, inputPassword, loginPopupButton);
@@ -94,40 +93,22 @@ class LoginPopup {
         console.log(data.userId);
         localStorage.setItem('state', JSON.stringify(state));
         this.closePopup();
+        const logInButton = document.body.querySelector('.header__login-btn') as HTMLElement;
+        logInButton.textContent = 'LOG OUT';
+        logInButton.classList.add('header__logout-btn');
       })
       .catch(() => {
         new WarningPopup('Нет такого пользователя :(');
       });
-    this.changeLoginBtn();
-  }
-
-  private logOut() {
-    state.userId = '';
-    state.userName = '';
-    state.token = '';
-    state.page = 0;
-    state.token = '';
-    state.refreshToken = '';
-    state.tokenExpireTime = 0;
-
-    // localStorage.setItem('currentToken', '');
-    // localStorage.setItem('refreshToken', '');
-    const logOutBtn = document.querySelector('.header__logout-btn') as HTMLElement;
-    const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
-    userNameField.textContent = '';
-    localStorage.setItem('state', JSON.stringify(state));
-    this.closePopup();
-    logOutBtn.style.display = 'none';
   }
 
   private handleCreateUser(
     loginPopup: HTMLElement,
     inputEmail: HTMLInputElement,
-    inputPassword: HTMLInputElement
-    //logOutButton: HTMLElement
+    inputPassword: HTMLInputElement,
+    loginTitle: HTMLElement
   ): void {
-    // logOutButton.remove();
-
+    loginTitle.textContent = 'Регистрация нового пользователя';
     const signUpLink = document.querySelector('.sign-up-button') as HTMLElement;
     const loginButton = loginPopup.querySelector('.login-btn') as HTMLElement;
     const loginForm = loginPopup.querySelector('.login-form') as HTMLElement;
@@ -135,11 +116,10 @@ class LoginPopup {
     const inputName = new BaseElement('input', ['input-login', 'input-name']).element as HTMLInputElement;
     signUpLink.style.display = 'none';
     inputName.setAttribute('type', 'text');
-    inputName.setAttribute('placeholder', 'Your name (3 chars minimum)');
+    inputName.setAttribute('placeholder', 'Имя (минимум 3 символа)');
     inputName.setAttribute('autocomplete', 'off');
     inputName.setAttribute('required', 'true');
     inputName.setAttribute('minlength', '3');
-    // inputName.addEventListener('change', () => Validation.checkName(inputName.value, inputName));
     loginButton.remove();
     loginForm.prepend(inputName);
     loginForm.append(signUpButton);
@@ -155,7 +135,7 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для подписки')) return;
+    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для регистрации')) return;
     const email = inputEmail.value;
     const password = inputPassword.value;
     const userName = inputName.value;
@@ -177,18 +157,9 @@ class LoginPopup {
     this.closePopup();
   }
 
-  private changeLoginBtn() {
-    const logOutBtn = document.querySelector('.btn.header__logout-btn') as HTMLElement;
-    logOutBtn.style.display = 'inline-block';
-    logOutBtn.addEventListener('click', () => {
-      this.logOut();
-    });
-  }
-
   private closePopup() {
     const overlay = document.body.querySelector('.overlay');
     const popup = document.body.querySelector('.popup');
-    console.log(popup);
     overlay?.remove();
     popup?.remove();
   }
