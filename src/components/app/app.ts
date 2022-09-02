@@ -13,7 +13,8 @@ class App {
   }
 
   public start(): void {
-    document.addEventListener('DOMContentLoaded', this.getState);
+    this.getState();
+    // document.addEventListener('DOMContentLoaded', this.getState);
     window.addEventListener('beforeunload', this.setState);
     //const wrapper = new BaseElement('div', ['wrapper']).element;
     //wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
@@ -31,7 +32,7 @@ class App {
       state[key] = stateFromStorage[key];
     }
     CheckJwt.checkJwt();
-    Header.printUserName();
+    // Header.printUserName();
   }
 
   private setState(): void {
