@@ -1,5 +1,7 @@
 import BaseElement from '../../base-element/base-element';
+import ClosePopupButton from '../../buttons/close-popup-button';
 import GameStartScreen from '../../games/gameStartScreen';
+import Overlay from '../../overlay/overlay';
 import { ISprintAnswer } from '../../types/interfaces';
 import Sprint from './sprint';
 
@@ -64,32 +66,46 @@ class SprintResults {
 
   private showStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
     const allWordsSumm = correctAnswers.length + wrongAnswers.length;
-    const resultContainer = new BaseElement('div', ['call__result-container']).element;
-    const scoreContainer = new BaseElement('h2', ['call__score']).element;
+    const resultContainer = new BaseElement('div', ['sprint__result-container', 'popup']).element;
+    const overlay = new Overlay().overlayElement;
+    const closePopupButton = new ClosePopupButton().closePopubButtonElement;
+    const scoreContainer = new BaseElement('h2', ['sprint__score']).element;
+    const rightWrongContainer = new BaseElement('div', ['sprint__right-wrong-container']).element;
     const rightContainer = new BaseElement('div', ['call__right-container']).element;
+    const rightWordsContainer = new BaseElement('div', ['sprint__words-container']).element;
+    const wrongWordsContainer = new BaseElement('div', ['sprint__words-container']).element;
+    const WORDS_IN_COLUMN = 20;
+    const numberOfRightColumns = Math.ceil(correctAnswers.length / WORDS_IN_COLUMN);
+    const numberOfWrongColumns = Math.ceil(wrongAnswers.length / WORDS_IN_COLUMN);
+    rightWordsContainer.style.columnCount = numberOfRightColumns.toString();
+    wrongWordsContainer.style.columnCount = numberOfWrongColumns.toString();
+    const wrongContainer = new BaseElement('div', ['call__right-container']).element;
     scoreContainer.textContent = `Результат: ${correctAnswers.length} / ${allWordsSumm}`;
     if (correctAnswers.length) {
       const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
       rWordTitle.textContent = `Правильные ответы`;
       rightContainer.append(rWordTitle);
       correctAnswers.forEach((item) => {
-        const rWord = new BaseElement('div', ['call__word', 'sprint__result-word']).element;
+        const rWord = new BaseElement('div', ['sprint__result-word']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
-        rightContainer.append(rWord);
+        rightWordsContainer.append(rWord);
       });
     }
     if (wrongAnswers.length) {
       const rWordTitleWrong = new BaseElement('div', ['call__word', 'call__word-answers']).element;
       rWordTitleWrong.textContent = `Неправильные ответы`;
-      rightContainer.append(rWordTitleWrong);
+      wrongContainer.append(rWordTitleWrong);
       wrongAnswers.forEach((item) => {
-        const rWord = new BaseElement('div', ['call__word', 'sprint__result-word', 'call__word-wrong']).element;
+        const rWord = new BaseElement('div', ['sprint__result-word', 'call__word-wrong']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
-        rightContainer.append(rWord);
+        wrongWordsContainer.append(rWord);
       });
     }
-    resultContainer.append(scoreContainer, rightContainer);
-    this.resultsElement.append(resultContainer);
+    rightContainer.append(rightWordsContainer);
+    wrongContainer.append(wrongWordsContainer);
+    rightWrongContainer.append(rightContainer, wrongContainer);
+    resultContainer.append(closePopupButton, scoreContainer, rightWrongContainer);
+    document.body.append(overlay, resultContainer);
   }
 }
 

@@ -190,6 +190,9 @@ class Sprint {
     const pagesSets: Set<number> = new Set();
     if (this.pageId !== -1) {
       pagesSets.add(this.pageId);
+      while (pagesSets.size < this.NUMBER_OF_SETS) {
+        pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));
+      }
     } else {
       while (pagesSets.size < this.NUMBER_OF_SETS) {
         pagesSets.add(Math.floor(Math.random() * this.NUMBER_OF_PAGES));

@@ -13,10 +13,10 @@ class LoginPopup {
   loginPopupElement: HTMLElement;
 
   constructor() {
-    const loginPopup = new BaseElement('div', ['popup']).element;
+    const loginPopup = new BaseElement('div', ['popup', 'login-popup']).element;
     const overlay = new Overlay().overlayElement;
-    const fragment = document.createDocumentFragment();
     const closePopupButton = new ClosePopupButton().closePopubButtonElement;
+    const fragment = document.createDocumentFragment();
     const loginForm = new BaseElement('form', ['login-form']).element;
     const inputEmail = new BaseElement('input', ['input-login', 'input-email']).element as HTMLInputElement;
     inputEmail.setAttribute('type', 'email');

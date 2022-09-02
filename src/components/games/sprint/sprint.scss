@@ -76,7 +76,6 @@
 	position: relative;
 }
 
-
 .base-timer h2 {
   display: flex;
   position: absolute;
@@ -286,4 +285,36 @@
     color: rgba($main-white, 0.3);
     box-shadow: 0px 5px 5px 2px rgba(0, 0, 0, 0.36);
   }
+}
+
+.sprint__result-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: $main-gray-blue;
+  border-radius: 20px;
+  padding: 25px;
+  z-index: 10000;
+}
+
+.sprint__right-wrong-container {
+  display: flex;
+}
+
+.sprint__result-word {
+  position: relative;
+  margin-left: 1.6rem;
+  font-weight: 400;
+  margin-bottom: 5px;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid  $main-yellow;
+}
+
+.sprint__score {
+  font-size: 1.8rem;
+  color: $main-white;
+  text-align: center;
+  margin-bottom: 10px;
 }
