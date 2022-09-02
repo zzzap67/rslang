@@ -61,7 +61,9 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для логина')) return;
+    const warningPopupText =
+      'Введи правильные данные для логина. Проверь e-mail и убедись, что в пароле не меньше восьми символов.';
+    if (!Validation.checkAllFields(loginPopup, warningPopupText)) return;
     const nameField = document.body.querySelector('.user-name-field') as HTMLElement;
     const email = inputEmail.value;
     const password = inputPassword.value;
@@ -135,7 +137,9 @@ class LoginPopup {
     inputEmail: HTMLInputElement,
     inputPassword: HTMLInputElement
   ): Promise<void> {
-    if (!Validation.checkAllFields(loginPopup, 'Введите правильные данные для регистрации')) return;
+    const warningPopupText =
+      'Введи правильные данные для логина. Проверь e-mail и убедись, что в имени не меньше трех, а в пароле не меньше восьми символов.';
+    if (!Validation.checkAllFields(loginPopup, warningPopupText)) return;
     const email = inputEmail.value;
     const password = inputPassword.value;
     const userName = inputName.value;
