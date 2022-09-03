@@ -35,21 +35,21 @@ class TutorialCard {
     const audioButton = new BaseElement('div', ['card__audio-btn']).element;
     const difficultButton = new Button('Сложное', ['difficult-btn']).buttonElement;
     const discardButton = new Button('Изученное', ['difficult-btn']).buttonElement;
+    const progress = new BaseElement('div', ['card__progress']).element;
     difficultButton.id = 'hard-btn-' + card.id;
     discardButton.id = 'studied-btn-' + card.id;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${card.image}')`;
-    let progressInfo = '';
     if (gameTotal > 0) {
-      progressInfo = ` | ${gameRight} / ${gameTotal}`;
+      progress.innerHTML = `<span>${gameRight}</span> / <span>${gameTotal}</span>`;
     }
-    wordInfo.textContent = `${card.word} - ${card.transcription} - ${card.wordTranslate}${progressInfo}`;
+    wordInfo.textContent = `${card.word} - ${card.transcription} - ${card.wordTranslate}`;
     wordMeaning.innerHTML = `${card.textMeaning} <span> &mdash; </span>`;
     wordMeaningTranslate.textContent = card.textMeaningTranslate;
     wordExample.innerHTML = `${card.textExample} <span> &mdash; </span>`;
     wordExampleTranslate.textContent = card.textExampleTranslate;
     meaningWrapper.append(wordMeaning, wordMeaningTranslate);
     exmpleWrapper.append(wordExample, wordExampleTranslate);
-    wordInfoWrapper.append(wordInfo, audioButton);
+    wordInfoWrapper.append(wordInfo, audioButton, progress);
     cardLabel.style.borderBottomColor = `${LEVEL_COLORS[state.group]}`;
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
     audioButton.addEventListener('click', () => this.handleAudio(card));
