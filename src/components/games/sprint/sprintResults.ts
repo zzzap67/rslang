@@ -3,6 +3,7 @@ import ClosePopupButton from '../../buttons/close-popup-button';
 import GameStartScreen from '../../games/gameStartScreen';
 import Overlay from '../../overlay/overlay';
 import { ISprintAnswer } from '../../types/interfaces';
+import SendStats from '../send-stats';
 import Sprint from './sprint';
 
 class SprintResults {
@@ -50,7 +51,8 @@ class SprintResults {
     const chooseLevelButton = results.querySelector('.sprint__choose-level');
     chooseLevelButton?.addEventListener('click', this.chooseLevel);
     const sprintStatsButton = results.querySelector('.sprint__stats');
-    sprintStatsButton?.addEventListener('click', () => this.showStats(correctAnswers, wrongAnswers));
+    const { overlay, container } = this.getStats(correctAnswers, wrongAnswers);
+    sprintStatsButton?.addEventListener('click', () => this.showStats(overlay, container));
   }
 
   private chooseLevel() {
@@ -60,11 +62,11 @@ class SprintResults {
   }
 
   private startNewSprint(groupId: number) {
-    console.log('wheres my sprint');
     new Sprint(groupId, -1);
   }
 
-  private showStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
+  private getStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
+    const sendResults: Array<{ wordId: string; result: number }> = [];
     const allWordsSumm = correctAnswers.length + wrongAnswers.length;
     const resultContainer = new BaseElement('div', ['sprint__result-container', 'popup']).element;
     const overlay = new Overlay().overlayElement;
@@ -89,6 +91,7 @@ class SprintResults {
         const rWord = new BaseElement('div', ['sprint__result-word']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
         rightWordsContainer.append(rWord);
+        sendResults.push({ wordId: item.wordId, result: 1 });
       });
     }
     if (wrongAnswers.length) {
@@ -99,13 +102,25 @@ class SprintResults {
         const rWord = new BaseElement('div', ['sprint__result-word', 'call__word-wrong']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
         wrongWordsContainer.append(rWord);
+        sendResults.push({ wordId: item.wordId, result: 0 });
       });
     }
+
+    SendStats.sendStats(JSON.stringify({ gameName: 'Sprint', results: sendResults }));
+
     rightContainer.append(rightWordsContainer);
     wrongContainer.append(wrongWordsContainer);
     rightWrongContainer.append(rightContainer, wrongContainer);
     resultContainer.append(closePopupButton, scoreContainer, rightWrongContainer);
-    document.body.append(overlay, resultContainer);
+
+    return {
+      overlay: overlay,
+      container: resultContainer,
+    };
+  }
+
+  private showStats(overlay: HTMLElement, container: HTMLElement) {
+    document.body.append(overlay, container);
   }
 }
 

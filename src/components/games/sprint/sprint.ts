@@ -112,6 +112,7 @@ class Sprint {
     const sprintEnWord = document.body.querySelector('.sprint_en-word') as HTMLElement;
     const sprintRuWord = document.body.querySelector('.sprint__ru-word') as HTMLElement;
     sprintEnWord.dataset.rightEnglishWord = roundRightWord.englishWord;
+    sprintEnWord.dataset.wordId = roundRightWord.wordId;
     sprintRuWord.dataset.rightRussianWord = roundRightWord.russianWord;
     sprintEnWord.textContent = roundRightWord.englishWord;
     let roundWrongWord = this.getWrongWord();
@@ -213,6 +214,7 @@ class Sprint {
         return {
           englishWord: item.word,
           russianWord: item.wordTranslate,
+          wordId: item.id,
         };
       });
       for (const word of dataWords) {
@@ -262,6 +264,7 @@ class Sprint {
     const wrongAnswer: ISprintAnswer = {
       englishWord: englishWord.dataset.rightEnglishWord as string,
       russianWord: russianWord.dataset.rightRussianWord as string,
+      wordId: englishWord.dataset.wordId as string,
     };
     this.wrongAnswersArr.push(wrongAnswer);
     this.correctAnswers = 0;
@@ -286,6 +289,7 @@ class Sprint {
     const correctAnswer: ISprintAnswer = {
       englishWord: englishWord.dataset.rightEnglishWord as string,
       russianWord: russianWord.dataset.rightRussianWord as string,
+      wordId: englishWord.dataset.wordId as string,
     };
     this.correctAnswersArr.push(correctAnswer);
     this.correctPercentage++;
