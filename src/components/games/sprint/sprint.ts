@@ -56,7 +56,6 @@ class Sprint {
   constructor(groupId: number, pageId: number) {
     this.pageId = pageId;
     this.groupId = groupId;
-    console.log(groupId);
     const mainContainer = document.querySelector('.main') as HTMLElement;
     this.mainContainer = mainContainer;
     mainContainer.innerHTML = '';
@@ -317,7 +316,6 @@ class Sprint {
   }
 
   private handleKeys(e: KeyboardEvent): void {
-    console.log(e);
     const rightButton = document.body.querySelector('.sprint__btn-true') as HTMLElement;
     const wrongButton = document.body.querySelector('.sprint__btn-false') as HTMLElement;
     const mouseEvent = new Event('click');

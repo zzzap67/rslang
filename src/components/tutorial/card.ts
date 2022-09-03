@@ -9,7 +9,14 @@ import { ICard } from '../types/interfaces';
 class TutorialCard {
   cardElement: HTMLElement;
 
-  constructor(card: ICard, hardType: number, studiedType: number, gameRight: number, gameTotal: number) {
+  constructor(
+    card: ICard,
+    hardType: number,
+    studiedType: number,
+    newType: number,
+    gameRight: number,
+    gameTotal: number
+  ) {
     const tutorialCard = new BaseElement('div', ['card']).element;
     tutorialCard.dataset.wordId = card.id;
     this.cardElement = tutorialCard;
@@ -47,6 +54,11 @@ class TutorialCard {
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
     audioButton.addEventListener('click', () => this.handleAudio(card));
     tutorialCard.style.borderColor = `${LEVEL_COLORS[state.group]}`;
+    if (newType) {
+      const newSign = new BaseElement('div', ['new-sign']).element;
+      newSign.textContent = 'NEW!';
+      cardInfo.append(newSign);
+    }
     tutorialCard.append(cardImage, cardInfo);
     if (state.userId) {
       if (hardType) {
