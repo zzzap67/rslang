@@ -34,6 +34,7 @@ export interface IAudioCallAnswers {
 export interface ISprintAnswer {
   englishWord: string;
   russianWord: string;
+  wordId: string;
 }
 
 export interface IState {

@@ -2,10 +2,11 @@ import './audiocall.scss';
 import BaseElement from '../../base-element/base-element';
 import Button from '../../buttons/button';
 import { apiStrings } from '../../store/constants';
-import { state } from '../../store/state';
+// import { state } from '../../store/state';
 import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
 // import LevelSelector from './level-selector';
-import CheckJwt from '../../authorization/chek-jwt';
+// import CheckJwt from '../../authorization/chek-jwt';
+import SendStats from '../send-stats';
 
 class Audiocall {
   groupID: number;
@@ -338,7 +339,7 @@ class Audiocall {
       }
     });
 
-    await this.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
+    await SendStats.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
 
     const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
     buttonRestart.id = 'restart-button-1';
@@ -358,36 +359,36 @@ class Audiocall {
     console.log(this.correctWords);
   }
 
-  private async sendStats(responceBody: string): Promise<void> {
-    if (state.userId != '') {
-      const userId = state.userId;
-      await CheckJwt.checkJwt();
-      // const token = localStorage.getItem('currentToken');
-      try {
-        const response = await fetch(
-          `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_GAMERESULT}`,
-          {
-            method: 'POST',
-            headers: {
-              Authorization: `Bearer ${state.token}`,
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: responceBody,
-          }
-        );
-        const status = response.status;
-        if (status === 401) {
-          console.log('Take your token');
-        }
-        const data = await response.json();
-        console.log(data);
-      } catch (e) {
-        const err = e as Error;
-        console.log(err.name);
-      }
-    }
-  }
+  // private async sendStats(responceBody: string): Promise<void> {
+  //   if (state.userId != '') {
+  //     const userId = state.userId;
+  //     await CheckJwt.checkJwt();
+  //     // const token = localStorage.getItem('currentToken');
+  //     try {
+  //       const response = await fetch(
+  //         `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_GAMERESULT}`,
+  //         {
+  //           method: 'POST',
+  //           headers: {
+  //             Authorization: `Bearer ${state.token}`,
+  //             Accept: 'application/json',
+  //             'Content-Type': 'application/json',
+  //           },
+  //           body: responceBody,
+  //         }
+  //       );
+  //       const status = response.status;
+  //       if (status === 401) {
+  //         console.log('Take your token');
+  //       }
+  //       const data = await response.json();
+  //       console.log(data);
+  //     } catch (e) {
+  //       const err = e as Error;
+  //       console.log(err.name);
+  //     }
+  //   }
+  // }
 
   private keyPress(e: KeyboardEvent) {
     if ([1, 2, 3, 4, 5].includes(Number(e.key))) {
