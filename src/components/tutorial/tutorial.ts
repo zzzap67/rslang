@@ -104,6 +104,22 @@ class Tutorial {
     return itemType;
   }
 
+  private getNewType(id: string): number {
+    let itemType = -1;
+    if (state.userId != '') {
+      if (
+        this.userWords.filter((uWItem: IUserWord) => uWItem.difficulty === 'new' && uWItem.wordId === id).length > 0
+      ) {
+        // Новое
+        itemType = 1;
+      } else {
+        itemType = 0;
+      }
+    }
+
+    return itemType;
+  }
+
   private async renderTutorial(cardsContainer: HTMLElement, groupNumber: number): Promise<void> {
     if (groupNumber < 6) {
       try {
@@ -124,7 +140,14 @@ class Tutorial {
               gameTotal += elem.totalAC + elem.totalSprint;
             });
           cardsContainer.append(
-            new TutorialCard(item, this.getHardType(item.id), studiedType, gameRight, gameTotal).cardElement
+            new TutorialCard(
+              item,
+              this.getHardType(item.id),
+              studiedType,
+              this.getNewType(item.id),
+              gameRight,
+              gameTotal
+            ).cardElement
           );
         });
 
@@ -173,8 +196,14 @@ class Tutorial {
               gameTotal += elem.totalAC + elem.totalSprint;
             });
           cardsContainer.append(
-            new TutorialCard(item, this.getHardType(item.id), this.getStudiedType(item.id), gameRight, gameTotal)
-              .cardElement
+            new TutorialCard(
+              item,
+              this.getHardType(item.id),
+              this.getStudiedType(item.id),
+              this.getNewType(item.id),
+              gameRight,
+              gameTotal
+            ).cardElement
           );
         });
         return hardWords;

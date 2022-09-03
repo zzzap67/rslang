@@ -52,9 +52,9 @@ class SendStats {
     const data = await userWords.json();
     const words = data.words;
     const results = data.gameResults;
-    console.log(statWords);
-    console.log(words);
-    console.log(results);
+    // console.log(statWords);
+    // console.log(words);
+    // console.log(results);
     for (const statWord of statWords) {
       const wordInResults = results.find((result: IUserResult) => result.wordId === statWord.wordId);
       const wordInWords = words.find((word: IUserWord) => word.wordId === statWord.wordId);
@@ -64,11 +64,13 @@ class SendStats {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'POST');
       } else if (wordInResults.currResult > 2 && wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'PUT');
+      } else if (wordInResults.currResult < 3 && !wordInWords) {
+        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'new', 'POST');
       } else if (wordInResults.currResult < 1 && wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'easy', 'PUT');
       }
 
-      console.log(wordInResults);
+      // console.log(wordInResults);
     }
   }
 
