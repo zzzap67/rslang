@@ -47,6 +47,7 @@ export interface IState {
   userName: string;
   userId: string;
   sprintAudio: boolean;
+  currentPage: string;
 }
 
 export interface IUserWord {
