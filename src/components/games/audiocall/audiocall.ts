@@ -4,9 +4,10 @@ import Button from '../../buttons/button';
 import { apiStrings } from '../../store/constants';
 // import { state } from '../../store/state';
 import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
+import SendStats from '../send-stats';
+import { state } from '../../store/state';
 // import LevelSelector from './level-selector';
 // import CheckJwt from '../../authorization/chek-jwt';
-import SendStats from '../send-stats';
 
 class Audiocall {
   groupID: number;
@@ -338,6 +339,11 @@ class Audiocall {
         sendResults.push({ wordId: this.wordsData[0][index].id, result: 0 });
       }
     });
+
+    const numberOfCorrectAnswers = this.correctWords.length;
+    const NUMBER_OF_ROUNDS = 20;
+    const percentage = (NUMBER_OF_ROUNDS / numberOfCorrectAnswers) * 100;
+    state.statsData.audioCallPercentage = (state.statsData.audioCallPercentage + percentage) / 2;
 
     await SendStats.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
 

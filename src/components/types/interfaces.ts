@@ -38,7 +38,7 @@ export interface ISprintAnswer {
 }
 
 export interface IState {
-  [key: string]: number | string | boolean;
+  [key: string]: number | string | boolean | IStatsData;
   token: string;
   refreshToken: string;
   group: number;
@@ -48,6 +48,8 @@ export interface IState {
   userId: string;
   sprintAudio: boolean;
   currentPage: string;
+  todayDate: string;
+  statsData: IStatsData;
 }
 
 export interface IUserWord {
@@ -64,4 +66,15 @@ export interface IUserResult {
   rightSprint: number;
   totalSprint: number;
   currResult: number;
+}
+
+export interface IStatsData {
+  [key: string]: number;
+  sprintNewWords: number;
+  sprintPercentage: number;
+  sprintLongestSerie: number;
+  audioCallNewWords: number;
+  audioCallPercentage: number;
+  audioCallLongestSerie: number;
+  dayStudiedWords: number;
 }

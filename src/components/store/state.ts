@@ -10,4 +10,14 @@ export const state: IState = {
   userId: '',
   sprintAudio: true,
   currentPage: 'main',
+  todayDate: '',
+  statsData: {
+    sprintNewWords: 0,
+    sprintPercentage: 0,
+    sprintLongestSerie: 0,
+    audioCallNewWords: 0,
+    audioCallPercentage: 0,
+    audioCallLongestSerie: 0,
+    dayStudiedWords: 0,
+  },
 };
