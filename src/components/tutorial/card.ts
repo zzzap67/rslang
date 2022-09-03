@@ -9,7 +9,7 @@ import { ICard } from '../types/interfaces';
 class TutorialCard {
   cardElement: HTMLElement;
 
-  constructor(card: ICard, hardType: number, studiedType: number) {
+  constructor(card: ICard, hardType: number, studiedType: number, gameRight: number, gameTotal: number) {
     const tutorialCard = new BaseElement('div', ['card']).element;
     tutorialCard.dataset.wordId = card.id;
     this.cardElement = tutorialCard;
@@ -31,7 +31,11 @@ class TutorialCard {
     difficultButton.id = 'hard-btn-' + card.id;
     discardButton.id = 'studied-btn-' + card.id;
     cardImage.style.backgroundImage = `url('${apiStrings.API_ADDRESS}/${card.image}')`;
-    wordInfo.textContent = `${card.word} - ${card.transcription} - ${card.wordTranslate}`;
+    let progressInfo = '';
+    if (gameTotal > 0) {
+      progressInfo = ` | ${gameRight} / ${gameTotal}`;
+    }
+    wordInfo.textContent = `${card.word} - ${card.transcription} - ${card.wordTranslate}${progressInfo}`;
     wordMeaning.innerHTML = `${card.textMeaning} <span> &mdash; </span>`;
     wordMeaningTranslate.textContent = card.textMeaningTranslate;
     wordExample.innerHTML = `${card.textExample} <span> &mdash; </span>`;

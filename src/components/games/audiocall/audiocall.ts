@@ -2,10 +2,10 @@ import './audiocall.scss';
 import BaseElement from '../../base-element/base-element';
 import Button from '../../buttons/button';
 import { apiStrings } from '../../store/constants';
-// import { state } from '../../store/state';
+import { state } from '../../store/state';
 import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
 // import LevelSelector from './level-selector';
-// import CheckJwt from '../../authorization/chek-jwt';
+import CheckJwt from '../../authorization/chek-jwt';
 
 class Audiocall {
   groupID: number;
@@ -300,7 +300,7 @@ class Audiocall {
     this.audio.play();
   }
 
-  private showResults() {
+  private async showResults() {
     this.mainContainer.innerHTML = '';
 
     const resultContainer = new BaseElement('div', ['call__result-container']).element;
@@ -312,6 +312,8 @@ class Audiocall {
     scoreContainer.textContent = `Результат: ${this.correctAnswers} / ${this.wordsData[0].length}`;
     const rWordTitle = new BaseElement('div', ['call__word', 'call__word-answers']).element;
     rWordTitle.textContent = `Правильные ответы`;
+    const sendResults: Array<{ wordId: string; result: number }> = [];
+
     rightContainer.append(rWordTitle);
     this.correctWords.forEach((item) => {
       const rWord = new BaseElement('div', ['call__word']).element;
@@ -319,6 +321,7 @@ class Audiocall {
       rWord.dataset.level = item.toString();
       rWord.addEventListener('click', this.wordSound);
       rightContainer.append(rWord);
+      sendResults.push({ wordId: this.wordsData[0][item].id, result: 1 });
     });
 
     const rWordTitleWrong = new BaseElement('div', ['call__word', 'call__word-answers']).element;
@@ -331,8 +334,11 @@ class Audiocall {
         rWord.dataset.level = index.toString();
         rWord.addEventListener('click', this.wordSound);
         rightContainer.append(rWord);
+        sendResults.push({ wordId: this.wordsData[0][index].id, result: 0 });
       }
     });
+
+    await this.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
 
     const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
     buttonRestart.id = 'restart-button-1';
@@ -350,6 +356,37 @@ class Audiocall {
 
     console.log(this.correctAnswers);
     console.log(this.correctWords);
+  }
+
+  private async sendStats(responceBody: string): Promise<void> {
+    if (state.userId != '') {
+      const userId = state.userId;
+      await CheckJwt.checkJwt();
+      // const token = localStorage.getItem('currentToken');
+      try {
+        const response = await fetch(
+          `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_GAMERESULT}`,
+          {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${state.token}`,
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: responceBody,
+          }
+        );
+        const status = response.status;
+        if (status === 401) {
+          console.log('Take your token');
+        }
+        const data = await response.json();
+        console.log(data);
+      } catch (e) {
+        const err = e as Error;
+        console.log(err.name);
+      }
+    }
   }
 
   private keyPress(e: KeyboardEvent) {

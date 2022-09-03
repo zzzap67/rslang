@@ -53,3 +53,13 @@ export interface IUserWord {
   difficulty: string;
   wordId: string;
 }
+
+export interface IUserResult {
+  id: string;
+  wordId: string;
+  rightAC: number;
+  totalAC: number;
+  rightSprint: number;
+  totalSprint: number;
+  currResult: number;
+}

@@ -3,7 +3,7 @@ import BaseElement from '../base-element/base-element';
 import TutorialCard from './card';
 import { apiStrings, LEVEL_COLORS } from '../store/constants';
 import { state } from '../store/state';
-import { ICard, IUserWord } from '../types/interfaces';
+import { ICard, IUserWord, IUserResult } from '../types/interfaces';
 import Groups from './groups';
 import Pages from './pages';
 import GamesLinks from './games-links';
@@ -11,6 +11,7 @@ import CheckJwt from '../authorization/chek-jwt';
 
 class Tutorial {
   userWords: Array<IUserWord>;
+  userResults: Array<IUserResult>;
 
   constructor() {
     //const body = document.body;
@@ -20,6 +21,7 @@ class Tutorial {
     const pagesContainer = new BaseElement('div', ['groups-pages-container']).element;
     const groupsContainer = new BaseElement('div', ['groups-links-container']).element;
     this.userWords = [];
+    this.userResults = [];
     mainContainer.innerHTML = '';
     console.log(state.group, state.page);
 
@@ -57,8 +59,11 @@ class Tutorial {
           console.log('Take your token');
         }
         const data = await response.json();
-        data.forEach((item: IUserWord) => {
+        data.words.forEach((item: IUserWord) => {
           this.userWords.push(item);
+        });
+        data.gameResults.forEach((item: IUserResult) => {
+          this.userResults.push(item);
         });
       } catch (e) {
         const err = e as Error;
@@ -110,7 +115,17 @@ class Tutorial {
         data.forEach((item: ICard) => {
           const studiedType = this.getStudiedType(item.id);
           studiedCount += studiedType;
-          cardsContainer.append(new TutorialCard(item, this.getHardType(item.id), studiedType).cardElement);
+          let gameTotal = 0;
+          let gameRight = 0;
+          this.userResults
+            .filter((itemResult) => itemResult.wordId === item.id)
+            .forEach((elem) => {
+              gameRight += elem.rightAC + elem.rightSprint;
+              gameTotal += elem.totalAC + elem.totalSprint;
+            });
+          cardsContainer.append(
+            new TutorialCard(item, this.getHardType(item.id), studiedType, gameRight, gameTotal).cardElement
+          );
         });
 
         if (studiedCount === 20) {
@@ -149,8 +164,17 @@ class Tutorial {
         const hardWords = data[0].paginatedResults;
         hardWords.forEach((item: ICard) => {
           item.id = String(item['_id']);
+          let gameTotal = 0;
+          let gameRight = 0;
+          this.userResults
+            .filter((itemResult) => itemResult.wordId === item.id)
+            .forEach((elem) => {
+              gameRight += elem.rightAC + elem.rightSprint;
+              gameTotal += elem.totalAC + elem.totalSprint;
+            });
           cardsContainer.append(
-            new TutorialCard(item, this.getHardType(item.id), this.getStudiedType(item.id)).cardElement
+            new TutorialCard(item, this.getHardType(item.id), this.getStudiedType(item.id), gameRight, gameTotal)
+              .cardElement
           );
         });
         return hardWords;
