@@ -62,10 +62,17 @@ class SendStats {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'hard', 'PUT');
       } else if (wordInResults.currResult > 2 && !wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'POST');
+        state.statsData.dayStudiedWords += 1;
       } else if (wordInResults.currResult > 2 && wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'PUT');
-      } else if (wordInResults.currResult < 3 && !wordInWords) {
+        state.statsData.dayStudiedWords += 1;
+      } else if (wordInResults.totalAC === 1 || wordInResults.totalSprint === 1) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'new', 'POST');
+        if (wordInResults.totalAC === 1) {
+          state.statsData.audioCallNewWords += 1;
+        } else if (wordInResults.totalSprint === 1) {
+          state.statsData.sprintNewWords += 1;
+        }
       } else if (wordInResults.currResult < 1 && wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'easy', 'PUT');
       }

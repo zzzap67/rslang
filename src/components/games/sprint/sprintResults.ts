@@ -2,6 +2,7 @@ import BaseElement from '../../base-element/base-element';
 import ClosePopupButton from '../../buttons/close-popup-button';
 import GameStartScreen from '../../games/gameStartScreen';
 import Overlay from '../../overlay/overlay';
+import { state } from '../../store/state';
 import { ISprintAnswer } from '../../types/interfaces';
 import SendStats from '../send-stats';
 import Sprint from './sprint';
@@ -62,7 +63,7 @@ class SprintResults {
   }
 
   private startNewSprint(groupId: number) {
-    new Sprint(groupId, -1);
+    new Sprint(groupId, state.page);
   }
 
   private getStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
