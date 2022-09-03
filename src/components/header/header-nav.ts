@@ -5,6 +5,7 @@ import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
 import { state } from '../store/state';
+import Statistics from '../statistics/statistics';
 
 class HeaderNav {
   public navContainer: HTMLElement;
@@ -75,6 +76,12 @@ class HeaderNav {
       footer.classList.remove('footer__hidden');
       const mainPageContent = new MainContainer();
       mainPageContent.render();
+    }
+    if (target.dataset.role === 'statistics') {
+      state.currentPage = 'statistics';
+      localStorage.setItem('state', JSON.stringify(state));
+      footer.classList.remove('footer__hidden');
+      new Statistics();
     }
   }
 }
