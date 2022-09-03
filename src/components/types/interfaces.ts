@@ -46,6 +46,7 @@ export interface IState {
   userName: string;
   userId: string;
   sprintAudio: boolean;
+  currentPage: string;
 }
 
 export interface IUserWord {
@@ -63,3 +64,4 @@ export interface IUserResult {
   totalSprint: number;
   currResult: number;
 }
+

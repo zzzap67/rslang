@@ -4,6 +4,7 @@ import BaseElement from '../base-element/base-element';
 import MainContainer from '../main-container/main-container';
 import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
+import { state } from '../store/state';
 
 class HeaderNav {
   public navContainer: HTMLElement;
@@ -43,11 +44,15 @@ class HeaderNav {
     const footer = document.body.querySelector('.footer') as HTMLElement;
     if (target.classList.contains('header__nav-call')) {
       footer.classList.add('footer__hidden');
+      state.currentPage = 'audiocall';
+      localStorage.setItem('state', JSON.stringify(state));
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
       footer.classList.add('footer__hidden');
       const mainContainer = document.body.querySelector('.main') as HTMLElement;
+      state.currentPage = 'sprint';
+      localStorage.setItem('state', JSON.stringify(state));
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
@@ -60,9 +65,13 @@ class HeaderNav {
     if (!target.classList.contains('header-nav-li')) return;
     if (target.dataset.role === 'tutorial') {
       footer.classList.remove('footer__hidden');
+      state.currentPage = 'tutorial';
+      localStorage.setItem('state', JSON.stringify(state));
       new Tutorial();
     }
     if (target.dataset.role === 'main') {
+      state.currentPage = 'main';
+      localStorage.setItem('state', JSON.stringify(state));
       footer.classList.remove('footer__hidden');
       const mainPageContent = new MainContainer();
       mainPageContent.render();
