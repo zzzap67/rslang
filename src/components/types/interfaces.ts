@@ -58,6 +58,22 @@ export interface IUserWord {
   wordId: string;
 }
 
+export interface IUserStat {
+  id: string;
+  rightAC: number;
+  totalAC: number;
+  rightSprint: number;
+  totalSprint: number;
+  newWordAC: number;
+  newWordSprint: number;
+  studiedWord: number;
+  seriesAC: number;
+  seriesSprint: number;
+  dates: string;
+  userId: string;
+}
+
+
 export interface IUserResult {
   id: string;
   wordId: string;
