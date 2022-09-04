@@ -22,6 +22,8 @@ class Audiocall {
   correctWords: number[];
   currentAnswer: number;
   audio: HTMLAudioElement;
+  answersSerie: number;
+  answersSeries: number[];
 
   constructor(groupID: number, pageID: number) {
     //const body = document.body;
@@ -36,6 +38,8 @@ class Audiocall {
     this.correctAnswers = 0;
     this.currentAnswer = -1;
     this.correctWords = [];
+    this.answersSerie = 0;
+    this.answersSeries = [];
     this.setLevel = this.setLevel.bind(this);
     this.checkAnswer = this.checkAnswer.bind(this);
     this.nextLevel = this.nextLevel.bind(this);
@@ -69,6 +73,8 @@ class Audiocall {
     this.correctAnswers = 0;
     this.currentAnswer = -1;
     this.correctWords = [];
+    this.answersSerie = 0;
+    this.answersSeries = [];
     if (groupNumber === 2) {
       this.levelSelect();
     } else {
@@ -169,6 +175,7 @@ class Audiocall {
       this.correctWords.push(this.currentLevel - 1);
       target.classList.add('answer-btn-correct');
       soundUrl = './sounds/correct.mp3';
+      this.answersSerie += 1;
       // paint buttons
     } else {
       // paint buttons
@@ -176,6 +183,8 @@ class Audiocall {
       const rightButton = this.mainContainer.querySelector('#level-button-' + this.currentAnswer) as HTMLElement;
       rightButton.classList.add('answer-btn-correct');
       soundUrl = './sounds/wrong.mp3';
+      this.answersSeries.push(this.answersSerie);
+      this.answersSerie = 0;
     }
     this.playSound(soundUrl);
 
@@ -342,8 +351,9 @@ class Audiocall {
 
     const numberOfCorrectAnswers = this.correctWords.length;
     const NUMBER_OF_ROUNDS = 20;
-    const percentage = (NUMBER_OF_ROUNDS / numberOfCorrectAnswers) * 100;
+    const percentage = (numberOfCorrectAnswers / NUMBER_OF_ROUNDS) * 100;
     state.statsData.audioCallPercentage = (state.statsData.audioCallPercentage + percentage) / 2;
+    state.statsData.audioCallLongestSerie = Math.max(...this.answersSeries);
 
     await SendStats.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
 
