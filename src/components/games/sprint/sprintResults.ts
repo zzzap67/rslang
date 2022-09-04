@@ -3,12 +3,13 @@ import ClosePopupButton from '../../buttons/close-popup-button';
 import GameStartScreen from '../../games/gameStartScreen';
 import Overlay from '../../overlay/overlay';
 import { state } from '../../store/state';
-import { ISprintAnswer } from '../../types/interfaces';
+import { ISprintAnswer, IStatsResults } from '../../types/interfaces';
 import SendStats from '../send-stats';
 import Sprint from './sprint';
 
 class SprintResults {
   public resultsElement: HTMLElement;
+  private maxSerie: number;
 
   private resultsHtml = `
     <div class="sprint__results-field">
@@ -36,6 +37,7 @@ class SprintResults {
     correctAnswers: ISprintAnswer[],
     wrongAnswers: ISprintAnswer[]
   ) {
+    this.maxSerie = maxSerie;
     const results = new BaseElement('div', ['sprint__main-wrapper']).element;
     results.innerHTML = this.resultsHtml;
     const scoreField = results.querySelector('.score-field') as HTMLElement;
@@ -67,7 +69,8 @@ class SprintResults {
   }
 
   private getStats(correctAnswers: ISprintAnswer[], wrongAnswers: ISprintAnswer[]) {
-    const sendResults: Array<{ wordId: string; result: number }> = [];
+    const dateNow = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+    const sendResults: IStatsResults[] = [];
     const allWordsSumm = correctAnswers.length + wrongAnswers.length;
     const resultContainer = new BaseElement('div', ['sprint__result-container', 'popup']).element;
     const overlay = new Overlay().overlayElement;
@@ -92,7 +95,10 @@ class SprintResults {
         const rWord = new BaseElement('div', ['sprint__result-word']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
         rightWordsContainer.append(rWord);
-        sendResults.push({ wordId: item.wordId, result: 1 });
+        sendResults.push({
+          wordId: item.wordId,
+          result: 1,
+        });
       });
     }
     if (wrongAnswers.length) {
@@ -103,11 +109,16 @@ class SprintResults {
         const rWord = new BaseElement('div', ['sprint__result-word', 'call__word-wrong']).element;
         rWord.textContent = `${item.englishWord} — ${item.russianWord}`;
         wrongWordsContainer.append(rWord);
-        sendResults.push({ wordId: item.wordId, result: 0 });
+        sendResults.push({
+          wordId: item.wordId,
+          result: 0,
+        });
       });
     }
 
-    SendStats.sendStats(JSON.stringify({ gameName: 'Sprint', results: sendResults }));
+    SendStats.sendStats(
+      JSON.stringify({ gameName: 'Sprint', results: sendResults, dates: dateNow, maxSeries: this.maxSerie })
+    );
 
     rightContainer.append(rightWordsContainer);
     wrongContainer.append(wrongWordsContainer);

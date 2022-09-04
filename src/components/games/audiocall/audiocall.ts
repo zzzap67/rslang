@@ -5,7 +5,7 @@ import { apiStrings } from '../../store/constants';
 // import { state } from '../../store/state';
 import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
 import SendStats from '../send-stats';
-import { state } from '../../store/state';
+// import { state } from '../../store/state';
 // import LevelSelector from './level-selector';
 // import CheckJwt from '../../authorization/chek-jwt';
 
@@ -353,13 +353,16 @@ class Audiocall {
       }
     });
 
-    const numberOfCorrectAnswers = this.correctWords.length;
-    const NUMBER_OF_ROUNDS = 20;
-    const percentage = (numberOfCorrectAnswers / NUMBER_OF_ROUNDS) * 100;
-    state.statsData.audioCallPercentage = (state.statsData.audioCallPercentage + percentage) / 2;
-    state.statsData.audioCallLongestSerie = Math.max(...this.answersSeries);
+    // const numberOfCorrectAnswers = this.correctWords.length;
+    // const NUMBER_OF_ROUNDS = 20;
+    // const percentage = (numberOfCorrectAnswers / NUMBER_OF_ROUNDS) * 100;
+    // state.statsData.audioCallPercentage = (state.statsData.audioCallPercentage + percentage) / 2;
+    const maxSerie = Math.max(...this.answersSeries);
+    const dateNow = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 
-    await SendStats.sendStats(JSON.stringify({ gameName: 'AC', results: sendResults }));
+    await SendStats.sendStats(
+      JSON.stringify({ gameName: 'AC', results: sendResults, dates: dateNow, maxSeries: maxSerie })
+    );
 
     const buttonRestart = new Button('Начать заново', ['call__level-btn']).buttonElement;
     buttonRestart.id = 'restart-button-1';
