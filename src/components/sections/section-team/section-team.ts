@@ -5,10 +5,10 @@ class TeamSection {
   public teamSectionElement: HTMLElement;
 
   constructor() {
-    const projectSection = new BaseElement('section', ['section']).element;
+    const projectSection = new BaseElement('section', ['section', 'section-team']).element;
     projectSection.innerHTML = `
     <div class="section__wrapper">
-            <h2 class="section__h2">Команда</h2>
+            <h2 class="section__h2 section-team__h2">Команда</h2>
             <div class="section__cards-wrapper section-team__cards-wrapper">
                 <div class="card__member">
                     <div class="card__photo photo__berillo"></div>

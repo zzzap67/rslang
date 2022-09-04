@@ -21,7 +21,7 @@ class ProjectSection {
 
     projectSection.innerHTML = `
       <div class="section__wrapper">
-        <h2 class="section__h2">
+        <h2 id="about" class="section__h2 section-project__h2">
             О приложении
         </h2>
         <div class="section__cards-wrapper">

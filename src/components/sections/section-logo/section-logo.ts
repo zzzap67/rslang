@@ -18,8 +18,9 @@ class LogoSection {
                 <h3 class="section__h3"></h3>
               </div>
           </div>
+          <a href="#about"class="btn section-logo__btn">Подробнее</a>
       </div>
-      <img src="./img/main-picture.png" alt="" class="section__logo-img">
+      <img src="./img/picture-logo-section.png" alt="" class="section__logo-img">
     </div>
     `;
     this.logoSectionElement = logoSection;

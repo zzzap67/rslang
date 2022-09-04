@@ -3,44 +3,65 @@
 
 .section-logo {
   border-top: none;
-  height: 85vh;
+  background-color: $main-deep-blue;
+  background-image: url(../../../assets/images/bg-logo-section.png);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .section-logo__wrapper {
   flex-direction: row;
-  justify-content: space-between;
   align-items: flex-start;
   height: 100%;
+
+  @media (max-width:1023px) {
+    flex-direction: column;
+    align-items: center;
+  }
 }
 
 .section__logo-wrapper {
-  //max-width: 70%;
-  //margin-left: 5vw;
-  margin-top: 40px;
-  //padding: 20px 80px;
-  //background-color: rgba($main-soft-blue, 0.3);
+  width: 100%;
+  margin-left: 2vw;
+  margin-top: 40px; 
 }
 
 .section__heading-wrapper {
+
+  @media (max-width:1023px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 60%;
+    margin: 0 auto;
+  }
+
   .section__h2 {
-    color: $main-soft-blue;
+    color: $main-white;
   }
 }
 
 .section__heading-text-wrapper {
   display: flex;
-  flex-direction: column;
   align-items: flex-start;
-  margin-left: 90px;
-  padding: 20px;
-  //border: 5px dashed $main-yellow;
-  //border-radius: 10px;
-  //background-color: $main-white;
+  padding: 10px;
+  margin-bottom: 50px;
 
     h3 {
       text-align: left;
       margin: 0;
       line-height: 2rem;
+      color: $main-white;
+    }
+
+    @media (max-width:1023px) {
+      padding: 0 50px;
+      align-items: center;
+
+      h3 {
+        text-align: center;
+      }
     }
 }
 
@@ -50,13 +71,14 @@
   margin-top: 10px;
   display: inline-block;
   margin-bottom: 30px;
+  color: $main-white;
 }
 
 .section__heading-span {
   font-size: 2rem;
   margin-left: 40px;
   margin-right: 20px;
-  //color: $main-light-blue;
+  color: $main-light-blue;
 }
 
 .section__h1 {
@@ -66,6 +88,29 @@
 }
 
 .section__logo-img {
-  margin-top: 200px;
-  //width: 50%;
+  margin-left: auto;
+  margin-top: 150px;
+  width: 50%;
+
+  @media (max-width:1023px) {
+    margin: 0;
+  }
+}
+
+.section-logo__btn {
+  display: block;
+  width: 200px;
+  //margin-top: 50px;
+  margin-left: 12vw;
+  padding: 10px 20px;
+  color: $main-white;
+  font-size: 1.5rem;
+  border: 3px solid $main-white;
+  border-radius: 25px;
+  background-color: $main-soft-blue;
+
+  @media (max-width:1023px) {
+    margin: 0 auto;
+    //text-align: center;
+  }
 }

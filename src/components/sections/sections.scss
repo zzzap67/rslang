@@ -1,8 +1,20 @@
 @import '../../assets/scss/variables.scss';
 
 .section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 40px 0;
   border-top: 3px solid $main-gray-blue;
+  width: 100%;
+}
+
+.section-team {
+  
+  //background-color: $main-deep-blue;
+  border-top: none;
+  color: $main-deep-blue;
+  border-bottom: 3px solid $main-soft-blue;
 }
 
 .section__wrapper {
@@ -15,8 +27,18 @@
 }
 
 .section__h2 {
-
+  position: relative;
 }
+
+.section-project__h2,
+.section-team__h2 {
+  width: 500px;
+  text-align: center;
+  color: $main-deep-blue;
+  border-top: 2px solid $main-deep-blue;
+  border-bottom: 2px solid $main-deep-blue;
+}
+
 
 .section__cards-wrapper {
   display: flex;
@@ -35,10 +57,12 @@
   max-width: 250px;
   padding: 15px;
   text-align: justify;
+  color: $main-white;
   //border: 1px solid $main-gray;
-  background-color: $main-light-blue;
+  background-color: $main-deep-blue;
+  border: 3px solid $main-soft-blue;
   border-radius: 15px;
-  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.36);
 }
 
 .section__h3 {
@@ -69,7 +93,7 @@
   height: 200px;
   border: 1px solid $main-white;
   border-radius: 100px;
-  box-shadow: 0px 2px 10px 2px rgba(0, 0, 0, 0.36);
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.26);
   background-color: $main-white;
   background-position: center;
   background-size: contain;
