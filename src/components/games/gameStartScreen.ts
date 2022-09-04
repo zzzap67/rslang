@@ -50,7 +50,9 @@ class GameStartScreen {
       const level = Number(button.dataset.level);
       button.addEventListener('click', () => this.handleButtons(level));
     });
-
+    const main = document.querySelector('main') as HTMLElement;
+    main.style.minHeight = '100%';
+    main.style.paddingBottom = '0';
     this.startScrElement = startrScreen;
   }
 

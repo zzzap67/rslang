@@ -270,6 +270,10 @@ class Audiocall {
     } else {
       this.showResults();
     }
+
+    const main = document.querySelector('main') as HTMLElement;
+    main.style.minHeight = '100%';
+    main.style.paddingBottom = '0';
   }
 
   private nextLevel() {
