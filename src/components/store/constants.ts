@@ -4,6 +4,7 @@ export const apiStrings = {
   API_SIGN_IN: '/signin',
   API_WORDS: '/words',
   API_GAMERESULT: '/gameResult',
+  API_GAMESTATS: '/gameStats',
   API_AGGREGATED_WORDS: '/aggregatedWords',
   API_TOKENS: '/tokens',
 };

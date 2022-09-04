@@ -4,7 +4,6 @@ import Footer from '../footer/footer';
 import GameStartScreen from '../games/gameStartScreen';
 import Header from '../header/header';
 import MainContainer from '../main-container/main-container';
-import CheckDate from '../statistics/check-date';
 import Statistics from '../statistics/statistics';
 import { state } from '../store/state';
 import Tutorial from '../tutorial/tutorial';
@@ -19,7 +18,6 @@ class App {
   public async start(): Promise<void> {
     this.getState();
     await CheckJwt.checkJwt();
-    CheckDate.checkDate();
     window.addEventListener('beforeunload', this.setState);
 
     const mainContainer = new BaseElement('main', ['main']).element;
