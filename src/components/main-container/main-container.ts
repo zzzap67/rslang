@@ -14,7 +14,7 @@ class MainContainer {
     <span>with </span>
     <h1 class="main_h1">RS Lang</h1>
     <div class="intro-container">
-      <h3 style="font-size: 2rem; font-weight: 500">Приложение для изучения английских слов<br><br><br><br><br><br></h3>
+      <h3 style="font-size: 2rem; font-weight: 500">Эффективное приложение для нескучного изучения английского языка<br><br><br><br><br><br></h3>
     <div>
 `;
 
@@ -22,8 +22,8 @@ class MainContainer {
     const mainWrapper = new BaseElement('div', ['main__wrapper']).element;
     this.mainHeading.innerHTML = this.html;
     mainWrapper.append(
-      this.mainHeading,
-      this.mainImg,
+      //this.mainHeading,
+      //this.mainImg,
       new LogoSection().logoSectionElement,
       new ProjectSection().projectSectionElement,
       new TeamSection().teamSectionElement
@@ -41,8 +41,8 @@ class MainContainer {
     this.mainHeading.innerHTML = this.html;
     const mainWrapper = new BaseElement('div', ['main__wrapper']).element;
     mainWrapper.append(
-      this.mainHeading,
-      this.mainImg,
+      //this.mainHeading,
+      //this.mainImg,
       new LogoSection().logoSectionElement,
       new ProjectSection().projectSectionElement,
       new TeamSection().teamSectionElement

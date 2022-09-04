@@ -11,19 +11,19 @@ class TeamSection {
             <h2 class="section__h2">Команда</h2>
             <div class="section__cards-wrapper section-team__cards-wrapper">
                 <div class="card__member">
-                    <div class="card__photo"></div>
-                    <h4 class="card__member-name">Zzzap67</h4>
-                    <h4 class="card__member-role">Team-lead</h4>
+                    <div class="card__photo photo__berillo"></div>
+                    <h4 class="section__h4 card__member-name">Алексей Берилло</h4>
+                    <h4 class="section__h4 card__member-role">Team-lead</h4>
                 </div>
                 <div class="card__member">
-                    <div class="card__photo"></div>
-                    <h4 class="card__member-name">Gar7777</h4>
-                    <h4 class="card__member-role">Developer</h4>
+                    <div class="card__photo photo__blinou"></div>
+                    <h4 class="section__h4 card__member-name">Гавриил Блинов</h4>
+                    <h4 class="section__h4 card__member-role">Developer</h4>
                 </div>
                 <div class="card__member">
-                    <div class="card__photo"></div>
-                    <h4 class="card__member-name">Redwood</h4>
-                    <h4 class="card__member-role">Designer</h4>
+                    <div class="card__photo photo__korolchuk"></div>
+                    <h4 class="section__h4 card__member-name">Ксения Корольчук</h4>
+                    <h4 class="section__h4 card__member-role">Designer</h4>
                 </div>
             </div>
         </div>
