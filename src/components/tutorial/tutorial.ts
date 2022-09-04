@@ -39,7 +39,6 @@ class Tutorial {
     if (state.userId != '') {
       const userId = state.userId;
       await CheckJwt.checkJwt();
-      // const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}`,
@@ -52,10 +51,6 @@ class Tutorial {
             },
           }
         );
-        const status = response.status;
-        if (status === 401) {
-          console.log('Take your token');
-        }
         const data = await response.json();
         data.words.forEach((item: IUserWord) => {
           this.userWords.push(item);
