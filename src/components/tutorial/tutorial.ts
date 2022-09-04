@@ -24,8 +24,6 @@ class Tutorial {
     this.userResults = [];
     mainContainer.style.minHeight = '100vh';
     mainContainer.innerHTML = '';
-    console.log(state.group, state.page);
-
     groupsContainer.append(new Groups().groupsContainerElement, new GamesLinks().linksElement);
     pagesContainer.append(groupsContainer, new Pages().pagesButtonsElement);
     tutorialWrapper.append(pagesContainer, cardsContainer);
@@ -107,7 +105,7 @@ class Tutorial {
 
   private getNewType(id: string): number {
     let itemType = -1;
-    if (state.userId != '') {
+    if (state.userId) {
       if (
         this.userWords.filter((uWItem: IUserWord) => uWItem.difficulty === 'new' && uWItem.wordId === id).length > 0
       ) {

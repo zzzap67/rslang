@@ -52,32 +52,27 @@ class SendStats {
     const data = await userWords.json();
     const words = data.words;
     const results = data.gameResults;
-    // console.log(statWords);
-    // console.log(words);
-    // console.log(results);
     for (const statWord of statWords) {
       const wordInResults = results.find((result: IUserResult) => result.wordId === statWord.wordId);
       const wordInWords = words.find((word: IUserWord) => word.wordId === statWord.wordId);
       if (wordInWords && wordInWords.difficulty === 'hard' && wordInResults.currResult > 4) {
-        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'hard', 'PUT');
+        await SendStats.updateDifficulty(statWord.wordId, wordInResults, 'hard', 'PUT');
       } else if (wordInResults.currResult > 2 && !wordInWords) {
-        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'POST');
+        await SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'POST');
         state.statsData.dayStudiedWords += 1;
       } else if (wordInResults.currResult > 2 && wordInWords) {
-        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'PUT');
+        await SendStats.updateDifficulty(statWord.wordId, wordInResults, 'studied', 'PUT');
         state.statsData.dayStudiedWords += 1;
       } else if (wordInResults.totalAC === 1 || wordInResults.totalSprint === 1) {
-        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'new', 'POST');
+        await SendStats.updateDifficulty(statWord.wordId, wordInResults, 'new', 'POST');
         if (wordInResults.totalAC === 1) {
           state.statsData.audioCallNewWords += 1;
         } else if (wordInResults.totalSprint === 1) {
           state.statsData.sprintNewWords += 1;
         }
       } else if (wordInResults.currResult < 1 && wordInWords) {
-        SendStats.updateDifficulty(statWord.wordId, wordInResults, 'easy', 'PUT');
+        await SendStats.updateDifficulty(statWord.wordId, wordInResults, 'easy', 'PUT');
       }
-
-      // console.log(wordInResults);
     }
   }
 
