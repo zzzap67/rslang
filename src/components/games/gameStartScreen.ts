@@ -5,7 +5,7 @@ import './gameStartScreen.scss';
 import Sprint from './sprint/sprint';
 
 class GameStartScreen {
-  private sprintInfo = `Спринт - это тренировка на скорость.
+  private sprintInfo = `Спринт — это тренировка на скорость.
                       Попробуй угадать как можно больше слов за 60 секунд.`;
   private audioCallInfo = `Тренировка Аудиовызов улучшает твое восприятие речи на слух`;
   public startScrElement: HTMLElement;
