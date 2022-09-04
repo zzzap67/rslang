@@ -83,7 +83,11 @@ class Sprint {
     }, 25800);
     const sprintWrapper = mainContainer.querySelector('.sprint__main-wrapper') as HTMLElement;
     sprintWrapper?.addEventListener('mouseleave', () => this.interruptGame());
-    this.getAnswers(this.createPagesSet(), groupId).then(() => this.startGame());
+    this.gamePrepare(this.createPagesSet(), groupId);
+  }
+
+  private async gamePrepare(pagesSet: number[], groupId: number) {
+    await this.getAnswers(pagesSet, groupId).then(() => this.startGame());
   }
 
   private startGame(): void {
