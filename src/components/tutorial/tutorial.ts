@@ -22,6 +22,7 @@ class Tutorial {
     const groupsContainer = new BaseElement('div', ['groups-links-container']).element;
     this.userWords = [];
     this.userResults = [];
+    mainContainer.style.minHeight = '100vh';
     mainContainer.innerHTML = '';
     groupsContainer.append(new Groups().groupsContainerElement, new GamesLinks().linksElement);
     pagesContainer.append(groupsContainer, new Pages().pagesButtonsElement);

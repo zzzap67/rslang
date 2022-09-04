@@ -7,6 +7,7 @@ import WordStats from './word-stats';
 class Statistics {
   constructor() {
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    mainContainer.style.minHeight = '100vh';
     const statsWrapper = new BaseElement('div', ['stats__wrapper']).element;
     const statsButtonsWrapper = new BaseElement('div', ['stats__buttons-wrapper']).element;
     const statsContainer = new BaseElement('div', ['stats__container']).element;

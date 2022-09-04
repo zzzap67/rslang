@@ -1,0 +1,130 @@
+@import '../../assets/scss/variables.scss';
+
+.section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  border-top: 3px solid $main-gray-blue;
+  width: 100%;
+}
+
+.section-team {
+  
+  //background-color: $main-deep-blue;
+  border-top: none;
+  color: $main-deep-blue;
+  border-bottom: 3px solid $main-soft-blue;
+}
+
+.section__wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 30px;
+  width: 100%;
+  max-width: 1280px;
+}
+
+.section__h2 {
+  position: relative;
+}
+
+.section-project__h2,
+.section-team__h2 {
+  width: 500px;
+  text-align: center;
+  color: $main-deep-blue;
+  border-top: 2px solid $main-deep-blue;
+  border-bottom: 2px solid $main-deep-blue;
+}
+
+
+.section__cards-wrapper {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 100%;
+  gap: 20px;
+  padding: 20px;
+}
+
+.section__card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 250px;
+  max-width: 250px;
+  padding: 15px;
+  text-align: justify;
+  color: $main-white;
+  //border: 1px solid $main-gray;
+  background-color: $main-deep-blue;
+  border: 3px solid $main-soft-blue;
+  border-radius: 15px;
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.36);
+}
+
+.section__h3 {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.section__card-text {
+
+}
+
+
+.section-team__cards-wrapper {
+  gap: 100px;
+}
+
+.card__member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+.card__photo {
+  width: 200px;
+  height: 200px;
+  border: 1px solid $main-white;
+  border-radius: 100px;
+  box-shadow: 0px 2px 3px 2px rgba(0, 0, 0, 0.26);
+  background-color: $main-white;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  margin-bottom: 20px;
+}
+
+.photo__berillo {
+ background-image: url(../../assets/images/Berillo_main_photo.jpg);
+ background-size: 100%;
+}
+
+.photo__blinou {
+  background-image: url(../../assets/images/Blinou_main_photo.jpg);
+ }
+
+ .photo__korolchuk {
+  background-image: url(../../assets/images/Korolchuk_main_photo.jpg);
+ }
+
+.section__h4.card__member-name {
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.card__member-role {
+
+}
+
+.section__h4 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 400;
+}

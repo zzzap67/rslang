@@ -23,8 +23,14 @@ class App {
     window.addEventListener('beforeunload', this.setState);
 
     const mainContainer = new BaseElement('main', ['main']).element;
+    //const body = document.querySelector('body') as HTMLElement;
 
-    this.container.append(new Header().headerElement, mainContainer, new Footer().footerElement);
+    this.container.append(
+      new Header().headerElement,
+      new MainContainer().mainContainerElement,
+      new Footer().footerElement
+    );
+
     switch (state.currentPage) {
       case 'main':
         mainContainer.innerHTML = '';
