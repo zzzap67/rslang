@@ -3,14 +3,18 @@
 .header {
   display: flex;
   justify-content: center;
+  height: 60px;
   min-height: 60px;
   background-color: $main-yellow;
 }
 
 .header__wrapper {
+  position: relative;
   display: flex;
   justify-content: space-between;
   margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
   max-width: 1280px;
   height: 100%;
   align-items: center;
@@ -23,6 +27,35 @@
   height: 100%;
 }
 
+@media (max-width: 768px) {
+
+  .nav {
+    position: absolute;
+    top: 60px;
+    left: -200px;
+    width: 200px;
+    height: 260px;
+    background-color: $main-yellow;
+    z-index: 10;
+    transition: 0.5s;
+
+    .header-nav-ul {
+      flex-direction: column;
+      justify-content: start;
+      row-gap: 0;
+      margin: 0 auto;
+      padding: 20px;
+
+      
+        li {
+          text-align: center;
+          width: 100%;
+        }
+    }
+  }
+  
+}
+
 .header-nav-ul {
   position: relative;
   display: flex;
@@ -33,10 +66,19 @@
   margin-right: 7vw;
 }
 
+.nav-active {
+  left: 0;
+}
+
 .header-nav-li {
   height: 100%;
   padding-top: 20px;
   padding-bottom: 19px;
+
+  @media (max-width: 768px) {
+    padding-bottom: 0;
+    height: 50px;
+  }
 }
 
 .header__nav-li_games {
@@ -63,12 +105,22 @@
       border-radius: 5px;
       padding: 5px;
     }
+
+    @media (max-width: 768px) {
+      top: 0;
+      left: 135%;
+      transform: scaleX(0);
+    }
 }
 
 .header__games-ul  li:last-child,
 .header-nav-ul > li:hover .header__games-ul {
   opacity: 1;
   transform: scaleY(1);
+
+  @media (max-width: 768px) {
+    transform: scaleX(1);
+  }
 }
 
 .header__nav-sprint,
@@ -207,24 +259,48 @@
   }*/
 }
 
-
-
-
-/*.user-name-field {
-  position: relative;
+.burger-menu {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 2rem;
-  height: 2rem;
-  border-radius: 1rem;
-  border: 3px solid $main-light-blue;
-  background-color: $main-green;
+  width: 40px;
+  min-width: 40px;
+  height: 40px;
+  margin-right: 2vh;
+  transition: 0.5s;
+  display: none;
 
     span {
-      color: $main-light-blue;
-      font-size: 1.7rem;
-      font-weight: 700;
-      line-height: 2rem;
+      display: block;
+      background-color: $main-white;
+      width: 100%;
+      height: 3px;
     }
-}*/
+
+    span::before,
+    span::after {
+      display: block;
+      position: relative;
+      content: "";
+      width: 100%;
+      height: 3px;
+      background-color: $main-white;
+    }
+
+    span::before {
+      top: -12px;
+      left: 0;
+    }
+
+    span::after {
+      top: 9px;
+      left: 0;
+    }
+
+    @media (max-width: 768px) {
+      display: flex;
+    }
+}
+
+.burger-active {
+  transform: rotate(90deg);
+}
