@@ -31,6 +31,7 @@ class LoginPopup {
     inputPassword.setAttribute('required', 'true');
     inputPassword.setAttribute('minlength', '8');
     const loginPopupButton = new Button('Log In', ['login-btn']).buttonElement;
+    document.addEventListener('keypress', (e: KeyboardEvent) => this.handleEnter(e, loginPopupButton));
     loginPopupButton.addEventListener('click', (e: Event) => {
       e.preventDefault();
       this.loginUser(loginPopup, inputEmail, inputPassword);
@@ -96,6 +97,8 @@ class LoginPopup {
         localStorage.setItem('state', JSON.stringify(state));
         this.closePopup();
         const logInButton = document.body.querySelector('.header__login-btn') as HTMLElement;
+        const statButton = document.body.querySelector('[data-role="statistics"]') as HTMLElement;
+        statButton.style.display = 'inline-block';
         logInButton.textContent = 'LOG OUT';
         logInButton.classList.add('header__logout-btn');
       })
@@ -166,6 +169,13 @@ class LoginPopup {
     const popup = document.body.querySelector('.popup');
     overlay?.remove();
     popup?.remove();
+  }
+
+  handleEnter(e: KeyboardEvent, loginPopupButton: HTMLElement) {
+    const mouseEvent = new Event('click');
+    if (e.key === 'Enter') {
+      loginPopupButton.dispatchEvent(mouseEvent);
+    }
   }
 }
 export default LoginPopup;

@@ -48,12 +48,18 @@ class App {
       case 'statistics':
         new Statistics();
         break;
+
+      default:
+        mainContainer.innerHTML = '';
+        mainContainer.append(new MainContainer().mainContainerElement);
     }
   }
 
   public getState(): void {
     const stringStateFromStorage = localStorage.getItem('state') as string;
+    if (!stringStateFromStorage) return;
     const stateFromStorage = JSON.parse(stringStateFromStorage);
+    if (!stateFromStorage.statsData) return;
     for (const key in state) {
       state[key] = stateFromStorage[key];
     }

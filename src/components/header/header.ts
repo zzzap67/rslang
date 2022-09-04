@@ -8,6 +8,8 @@ import WarningPopup from '../authorization/warning-popup';
 
 class Header {
   public headerElement: HTMLElement;
+  private statButton: HTMLElement;
+
   constructor() {
     const header = new BaseElement('header', ['header']).element;
     const headerWrapper = new BaseElement('header', ['header__wrapper']).element;
@@ -17,6 +19,7 @@ class Header {
     const loginBtnsContainer = new BaseElement('div', ['login__btns-container']).element;
     const logInButton = new Button('LOG IN', ['header__login-btn']).buttonElement;
     const userNameField = new BaseElement('div', ['user-name-field']).element;
+    const statButton = navContainer.querySelector('[data-role="statistics"]') as HTMLElement;
     if (state.userName) {
       userNameField.textContent = `${state.userName}`;
     }
@@ -24,14 +27,17 @@ class Header {
     if (!state.userName) {
       logInButton.textContent = 'LOG IN';
       logInButton.classList.remove('header__logout-btn');
+      statButton.style.display = 'none';
     } else {
       logInButton.textContent = 'LOG OUT';
       logInButton.classList.add('header__logout-btn');
+      statButton.style.display = 'inline-block';
     }
     loginBtnsContainer.append(logInButton);
     loginContainer.append(loginBtnsContainer, userNameField);
     headerWrapper.append(logoContainer, navContainer, loginContainer);
     header.append(headerWrapper);
+    this.statButton = statButton;
     this.headerElement = header;
   }
 
@@ -63,13 +69,12 @@ class Header {
     state.refreshToken = '';
     state.tokenExpireTime = 0;
 
-    // localStorage.setItem('currentToken', '');
-    // localStorage.setItem('refreshToken', '');
     const userNameField = document.body.querySelector('.user-name-field') as HTMLElement;
     userNameField.textContent = '';
     localStorage.setItem('state', JSON.stringify(state));
     logInButton.textContent = 'LOG IN';
     logInButton.classList.remove('header__logout-btn');
+    this.statButton.style.display = 'none';
   }
 }
 
