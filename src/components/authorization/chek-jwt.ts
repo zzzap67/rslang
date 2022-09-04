@@ -3,6 +3,7 @@ import { state } from '../store/state';
 
 class CheckJwt {
   static async checkJwt(): Promise<void> {
+    if (!state.userId) return;
     const tokenExpireTime = Number(state.tokenExpireTime);
     const userId = state.userId;
     const refreshToken = state.refreshToken;
@@ -20,7 +21,7 @@ class CheckJwt {
           }
         );
         const data = await response.json();
-
+        console.log('jwt data ' + data.refreshToken);
         state.refreshToken = data.refreshToken;
         state.token = data.token;
         //localStorage.setItem('currentToken', data.token);

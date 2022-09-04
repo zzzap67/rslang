@@ -8,7 +8,7 @@ export const apiStrings = {
   API_TOKENS: '/tokens',
 };
 
-export const TOKEN_EXPIRATION_TIME = 4.5 * 60 * 60 * 1000;
+export const TOKEN_EXPIRATION_TIME = 4 * 60 * 60 * 1000; // 4 hours
 
 export const HEADER_NAV_ITEMS = [
   {
