@@ -202,7 +202,6 @@ class Audiocall {
 
   private startLevel(): void {
     document.body.style.backgroundImage = 'url(' + require('../../../assets/images/5910390.jpg') + ')';
-    document.body.style.backgroundPosition = 'center';
 
     this.mainContainer.innerHTML = '';
     console.log('level start', this.currentLevel, this.wordsData[0].length);
@@ -308,6 +307,7 @@ class Audiocall {
 
   private async showResults() {
     this.mainContainer.innerHTML = '';
+    this.mainContainer.style.height = '100vh';
 
     const resultContainer = new BaseElement('div', ['call__result-container']).element;
 

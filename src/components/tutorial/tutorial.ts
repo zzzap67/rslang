@@ -22,6 +22,7 @@ class Tutorial {
     const groupsContainer = new BaseElement('div', ['groups-links-container']).element;
     this.userWords = [];
     this.userResults = [];
+    mainContainer.style.minHeight = '100vh';
     mainContainer.innerHTML = '';
     console.log(state.group, state.page);
 

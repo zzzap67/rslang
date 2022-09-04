@@ -52,7 +52,7 @@ class GameStartScreen {
     });
     const main = document.querySelector('main') as HTMLElement;
     main.style.minHeight = '100%';
-    main.style.paddingBottom = '0';
+    //main.style.paddingBottom = '0';
     this.startScrElement = startrScreen;
   }
 
