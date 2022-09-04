@@ -8,6 +8,7 @@ import { apiStrings, EMAIL_REGEXP, TOKEN_EXPIRATION_TIME } from '../store/consta
 import { state } from '../store/state';
 import WarningPopup from './warning-popup';
 import Validation from './validation';
+import Tutorial from '../tutorial/tutorial';
 
 class LoginPopup {
   loginPopupElement: HTMLElement;
@@ -31,7 +32,7 @@ class LoginPopup {
     inputPassword.setAttribute('required', 'true');
     inputPassword.setAttribute('minlength', '8');
     const loginPopupButton = new Button('Log In', ['login-btn']).buttonElement;
-    document.addEventListener('keypress', (e: KeyboardEvent) => this.handleEnter(e, loginPopupButton));
+    document.addEventListener('keypress', (e: KeyboardEvent) => this.handleEnter(e, loginPopupButton), { once: true });
     loginPopupButton.addEventListener('click', (e: Event) => {
       e.preventDefault();
       this.loginUser(loginPopup, inputEmail, inputPassword);
@@ -105,6 +106,9 @@ class LoginPopup {
       .catch(() => {
         new WarningPopup('Нет такого пользователя :(');
       });
+    if (state.currentPage === 'tutorial') {
+      new Tutorial();
+    }
   }
 
   private handleCreateUser(
