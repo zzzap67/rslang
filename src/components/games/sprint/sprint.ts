@@ -148,10 +148,6 @@ class Sprint {
     const allAnswers = this.correctPercentage + this.wrongPersentage;
     const PERCENTS = 100;
     const percentage = (PERCENTS / allAnswers) * this.correctPercentage || 0;
-    // console.log(state.statsData);
-    // state.statsData.sprintPercentage = (state.statsData.sprintPercentage + percentage) / 2;
-    // state.statsData.sprintLongestSerie =
-    //   maxSerie > state.statsData.sprintLongestSerie ? maxSerie : state.statsData.sprintLongestSerie;
     this.mainContainer.innerHTML = '';
     this.mainContainer.append(
       new SprintResults(this.score, maxSerie, percentage, this.groupId, this.correctAnswersArr, this.wrongAnswersArr)
