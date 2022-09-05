@@ -77,6 +77,8 @@ class Statistics {
   private setStats(statType: number) {
     const statsContainer = document.body.querySelector('.stats__container') as HTMLElement;
     statsContainer.innerHTML = '';
+    document.body.style.backgroundImage = 'url("./img/bg-game-vertical.jpg")';
+    document.body.style.backgroundSize = 'cover';
 
     const statsInfoWrapper = new BaseElement('div', ['stats__info-wrapper']).element;
     const statsDate = new BaseElement('h3', ['stats__h3']).element;

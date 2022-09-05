@@ -10,6 +10,7 @@ class Groups {
 
   constructor() {
     const groupsContainer = new BaseElement('div', ['groups-container']).element;
+    const groupBtnsContainer = new BaseElement('div', ['group__btns-container']).element;
     const groupLabel = new BaseElement('h3', ['group__p-level']).element;
     groupLabel.textContent = 'Выбери уровень: ';
     const NUMBER_OF_GROUPS = 6;
@@ -25,9 +26,9 @@ class Groups {
       groupButton.id = 'group-button-' + i;
       groupButton.style.borderColor = `${LEVEL_COLORS[i - 1]}`;
       groupButton.addEventListener('click', this.handleGroupButtons);
-      groupsContainer.append(groupButton);
+      groupBtnsContainer.append(groupButton);
     }
-    groupsContainer.prepend(groupLabel);
+    groupsContainer.append(groupLabel, groupBtnsContainer);
     if (state.userName) {
       let cssArray = [];
       if (state.group === 6) {
@@ -38,7 +39,7 @@ class Groups {
       const difficultWordsGroup = new Button('Сложные слова', cssArray).buttonElement;
       difficultWordsGroup.id = 'group-button-7';
       difficultWordsGroup.addEventListener('click', this.handleGroupButtons);
-      groupsContainer.append(difficultWordsGroup);
+      groupBtnsContainer.append(difficultWordsGroup);
     }
 
     this.groupsContainerElement = groupsContainer;

@@ -42,12 +42,13 @@
 
 .footer__team {
   display: flex;
-  width: 30vw;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
 
     @media (max-width: 768px) {
       flex-direction: column;
       align-items: center;
+      row-gap: 0;
     }
 }
 
@@ -56,11 +57,17 @@
   font-family: 'Poppins';
   color: $main-white;
   font-weight: 500;
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+    line-height: 1.2rem;
+  }
 }
 
 .footer__year {
   position: relative;
   color: $main-white;
+  font-family: 'Poppins';
   font-weight: 500;
 }
 
@@ -81,4 +88,5 @@
 .footer__year > a:hover:after,
 .footer__year > a:focus:after {
   width: 100%;
+  height: 2px;
 }
