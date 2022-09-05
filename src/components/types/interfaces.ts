@@ -94,3 +94,9 @@ export interface IStatsData {
   audioCallLongestSerie: number;
   dayStudiedWords: number;
 }
+
+export interface IStatsResults {
+  [key: string]: number | string;
+  wordId: string;
+  result: number;
+}
