@@ -97,7 +97,7 @@ class Statistics {
             item.totalAC > 0 ? (percent = ((item.rightAC / item.totalAC) * 100).toFixed(2)) : (percent = '0.00');
             statsDate.innerHTML = `Сегодня, <span>${sDate}</span>`;
             statsHeader1.innerHTML = `Количество новых слов: <span>${item.newWordAC}</span>`;
-            statsHeader2.innerHTML = `Процент правильных ответов: <span>${percent}</span>%`;
+            statsHeader2.innerHTML = `Процент правильных ответов: <span>${percent.replace('.', ',')}</span>%`;
             statsHeader3.innerHTML = `Самая длинная серия правильных ответов: <span>${item.seriesAC}`;
             break;
           case 2:
@@ -128,15 +128,12 @@ class Statistics {
   private handleStatsButtons(e: Event) {
     const target = e.target as HTMLElement;
     if (target.textContent === 'Аудиовызов') {
-      // new AudioCallStats(statsContainer);
       this.setStats(1);
     }
     if (target.textContent === 'Спринт') {
-      // new SprintStats(statsContainer);
       this.setStats(2);
     }
     if (target.textContent === 'Слова') {
-      // new WordStats(statsContainer);
       this.setStats(3);
     }
   }
