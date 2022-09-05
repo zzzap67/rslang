@@ -82,30 +82,32 @@ class Statistics {
     }
 
     this.userStats.map((item) => {
-      const statsWrapper = new BaseElement('div', ['stats__bydate']).element;
-      let percent = '';
-      const sDate = item.dates.slice(8, 10) + '.' + item.dates.slice(5, 7) + '.' + item.dates.slice(0, 4);
-      switch (statType) {
-        case 1:
-          item.totalAC > 0 ? (percent = ((item.rightAC / item.totalAC) * 100).toFixed(2)) : (percent = '0.00');
-          statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC} | Процент: ${percent}% | Самая длинная серия: ${item.seriesAC}`;
-          break;
-        case 2:
-          item.totalSprint > 0
-            ? (percent = ((item.rightSprint / item.totalSprint) * 100).toFixed(2))
-            : (percent = '0.00');
-          statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordSprint} | Процент: ${percent}% | Самая длинная серия: ${item.seriesSprint}`;
-          break;
-        case 3:
-          item.totalAC + item.totalSprint > 0
-            ? (percent = (((item.rightAC + item.rightSprint) / (item.totalAC + item.totalSprint)) * 100).toFixed(2))
-            : (percent = '0.00');
-          statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC + item.newWordSprint} | Изученных: ${
-            item.studiedWord
-          } | Процент: ${percent}%`;
-          break;
+      if (item.dates) {
+        const statsWrapper = new BaseElement('div', ['stats__bydate']).element;
+        let percent = '';
+        const sDate = item.dates.slice(8, 10) + '.' + item.dates.slice(5, 7) + '.' + item.dates.slice(0, 4);
+        switch (statType) {
+          case 1:
+            item.totalAC > 0 ? (percent = ((item.rightAC / item.totalAC) * 100).toFixed(2)) : (percent = '0.00');
+            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC} | Процент: ${percent}% | Самая длинная серия: ${item.seriesAC}`;
+            break;
+          case 2:
+            item.totalSprint > 0
+              ? (percent = ((item.rightSprint / item.totalSprint) * 100).toFixed(2))
+              : (percent = '0.00');
+            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordSprint} | Процент: ${percent}% | Самая длинная серия: ${item.seriesSprint}`;
+            break;
+          case 3:
+            item.totalAC + item.totalSprint > 0
+              ? (percent = (((item.rightAC + item.rightSprint) / (item.totalAC + item.totalSprint)) * 100).toFixed(2))
+              : (percent = '0.00');
+            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC + item.newWordSprint} | Изученных: ${
+              item.studiedWord
+            } | Процент: ${percent}%`;
+            break;
+        }
+        statsContainer.append(statsWrapper);
       }
-      statsContainer.append(statsWrapper);
     });
 
     //statsContainer.innerHTML = 'aaaa ' + statType;
