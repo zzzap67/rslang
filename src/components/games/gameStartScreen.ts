@@ -6,7 +6,7 @@ import Sprint from './sprint/sprint';
 
 class GameStartScreen {
   private sprintInfo = `Спринт — это тренировка на скорость.
-                      Попробуй угадать как можно больше слов за 60 секунд.`;
+                      Попробуй угадать как можно больше слов за 30 секунд.`;
   private audioCallInfo = `Тренировка Аудиовызов улучшает твое восприятие речи на слух`;
   public startScrElement: HTMLElement;
   private gameName: string;
@@ -15,17 +15,20 @@ class GameStartScreen {
     this.gameName = gameName;
     let name = '';
     let gameInfo = '';
+    let gameImgClass = '';
     if (gameName === 'sprint') {
       name = 'Спринт';
       gameInfo = this.sprintInfo;
+      gameImgClass = 'game__image';
     } else if (gameName === 'audioCall') {
       name = 'Аудиовызов';
       gameInfo = this.audioCallInfo;
+      gameImgClass = 'game__image__call';
     }
 
     const startrScreen = new BaseElement('div', ['game__start-scr-wrapper']).element;
     startrScreen.innerHTML = `
-    <div class="game__image"></div>
+    <div class="${gameImgClass}"></div>
       <div class="game__field-wrapper">
         <div class="game__info-wrapper">
             <h2 class="game__name">${name}</h2>

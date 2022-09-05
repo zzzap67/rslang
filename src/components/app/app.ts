@@ -22,11 +22,7 @@ class App {
 
     const mainContainer = new BaseElement('main', ['main']).element;
 
-    this.container.append(
-      new Header().headerElement,
-      new MainContainer().mainContainerElement,
-      new Footer().footerElement
-    );
+    this.container.append(new Header().headerElement, mainContainer, new Footer().footerElement);
 
     switch (state.currentPage) {
       case 'main':
@@ -43,7 +39,7 @@ class App {
         mainContainer.append(new GameStartScreen('sprint').startScrElement);
         break;
 
-      case 'audioCall':
+      case 'audiocall':
         mainContainer.innerHTML = '';
         mainContainer.append(new GameStartScreen('audioCall').startScrElement);
         break;
