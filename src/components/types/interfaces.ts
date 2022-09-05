@@ -73,7 +73,6 @@ export interface IUserStat {
   userId: string;
 }
 
-
 export interface IUserResult {
   id: string;
   wordId: string;

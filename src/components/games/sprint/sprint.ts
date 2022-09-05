@@ -41,8 +41,8 @@ class Sprint {
           <h3 class="sprint__ru-word"></h3>
         </div>
         <div class="sprint__btns-wrapper">
-          <button class="sprint__btn-false">Не верно</button>
-          <button class="sprint__btn-true">Верно</button>
+          <button class="sprint__btn sprint__btn-false">Не верно</button>
+          <button class="sprint__btn sprint__btn-true">Верно</button>
         </div>
         <div class=" sprint__btns-wrapper sprint__arrows-wrapper">
           <span class="sprint__arrow-left">&#11013;</span>
@@ -81,8 +81,8 @@ class Sprint {
     this.timerTimeoutId = setTimeout(() => {
       this.runTimerSound.call(this);
     }, 25800);
-    const sprintWrapper = mainContainer.querySelector('.sprint__main-wrapper') as HTMLElement;
-    sprintWrapper?.addEventListener('mouseleave', () => this.interruptGame());
+    const headerWrapper = document.body.querySelector('.header__wrapper') as HTMLElement;
+    headerWrapper?.addEventListener('click', (e: Event) => this.interruptGame(e));
     this.gamePrepare(this.createPagesSet(), groupId);
   }
 
@@ -160,8 +160,11 @@ class Sprint {
     document.removeEventListener('keydown', this.handleKeys);
   }
 
-  private interruptGame() {
-    document.addEventListener('click', () => this.stopGame(), { once: true });
+  private interruptGame(e: Event) {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('header-nav-li') || target.classList.contains('header__login-btn')) {
+      document.addEventListener('click', () => this.stopGame(), { once: true });
+    }
   }
 
   public stopGame(): void {
@@ -186,6 +189,7 @@ class Sprint {
 
   private handleButton(e: Event): void {
     const target = e.target as HTMLElement;
+    if (!target.classList.contains('sprint__btn')) return;
     if (target.dataset.sprint === 'right') {
       this.onBtnTrueClick();
     } else {
