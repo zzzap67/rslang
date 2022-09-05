@@ -14,8 +14,8 @@ class Footer {
       </div>
       <div class="footer__team">
           <a href="https://github.com/zzzap67" class="footer__link_team" target="blank">zzzap67</a>
-          <a href="https://github.com/gar7777" class="footer__link_team" target="blank">gar</a>
-          <a href="https://github.com/Kseniya-Korolchuk" class="footer__link_team" target="blank">redwood</a>
+          <a href="https://github.com/gar7777" class="footer__link_team" target="blank">gar7777</a>
+          <a href="https://github.com/Kseniya-Korolchuk" class="footer__link_team" target="blank">kseniya-korolchuk</a>
       </div>
       <div class="footer__year">
           <a href="https://github.com/zzzap67/rslang" class="footer__link_team" target="blank">Team 141 </a><span>&copy; 2022</span>

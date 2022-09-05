@@ -10,8 +10,6 @@
 }
 
 .section-team {
-  
-  //background-color: $main-deep-blue;
   border-top: none;
   color: $main-deep-blue;
   border-bottom: 3px solid $main-soft-blue;
@@ -37,6 +35,10 @@
   color: $main-deep-blue;
   border-top: 2px solid $main-deep-blue;
   border-bottom: 2px solid $main-deep-blue;
+
+    @media (max-width: 768px) {
+        width: 400px;
+    }
 }
 
 

@@ -40,6 +40,13 @@
   .section__h2 {
     color: $main-white;
   }
+
+  
+  @media (max-width: 599px) {
+    .section__h2 {
+      font-size: 2.5rem;
+    }
+  }
 }
 
 .section__heading-text-wrapper {
@@ -72,6 +79,10 @@
   display: inline-block;
   margin-bottom: 30px;
   color: $main-white;
+
+    @media (max-width: 599px) {
+        font-size: 4rem;
+    }
 }
 
 .section__heading-span {

@@ -44,10 +44,16 @@
   display: flex;
   width: 30vw;
   justify-content: space-between;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: center;
+    }
 }
 
 .footer__link_team {
   position: relative;
+  font-family: 'Poppins';
   color: $main-white;
   font-weight: 500;
 }
