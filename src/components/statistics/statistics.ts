@@ -33,9 +33,6 @@ class Statistics {
       // console.log(this.userStats);
       mainContainer.append(statsWrapper);
       this.setStats(1);
-      // this.renderTutorial(cardsContainer, state.group).then(() => {
-      //   // HardWordsCheck.checkHardWords();
-      // });
     });
   }
 
