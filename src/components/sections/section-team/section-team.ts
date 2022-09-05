@@ -13,17 +13,43 @@ class TeamSection {
                 <div class="card__member">
                     <div class="card__photo photo__berillo"></div>
                     <h4 class="section__h4 card__member-name">Алексей Берилло</h4>
-                    <h4 class="section__h4 card__member-role">Team-lead</h4>
+                    <div class="section__github-wrapper">
+                        <div class="github-logo"></div>
+                        <a href="">zzzpa67</a>
+                    </div>
+                    <h4 class="section__h4 card__member-role">Разработчик</h4>
+                    <ol>
+                        <li><span>1. </span>Учебник</li>
+                        <li><span>2. </span>Статистика</li>
+                        <li><span>3. </span>Игра "Аудиовызов"</li>
+                    </ol>
                 </div>
                 <div class="card__member">
                     <div class="card__photo photo__blinou"></div>
                     <h4 class="section__h4 card__member-name">Гавриил Блинов</h4>
-                    <h4 class="section__h4 card__member-role">Developer</h4>
+                    <div class="section__github-wrapper">
+                        <div class="github-logo"></div>
+                        <a href="">gar7777</a>
+                    </div>
+                    <h4 class="section__h4 card__member-role">Разработчик</h4>
+                    <ol>
+                        <li><span>1. </span>Учебник</li>
+                        <li><span>2. </span>Статистика</li>
+                        <li><span>3. </span>Игра "Спринт"</li>
+                    </ol>
                 </div>
                 <div class="card__member">
                     <div class="card__photo photo__korolchuk"></div>
                     <h4 class="section__h4 card__member-name">Ксения Корольчук</h4>
-                    <h4 class="section__h4 card__member-role">Designer</h4>
+                    <div class="section__github-wrapper">
+                        <div class="github-logo"></div>
+                        <a href="">kseniya-korolchuk</a>
+                    </div>
+                    <h4 class="section__h4 card__member-role">Разработчик</h4>
+                    <ol>
+                        <li><span>1. </span>Учебник</li>
+                        <li><span>2. </span>Верстка, дизайн</li>
+                    </ol>
                 </div>
             </div>
         </div>

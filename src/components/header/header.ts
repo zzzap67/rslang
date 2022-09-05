@@ -6,6 +6,7 @@ import { state } from '../store/state';
 import HeaderNav from './header-nav';
 import WarningPopup from '../authorization/warning-popup';
 import MainContainer from '../main-container/main-container';
+import Footer from '../footer/footer';
 
 class Header {
   public headerElement: HTMLElement;
@@ -13,6 +14,7 @@ class Header {
 
   constructor() {
     const header = new BaseElement('header', ['header']).element;
+    const burgerMenu = new BaseElement('div', ['burger-menu']).element;
     const headerWrapper = new BaseElement('header', ['header__wrapper']).element;
     const logoContainer = new BaseElement('div', ['logo-container']).element;
     const navContainer = new HeaderNav().navContainer;
@@ -21,6 +23,9 @@ class Header {
     const logInButton = new Button('LOG IN', ['header__login-btn']).buttonElement;
     const userNameField = new BaseElement('div', ['user-name-field']).element;
     const statButton = navContainer.querySelector('[data-role="statistics"]') as HTMLElement;
+    burgerMenu.innerHTML = `
+      <span></span>
+    `;
     if (state.userName) {
       userNameField.textContent = `${state.userName}`;
     }
@@ -36,10 +41,28 @@ class Header {
     }
     loginBtnsContainer.append(logInButton);
     loginContainer.append(loginBtnsContainer, userNameField);
-    headerWrapper.append(logoContainer, navContainer, loginContainer);
+    headerWrapper.append(burgerMenu, logoContainer, navContainer, loginContainer);
     header.append(headerWrapper);
+    burgerMenu.addEventListener('click', () => {
+      this.showMobileMenu();
+    });
     this.statButton = statButton;
     this.headerElement = header;
+  }
+
+  public showMobileMenu() {
+    const burger = document.querySelector('.burger-menu') as HTMLElement;
+    const menu = document.querySelector('.nav') as HTMLElement;
+    if (!burger.classList.contains('burger-active')) {
+      burger.classList.add('burger-active');
+    } else {
+      burger.classList.remove('burger-active');
+    }
+    if (!menu.classList.contains('nav-active')) {
+      menu.classList.add('nav-active');
+    } else {
+      menu.classList.remove('nav-active');
+    }
   }
 
   private handlelogIn(logInButton: HTMLElement) {
@@ -47,8 +70,9 @@ class Header {
       document.body.append(new LoginPopup().loginPopupElement);
     } else {
       const warningPopup = new WarningPopup('Действительно хочешь выйти из аккаунта?');
-      const noButton = new Button('Нет').buttonElement;
+      const noButton = new Button('Нет', ['no__btn']).buttonElement;
       const yesBtn = warningPopup.warningPopupElement.querySelector('.btn') as HTMLElement;
+      yesBtn.classList.add('yes__btn');
       yesBtn.textContent = 'Да';
       warningPopup.warningPopupElement.append(noButton);
       noButton.addEventListener('click', () =>
@@ -76,9 +100,9 @@ class Header {
     logInButton.textContent = 'LOG IN';
     logInButton.classList.remove('header__logout-btn');
     this.statButton.style.display = 'none';
-    const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    const mainContainer = document.body as HTMLElement;
     mainContainer.innerHTML = '';
-    mainContainer.append(new MainContainer().mainContainerElement);
+    mainContainer.append(this.headerElement, new MainContainer().mainContainerElement, new Footer().footerElement);
   }
 }
 

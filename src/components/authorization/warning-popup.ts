@@ -11,7 +11,7 @@ class WarningPopup {
     const warningPopup = new BaseElement('div', ['warning-popup']).element;
     const warningPopupTextContainer = new BaseElement('div', ['warning-popup-text-container']).element;
     warningPopupTextContainer.innerText = warningPopupText;
-    const warningPopupButton = new Button('OK').buttonElement;
+    const warningPopupButton = new Button('OK', ['ok-btn']).buttonElement;
     const warningOverlay = new WarningOverlay().overlayElement;
     warningPopupButton.addEventListener('click', () => this.closeWarningPopup(warningPopup, warningOverlay));
     warningPopup.append(warningPopupTextContainer);

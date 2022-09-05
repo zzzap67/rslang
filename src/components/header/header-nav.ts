@@ -6,6 +6,7 @@ import { HEADER_NAV_ITEMS } from '../store/constants';
 import Tutorial from '../tutorial/tutorial';
 import { state } from '../store/state';
 import Statistics from '../statistics/statistics';
+import Header from './header';
 
 class HeaderNav {
   public navContainer: HTMLElement;
@@ -32,7 +33,11 @@ class HeaderNav {
       li.setAttribute('data-role', item.role);
       navUl.append(li);
     });
-    navUl.addEventListener('click', (e: Event) => this.handleNavUl(e));
+    navUl.addEventListener('click', (e: Event) => {
+      this.handleNavUl(e);
+      const header = new Header();
+      header.showMobileMenu();
+    });
     gamesUl.addEventListener('click', (e: Event) => {
       this.handleGamesUl(e);
     });
