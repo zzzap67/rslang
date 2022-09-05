@@ -104,7 +104,7 @@ class LoginPopup {
         logInButton.classList.add('header__logout-btn');
       })
       .catch(() => {
-        new WarningPopup('Нет такого пользователя :(');
+        new WarningPopup('Проверь имя и пароль, я не могу найти ');
       });
     if (state.currentPage === 'tutorial') {
       new Tutorial();
@@ -155,15 +155,26 @@ class LoginPopup {
       password: password,
       name: userName,
     };
-    const response = await fetch(`${apiStrings.API_ADDRESS}${apiStrings.API_USERS}`, {
-      method: 'POST',
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newUser),
-    });
-    await response.json();
+    try {
+      const response = await fetch(`${apiStrings.API_ADDRESS}${apiStrings.API_USERS}`, {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newUser),
+      });
+      const status = response.status;
+      if (status === 417) {
+        new WarningPopup('Пользователь с таким e-mail уже зарегистрован. Укажи другой e-mail');
+        return;
+      }
+      await response.json();
+    } catch (e) {
+      const err = e as Error;
+      const errMessage = err.message;
+      console.log(errMessage);
+    }
     this.loginUser(loginPopup, inputEmail, inputPassword);
     this.closePopup();
   }
