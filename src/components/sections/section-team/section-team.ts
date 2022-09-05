@@ -15,7 +15,7 @@ class TeamSection {
                     <h4 class="section__h4 card__member-name">Алексей Берилло</h4>
                     <div class="section__github-wrapper">
                         <div class="github-logo"></div>
-                        <a href="">zzzpa67</a>
+                        <a href="https://github.com/zzzap67" target="blank">zzzap<span>67</span></a>
                     </div>
                     <h4 class="section__h4 card__member-role">Разработчик</h4>
                     <ol>
@@ -29,7 +29,7 @@ class TeamSection {
                     <h4 class="section__h4 card__member-name">Гавриил Блинов</h4>
                     <div class="section__github-wrapper">
                         <div class="github-logo"></div>
-                        <a href="">gar7777</a>
+                        <a href="https://github.com/gar7777" target="blank">gar<span>7777</span></a>
                     </div>
                     <h4 class="section__h4 card__member-role">Разработчик</h4>
                     <ol>
@@ -43,7 +43,7 @@ class TeamSection {
                     <h4 class="section__h4 card__member-name">Ксения Корольчук</h4>
                     <div class="section__github-wrapper">
                         <div class="github-logo"></div>
-                        <a href="">kseniya-korolchuk</a>
+                        <a href="https://github.com/zzzap67/rslang" target="blank">kseniya-korolchuk</a>
                     </div>
                     <h4 class="section__h4 card__member-role">Разработчик</h4>
                     <ol>
