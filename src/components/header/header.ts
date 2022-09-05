@@ -6,6 +6,7 @@ import { state } from '../store/state';
 import HeaderNav from './header-nav';
 import WarningPopup from '../authorization/warning-popup';
 import MainContainer from '../main-container/main-container';
+import Footer from '../footer/footer';
 
 class Header {
   public headerElement: HTMLElement;
@@ -98,9 +99,9 @@ class Header {
     logInButton.textContent = 'LOG IN';
     logInButton.classList.remove('header__logout-btn');
     this.statButton.style.display = 'none';
-    const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    const mainContainer = document.body as HTMLElement;
     mainContainer.innerHTML = '';
-    mainContainer.append(new MainContainer().mainContainerElement);
+    mainContainer.append(this.headerElement, new MainContainer().mainContainerElement, new Footer().footerElement);
   }
 }
 

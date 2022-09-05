@@ -11,7 +11,7 @@
 .header__wrapper {
   position: relative;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   margin: 0 auto;
   padding: 0 20px;
   width: 100%;
@@ -46,7 +46,6 @@
       margin: 0 auto;
       padding: 20px;
 
-      
         li {
           text-align: center;
           width: 100%;
@@ -61,9 +60,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 7vw;
+  gap: 3vw;
   height: 100%;
-  margin-right: 7vw;
+  margin-right: 3vw;
 }
 
 .nav-active {
@@ -145,7 +144,7 @@
       position: absolute;
       left: 50%;
       width: 0;
-      height: 2px;
+      height: 1px;
       border-radius: 2px;
       background-color: $main-light-gray;
       content: "";
@@ -181,9 +180,8 @@
 
 .login-container {
   display: flex;
-  gap: 3vw;
+  gap: 40px;
   height: 30px;
-  //width: 100%;
   padding-right: 10px;
 }
 
@@ -191,9 +189,8 @@
   position: relative;
   display: flex;
   width: 100px;
-  gap: 3vw;
+  gap: 5vw;
   margin-right: 10px;
-  //padding-right: 10px;
 }
 
 .btn.header__login-btn,
@@ -215,15 +212,14 @@
 }
 
 .btn.header__logout-btn {
-  // display: none;
   background-color: $main-red;
 }
 
 .user-name-field {
   position: relative;
   display: flex;
-  //width: 10vw;
   padding: 10px;
+  padding-right: 0;
   align-items: center;
   font-size: 1,2rem;
   font-weight: 500;
@@ -246,17 +242,6 @@
   .hidden-header-button {
     display: none;
   }
-
-  /*&::after {
-    position: absolute;
-    display: inline-block;
-    content: '';
-    top: 90%;
-    left: 10px;
-    width: 100%;
-    height: 2px;
-    background-color: $main-gray;
-  }*/
 }
 
 .burger-menu {
@@ -303,4 +288,14 @@
 
 .burger-active {
   transform: rotate(90deg);
+}
+
+.logo-container {
+  width: 100px;
+  height: 100%;
+  margin-right: auto;
+  background-image: url(../../assets/images/logo.PNG);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: center;
 }
