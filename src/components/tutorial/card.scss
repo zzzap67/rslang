@@ -4,7 +4,7 @@
   display: flex;
   gap: 20px;
   max-width:900px;
-  height: 220px;
+  height: 250px;
   margin: 0 auto;
   background-color: $main-white;
   border: 1px solid $main-green;
@@ -12,15 +12,26 @@
   border-radius: 5px;
   margin-bottom: 20px;
   box-shadow: 0px 5px 15px 2px rgba(0, 0, 0, 0.26);
-}
+
+    @media (max-width: 768px){
+      flex-direction: column;
+      max-width: 400px;
+      height: 550px;
+    }
+
+  }
 
 .card-image {
-  min-height: 220px;
-  min-width: 220px;
+  min-height: 250px;
+  min-width: 230px;
   background-size: cover;
-  background-position: center;
+  background-position: center; 
   background-repeat: no-repeat;
   border-radius: 5px;
+
+    @media (max-width: 768px) {
+      min-height: 220px;
+    }
 }
 
 .card__info {
@@ -31,16 +42,25 @@
   width: 100%;
   min-height: 100%;
   padding: 10px;
+  padding-bottom: 20px;
+
+   @media (max-width: 768px) {
+    min-height: 300px;
+   }
 }
 
 .card__label {
   position: absolute;
-  top: 160px;
+  top: 190px;
   left: calc(100% - 60px);
   width: 0;
   height: 0;
-  border-bottom: 60px solid $main-green; //green = easy level - 1
+  border-bottom: 60px solid $main-green;
   border-left: 60px solid transparent;
+
+    @media (max-width: 768px) {
+      top: 250px;
+    }
 }
 
 .card__progress {
@@ -48,13 +68,15 @@
   font-size: 1rem;
   font-weight: bold;
   margin-left: auto;
+  padding: 3px;
+  //background-color: rgba($main-white, 1);
   
     span:nth-of-type(1) {
-      color: $main-green;
+      color: green;
     }
 
     span {
-      color: $main-yellow;
+      color: orange;
     }
 }
 
@@ -64,7 +86,9 @@
 }
 
 .card__word-info {
-
+  @media (max-width: 768px) {
+    width: 260px;
+  }
 }
 
 .card__meaning-wrapper {
@@ -169,11 +193,11 @@
 }
 
 .card-hard {
-  background-color: $main-red;
+  background-color: rgba($main-red, 0.3);
 }
 
 .card-studied {
-  background-color: $main-green;
+  background-color:rgba($main-green, 0.3);
 }
 
 .new-sign {
