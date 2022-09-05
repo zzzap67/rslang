@@ -108,7 +108,6 @@ class TutorialCard {
 
   async handleDifficultButton(wordId: string, card: HTMLElement, button: HTMLElement): Promise<void> {
     const userId = state.userId;
-    // const token = localStorage.getItem('currentToken');
     const responseBody = {
       difficulty: 'hard',
       optional: {},
@@ -170,7 +169,6 @@ class TutorialCard {
     button: HTMLElement
   ): Promise<void> {
     const userId = state.userId;
-    // const token = localStorage.getItem('currentToken');
     const responseBody = {
       difficulty: 'studied',
       optional: {},

@@ -2,12 +2,8 @@ import './audiocall.scss';
 import BaseElement from '../../base-element/base-element';
 import Button from '../../buttons/button';
 import { apiStrings } from '../../store/constants';
-// import { state } from '../../store/state';
 import { ICards, IAudioCallCard, IAudioCallAnswers } from '../../types/interfaces';
 import SendStats from '../send-stats';
-// import { state } from '../../store/state';
-// import LevelSelector from './level-selector';
-// import CheckJwt from '../../authorization/chek-jwt';
 
 class Audiocall {
   groupID: number;
@@ -137,7 +133,6 @@ class Audiocall {
       this.pagesNums.push(roll[0]);
     }
 
-    console.log(this.groupID, this.pageID, 'start');
     // 2. Get Words
     this.getWordsData().then(() => {
       // 3. Play Game
@@ -214,7 +209,6 @@ class Audiocall {
     document.body.style.backgroundSize = 'cover';
 
     this.mainContainer.innerHTML = '';
-    console.log('level start', this.currentLevel, this.wordsData[0].length);
     const callGameWrapper = new BaseElement('div', ['call__game-wrapper']).element;
 
     if (this.currentLevel <= this.wordsData[0].length) {
@@ -354,10 +348,6 @@ class Audiocall {
       }
     });
 
-    // const numberOfCorrectAnswers = this.correctWords.length;
-    // const NUMBER_OF_ROUNDS = 20;
-    // const percentage = (numberOfCorrectAnswers / NUMBER_OF_ROUNDS) * 100;
-    // state.statsData.audioCallPercentage = (state.statsData.audioCallPercentage + percentage) / 2;
     const maxSerie = Math.max(...this.answersSeries);
     const dateNow = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
 
@@ -383,40 +373,8 @@ class Audiocall {
     console.log(this.correctWords);
   }
 
-  // private async sendStats(responceBody: string): Promise<void> {
-  //   if (state.userId != '') {
-  //     const userId = state.userId;
-  //     await CheckJwt.checkJwt();
-  //     // const token = localStorage.getItem('currentToken');
-  //     try {
-  //       const response = await fetch(
-  //         `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_GAMERESULT}`,
-  //         {
-  //           method: 'POST',
-  //           headers: {
-  //             Authorization: `Bearer ${state.token}`,
-  //             Accept: 'application/json',
-  //             'Content-Type': 'application/json',
-  //           },
-  //           body: responceBody,
-  //         }
-  //       );
-  //       const status = response.status;
-  //       if (status === 401) {
-  //         console.log('Take your token');
-  //       }
-  //       const data = await response.json();
-  //       console.log(data);
-  //     } catch (e) {
-  //       const err = e as Error;
-  //       console.log(err.name);
-  //     }
-  //   }
-  // }
-
   private keyPress(e: KeyboardEvent) {
     if ([1, 2, 3, 4, 5].includes(Number(e.key))) {
-      console.log('press', e.key);
       let kNumber = parseInt(e.key);
       kNumber -= 1;
       const btn = this.mainContainer.querySelector('#level-button-' + kNumber) as HTMLElement;
@@ -425,7 +383,6 @@ class Audiocall {
   }
   private enterPress(e: KeyboardEvent) {
     if (e.code === 'Enter' || e.code === 'Space') {
-      console.log('enter');
       const nextButton = this.mainContainer.querySelector('#next-button') as HTMLElement;
       if (nextButton) {
         if (!nextButton.classList.contains('answer-btn-hidden')) {

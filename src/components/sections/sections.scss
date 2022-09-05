@@ -60,7 +60,6 @@
   padding: 15px;
   text-align: justify;
   color: $main-white;
-  //border: 1px solid $main-gray;
   background-color: $main-deep-blue;
   border: 3px solid $main-soft-blue;
   border-radius: 15px;
@@ -73,11 +72,6 @@
   text-align: center;
   font-weight: 500;
 }
-
-.section__card-text {
-
-}
-
 
 .section-team__cards-wrapper {
   gap: 100px;
@@ -93,14 +87,12 @@
     padding: 0;
 
     li {
-      //color: $main-gray;
       color: #000000;
       font-size: 1rem;
       font-weight: 400;
     }
   }
 }
-
 
 .card__photo {
   width: 200px;

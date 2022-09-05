@@ -31,7 +31,6 @@ class MainContainer {
   }
 
   public render() {
-    //Use the next syntax for inline background images
     document.body.style.backgroundImage = 'url("./img/bg-beige.png")';
     document.body.style.backgroundSize = '100%';
     const mainContainer = document.querySelector('.main') as HTMLElement;
