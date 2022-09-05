@@ -22,7 +22,6 @@ class Audiocall {
   answersSeries: number[];
 
   constructor(groupID: number, pageID: number) {
-    //const body = document.body;
     this.mainContainer = document.body.querySelector('.main') as HTMLElement;
     this.mainContainer.innerHTML = 'AUDIOCALL GAME';
     this.wordsData = [];
