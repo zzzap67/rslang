@@ -1,0 +1,68 @@
+@import './assets/scss/normalize.scss';
+@import './assets/scss/variables.scss';
+@import './assets/scss/fonts.scss';
+@import './assets/scss/mixins.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  color: #000;
+  background: #fff;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 300;
+  //background-image: url(./assets/images/bg-beige.png);
+  background-size: 100%;
+  background-position: 0 60px;
+  background-repeat: no-repeat;
+  color: $main-gray;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+h1 {
+  @include h1;
+}
+
+h2 {
+  @include h2;
+}
+
+
