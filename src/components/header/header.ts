@@ -70,8 +70,9 @@ class Header {
       document.body.append(new LoginPopup().loginPopupElement);
     } else {
       const warningPopup = new WarningPopup('Действительно хочешь выйти из аккаунта?');
-      const noButton = new Button('Нет').buttonElement;
+      const noButton = new Button('Нет', ['no__btn']).buttonElement;
       const yesBtn = warningPopup.warningPopupElement.querySelector('.btn') as HTMLElement;
+      yesBtn.classList.add('yes__btn');
       yesBtn.textContent = 'Да';
       warningPopup.warningPopupElement.append(noButton);
       noButton.addEventListener('click', () =>
