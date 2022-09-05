@@ -32,9 +32,7 @@ class Tutorial {
     document.body.style.backgroundSize = '100%';
 
     this.getUserWords().then(() => {
-      this.renderTutorial(cardsContainer, state.group).then(() => {
-        // HardWordsCheck.checkHardWords();
-      });
+      this.renderTutorial(cardsContainer, state.group);
     });
   }
 
@@ -42,7 +40,6 @@ class Tutorial {
     if (state.userId != '') {
       const userId = state.userId;
       await CheckJwt.checkJwt();
-      // const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_WORDS}`,
@@ -167,7 +164,6 @@ class Tutorial {
       const userId = state.userId;
       const DIFFICULTY_HARD_API = '?filter={"userWord.difficulty":"hard"}&wordsPerPage=3600';
       await CheckJwt.checkJwt();
-      //const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_AGGREGATED_WORDS}${DIFFICULTY_HARD_API}`,

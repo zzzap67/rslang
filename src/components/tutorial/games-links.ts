@@ -12,7 +12,6 @@ class GamesLinks {
     const linksContainer = new BaseElement('div', ['games-links-container']).element;
     const gamesLabel = new BaseElement('h3', ['games__label']).element;
     gamesLabel.textContent = 'Сыграй в игру: ';
-    console.log(state.group);
     if (state.group < 6) {
       const groupButtonSprint = new Button(`Спринт`, [
         'games__link-btn',

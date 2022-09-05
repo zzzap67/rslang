@@ -21,18 +21,11 @@ class CheckJwt {
           }
         );
         const data = await response.json();
-        console.log('jwt data ' + data.refreshToken);
         state.refreshToken = data.refreshToken;
         state.token = data.token;
-        //localStorage.setItem('currentToken', data.token);
-        //localStorage.setItem('refreshToken', data.refreshToken);
         const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
         state.tokenExpireTime = tokenExpireTime;
-        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
         localStorage.setItem('state', JSON.stringify(state));
-        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
-        //localStorage.setItem('currentToken', data.token);
-        //localStorage.setItem('refreshToken', data.refreshToken);
       } catch (err) {
         console.log(err);
       }

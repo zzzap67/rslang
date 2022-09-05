@@ -21,7 +21,6 @@ class App {
     window.addEventListener('beforeunload', this.setState);
 
     const mainContainer = new BaseElement('main', ['main']).element;
-    //const body = document.querySelector('body') as HTMLElement;
 
     this.container.append(
       new Header().headerElement,

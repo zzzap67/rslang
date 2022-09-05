@@ -12,11 +12,8 @@ abstract class WordsPage {
     const pagesContainer = new BaseElement('div', ['groups-pages-container']).element;
     mainContainer.innerHTML = '';
     pagesContainer.append(new Groups().groupsContainerElement, new Pages().pagesButtonsElement);
-    // this.renderWordsPage();
     mainContainer.append(pagesContainer, cardsContainer);
   }
-
-  // abstract renderWordsPage(): void | Promise<void>;
 }
 
 export default WordsPage;

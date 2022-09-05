@@ -88,13 +88,9 @@ class LoginPopup {
         state.refreshToken = data.refreshToken;
         state.token = data.token;
         nameField.textContent = `${state.userName}`;
-        //localStorage.setItem('currentToken', data.token);
-        //localStorage.setItem('refreshToken', data.refreshToken);
         const tokenExpireTime = Date.now() + TOKEN_EXPIRATION_TIME;
         state.tokenExpireTime = tokenExpireTime;
-        //localStorage.setItem('tokenExpireTime', tokenExpireTime.toString());
         state.userId = data.userId;
-        console.log(data.userId);
         localStorage.setItem('state', JSON.stringify(state));
         this.closePopup();
         const logInButton = document.body.querySelector('.header__login-btn') as HTMLElement;

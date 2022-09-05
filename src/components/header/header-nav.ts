@@ -62,7 +62,6 @@ class HeaderNav {
       mainContainer.innerHTML = '';
       mainContainer?.append(new GameStartScreen('sprint').startScrElement);
     }
-    //this.gamesUl.style.display = 'none';
   }
 
   private handleNavUl(e: Event) {
