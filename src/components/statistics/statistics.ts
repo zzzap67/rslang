@@ -30,12 +30,8 @@ class Statistics {
     statsWrapper.append(statsHeading, statsButtonsWrapper, statsContainer);
 
     this.getUserStats().then(() => {
-      // console.log(this.userStats);
       mainContainer.append(statsWrapper);
       this.setStats(1);
-      // this.renderTutorial(cardsContainer, state.group).then(() => {
-      //   // HardWordsCheck.checkHardWords();
-      // });
     });
   }
 
@@ -43,7 +39,6 @@ class Statistics {
     if (state.userId != '') {
       const userId = state.userId;
       await CheckJwt.checkJwt();
-      // const token = localStorage.getItem('currentToken');
       try {
         const response = await fetch(
           `${apiStrings.API_ADDRESS}${apiStrings.API_USERS}/${userId}${apiStrings.API_GAMESTATS}`,
