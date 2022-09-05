@@ -1,3 +1,82 @@
+@import '../../assets/scss/variables.scss';
+
+.stats__wrapper {
+  width: 500px;
+  height: 500px;
+  margin-top: 8vh;
+  margin-bottom: auto;
+  padding: 20px;
+  background-color: rgba($main-white, 0.5);
+  border-radius: 15px;
+  box-shadow: 0px 5px 10px 2px rgba(0, 0, 0, 0.36);
+
+}
+
+.stats__h2 {
+  padding-top: 0;
+  padding: 20px;
+  text-align: center;
+  color: $main-yellow;
+}
+
+.stats__container {
+
+}
+
+.stats__button {
+  width: 130px;
+  padding: 10px;
+  font-weight: 500;
+  color: $main-yellow;
+  border: 1px solid $main-yellow;
+  background-color: $main-white;
+  border-radius: 5px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+
+    &:hover {
+      color: $main-yellow;
+    }
+}
+
 .stats__selected {
-  background-color: orange;
+  color: $main-white;
+  background-color: $main-yellow;
+
+  &:hover {
+    color: $main-white;
+  }
+}
+
+.stats__info-wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  height: 300px;
+  padding: 25px;
+  border: 5px solid $main-yellow;
+  border-radius: 15px;
+  border-top-left-radius: 0;
+  background-color: $main-white;
+}
+
+.stats__h3 {
+  font-size: 1.2rem;
+  font-weight: 500;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 20px;
+
+    span {
+      font-family: "Poppins";
+    }
+}
+
+.stats__p {
+  color: #000000;
+  font-weight: 500;
+
+    span {
+      font-family: "Poppins";
+    }
 }
