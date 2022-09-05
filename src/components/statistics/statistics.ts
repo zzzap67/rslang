@@ -139,7 +139,6 @@ class Statistics {
       this.setStats(2);
     }
     if (target.textContent === 'Слова') {
-      // new WordStats(statsContainer);
       this.setStats(3);
     }
   }
