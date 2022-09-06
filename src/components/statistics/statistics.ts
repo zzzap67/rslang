@@ -4,9 +4,6 @@ import Button from '../buttons/button';
 import { apiStrings } from '../store/constants';
 import { IUserStat } from '../types/interfaces';
 import { state } from '../store/state';
-// import AudioCallStats from './audiocall-stats';
-// import SprintStats from './sprint-stats';
-// import WordStats from './word-stats';
 import CheckJwt from '../authorization/chek-jwt';
 
 class Statistics {
