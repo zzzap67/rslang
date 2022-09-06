@@ -84,6 +84,7 @@ class Audiocall {
   private levelSelect(): void {
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
     mainContainer.innerHTML = '';
+    document.body.style.backgroundImage = 'none';
 
     const startrScreen = new BaseElement('div', ['game__start-scr-wrapper']).element;
     startrScreen.innerHTML = `
