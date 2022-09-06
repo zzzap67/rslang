@@ -14,7 +14,6 @@ class Tutorial {
   userResults: Array<IUserResult>;
 
   constructor() {
-    //const body = document.body;
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
     const tutorialWrapper = new BaseElement('div', ['tutorial__wrapper']).element;
     const cardsContainer = new BaseElement('div', ['cards-container']).element;
@@ -23,11 +22,14 @@ class Tutorial {
     this.userWords = [];
     this.userResults = [];
     mainContainer.style.minHeight = '100vh';
+    mainContainer.style.backgroundSize = '100%';
     mainContainer.innerHTML = '';
     groupsContainer.append(new Groups().groupsContainerElement, new GamesLinks().linksElement);
     pagesContainer.append(groupsContainer, new Pages().pagesButtonsElement);
     tutorialWrapper.append(pagesContainer, cardsContainer);
     mainContainer.append(tutorialWrapper);
+    document.body.style.backgroundImage = 'url("./img/bg-beige.png")';
+    document.body.style.backgroundSize = '100%';
 
     this.getUserWords().then(() => {
       this.renderTutorial(cardsContainer, state.group).then(() => {
