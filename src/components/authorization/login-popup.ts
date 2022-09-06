@@ -104,7 +104,7 @@ class LoginPopup {
         logInButton.classList.add('header__logout-btn');
       })
       .catch(() => {
-        new WarningPopup('Проверь имя и пароль, я не могу найти ');
+        new WarningPopup('Проверь еще раз имя и пароль.');
       });
     if (state.currentPage === 'tutorial') {
       new Tutorial();
@@ -172,8 +172,7 @@ class LoginPopup {
       await response.json();
     } catch (e) {
       const err = e as Error;
-      const errMessage = err.message;
-      console.log(errMessage);
+      console.log(err.message);
     }
     this.loginUser(loginPopup, inputEmail, inputPassword);
     this.closePopup();

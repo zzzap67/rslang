@@ -8,17 +8,23 @@ import { state } from '../store/state';
 // import SprintStats from './sprint-stats';
 // import WordStats from './word-stats';
 import CheckJwt from '../authorization/chek-jwt';
+import NewWordsChart from './new-words-chart';
 
 class Statistics {
   userStats: Array<IUserStat>;
+  longStatsContainer: HTMLElement;
 
   constructor() {
     this.userStats = [];
     const mainContainer = document.body.querySelector('.main') as HTMLElement;
+    mainContainer.innerHTML = '';
     mainContainer.style.minHeight = '100vh';
     const statsWrapper = new BaseElement('div', ['stats__wrapper']).element;
     const statsButtonsWrapper = new BaseElement('div', ['stats__buttons-wrapper']).element;
     const statsContainer = new BaseElement('div', ['stats__container']).element;
+    const longStatsWrapper = new BaseElement('div', ['long-stats__wrapper']).element;
+    const longStatsButtonsWrapper = new BaseElement('div', ['long-stats__buttons']).element;
+    const longStatsContainer = new BaseElement('div', ['long-stats__container']).element;
     const statsButtonsNames = ['Аудиовызов', 'Спринт', 'Слова'];
     statsButtonsNames.forEach((button: string, index: number) => {
       const statsButton = new Button(button, ['stats__button']).buttonElement;
@@ -26,9 +32,17 @@ class Statistics {
       statsButton.addEventListener('click', (e: Event) => this.handleStatsButtons(e));
       statsButtonsWrapper.append(statsButton);
     });
-    statsWrapper.textContent = 'Stats';
+    const longStatsButtonsNames = ['Новые слова', 'Изученные слова'];
+    longStatsButtonsNames.forEach((button: string) => {
+      const longStatsButton = new Button(button, ['stats__button', 'long-stats__button']).buttonElement;
+      longStatsButton.addEventListener('click', (e: Event) => this.handleLongStatsButtons(e));
+      longStatsButtonsWrapper.append(longStatsButton);
+    });
+    statsWrapper.textContent = 'Игровая статистика за сегодня';
     mainContainer.innerHTML = '';
-    statsWrapper.append(statsButtonsWrapper, statsContainer);
+    longStatsWrapper.append(longStatsButtonsWrapper, longStatsContainer);
+    this.longStatsContainer = longStatsContainer;
+    statsWrapper.append(statsButtonsWrapper, statsContainer, longStatsWrapper);
 
     this.getUserStats().then(() => {
       // console.log(this.userStats);
@@ -41,7 +55,7 @@ class Statistics {
   }
 
   private async getUserStats(): Promise<void> {
-    if (state.userId != '') {
+    if (state.userId !== '') {
       const userId = state.userId;
       await CheckJwt.checkJwt();
       // const token = localStorage.getItem('currentToken');
@@ -81,34 +95,72 @@ class Statistics {
       statType === i ? stButton.classList.add('stats__selected') : stButton.classList.remove('stats__selected');
     }
 
-    this.userStats.map((item) => {
-      if (item.dates) {
-        const statsWrapper = new BaseElement('div', ['stats__bydate']).element;
-        let percent = '';
-        const sDate = item.dates.slice(8, 10) + '.' + item.dates.slice(5, 7) + '.' + item.dates.slice(0, 4);
-        switch (statType) {
-          case 1:
-            item.totalAC > 0 ? (percent = ((item.rightAC / item.totalAC) * 100).toFixed(2)) : (percent = '0.00');
-            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC} | Процент: ${percent}% | Самая длинная серия: ${item.seriesAC}`;
-            break;
-          case 2:
-            item.totalSprint > 0
-              ? (percent = ((item.rightSprint / item.totalSprint) * 100).toFixed(2))
-              : (percent = '0.00');
-            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordSprint} | Процент: ${percent}% | Самая длинная серия: ${item.seriesSprint}`;
-            break;
-          case 3:
-            item.totalAC + item.totalSprint > 0
-              ? (percent = (((item.rightAC + item.rightSprint) / (item.totalAC + item.totalSprint)) * 100).toFixed(2))
-              : (percent = '0.00');
-            statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC + item.newWordSprint} | Изученных: ${
-              item.studiedWord
-            } | Процент: ${percent}%`;
-            break;
-        }
-        statsContainer.append(statsWrapper);
+    const dateNow = new Date().toJSON().slice(0, 10).replace(/-/g, '/');
+    const todayStats = this.userStats.find((item) => item.dates === dateNow);
+
+    if (todayStats) {
+      const statsWrapper = new BaseElement('div', ['stats__bydate']).element;
+      let percent = '';
+      const sDate =
+        todayStats.dates.slice(8, 10) + '.' + todayStats.dates.slice(5, 7) + '.' + todayStats.dates.slice(0, 4);
+      switch (statType) {
+        case 1:
+          todayStats.totalAC > 0
+            ? (percent = ((todayStats.rightAC / todayStats.totalAC) * 100).toFixed(2))
+            : (percent = '0.00');
+          statsWrapper.innerHTML = `${sDate} - Новых: ${todayStats.newWordAC} | Процент: ${percent}% | Самая длинная серия: ${todayStats.seriesAC}`;
+          break;
+        case 2:
+          todayStats.totalSprint > 0
+            ? (percent = ((todayStats.rightSprint / todayStats.totalSprint) * 100).toFixed(2))
+            : (percent = '0.00');
+          statsWrapper.innerHTML = `${sDate} - Новых: ${todayStats.newWordSprint} | Процент: ${percent}% | Самая длинная серия: ${todayStats.seriesSprint}`;
+          break;
+        case 3:
+          todayStats.totalAC + todayStats.totalSprint > 0
+            ? (percent = (
+                ((todayStats.rightAC + todayStats.rightSprint) / (todayStats.totalAC + todayStats.totalSprint)) *
+                100
+              ).toFixed(2))
+            : (percent = '0.00');
+          statsWrapper.innerHTML = `${sDate} - Новых: ${todayStats.newWordAC + todayStats.newWordSprint} | Изученных: ${
+            todayStats.studiedWord
+          } | Процент: ${percent}%`;
+          break;
       }
-    });
+      statsContainer.append(statsWrapper);
+    }
+
+    console.log(todayStats);
+
+    // this.userStats.forEach((item) => {
+    //   if (item.dates) {
+    //     const statsWrapper = new BaseElement('div', ['stats__bydate']).element;
+    //     let percent = '';
+    //     const sDate = item.dates.slice(8, 10) + '.' + item.dates.slice(5, 7) + '.' + item.dates.slice(0, 4);
+    //     switch (statType) {
+    //       case 1:
+    //         item.totalAC > 0 ? (percent = ((item.rightAC / item.totalAC) * 100).toFixed(2)) : (percent = '0.00');
+    //         statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC} | Процент: ${percent}% | Самая длинная серия: ${item.seriesAC}`;
+    //         break;
+    //       case 2:
+    //         item.totalSprint > 0
+    //           ? (percent = ((item.rightSprint / item.totalSprint) * 100).toFixed(2))
+    //           : (percent = '0.00');
+    //         statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordSprint} | Процент: ${percent}% | Самая длинная серия: ${item.seriesSprint}`;
+    //         break;
+    //       case 3:
+    //         item.totalAC + item.totalSprint > 0
+    //           ? (percent = (((item.rightAC + item.rightSprint) / (item.totalAC + item.totalSprint)) * 100).toFixed(2))
+    //           : (percent = '0.00');
+    //         statsWrapper.innerHTML = `${sDate} - Новых: ${item.newWordAC + item.newWordSprint} | Изученных: ${
+    //           item.studiedWord
+    //         } | Процент: ${percent}%`;
+    //         break;
+    //     }
+    //     statsContainer.append(statsWrapper);
+    //   }
+    // });
 
     //statsContainer.innerHTML = 'aaaa ' + statType;
   }
@@ -126,6 +178,18 @@ class Statistics {
     if (target.textContent === 'Слова') {
       // new WordStats(statsContainer);
       this.setStats(3);
+    }
+  }
+
+  private handleLongStatsButtons(e: Event) {
+    const target = e.target as HTMLElement;
+    this.longStatsContainer.innerHTML = '';
+    if (target.textContent === 'Новые слова') {
+      this.longStatsContainer.append(new NewWordsChart(this.userStats.slice(1), 'newWords').chartElement);
+    } else if (target.textContent === 'Изученные слова') {
+      this.longStatsContainer.append(new NewWordsChart(this.userStats.slice(1), 'studiedWords').chartElement);
+    } else {
+      return;
     }
   }
 }
