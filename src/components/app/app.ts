@@ -16,13 +16,12 @@ class App {
     this.container = document.body;
   }
 
-  public start(): void {
+  public async start(): Promise<void> {
     this.getState();
+    await CheckJwt.checkJwt();
     CheckDate.checkDate();
-    // document.addEventListener('DOMContentLoaded', this.getState);
     window.addEventListener('beforeunload', this.setState);
-    //const wrapper = new BaseElement('div', ['wrapper']).element;
-    //wrapper.append(new Header().headerElement, new MainContainer().mainContainerElement);
+
     const mainContainer = new BaseElement('main', ['main']).element;
 
     this.container.append(new Header().headerElement, mainContainer, new Footer().footerElement);
@@ -58,8 +57,6 @@ class App {
     for (const key in state) {
       state[key] = stateFromStorage[key];
     }
-    CheckJwt.checkJwt();
-    // Header.printUserName();
   }
 
   private setState(): void {

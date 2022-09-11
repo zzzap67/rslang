@@ -54,7 +54,7 @@ class TutorialCard {
     cardInfo.append(wordInfoWrapper, meaningWrapper, exmpleWrapper, btnsWrapper, cardLabel);
     audioButton.addEventListener('click', () => this.handleAudio(card));
     tutorialCard.style.borderColor = `${LEVEL_COLORS[state.group]}`;
-    if (newType) {
+    if (newType === 1) {
       const newSign = new BaseElement('div', ['new-sign']).element;
       newSign.textContent = 'NEW!';
       cardInfo.append(newSign);
@@ -214,7 +214,6 @@ class TutorialCard {
         }
       );
       await response.json();
-      console.log(studiedWords);
       if (responseBody.difficulty === 'studied') {
         button.classList.add('btn-checked');
         hardButton.classList.remove('btn-checked');
@@ -228,7 +227,6 @@ class TutorialCard {
         hardButton.classList.remove('btn-hidden');
         studiedWords--;
       }
-      console.log(studiedWords);
       if (studiedWords === 20 && prevStudiedWords !== 20) {
         const pageNumber = document.body.querySelector('.pages__btn-selected') as HTMLElement;
         pageNumber.classList.add('pages__btn-selected-studied');

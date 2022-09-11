@@ -52,9 +52,6 @@ class SendStats {
     const data = await userWords.json();
     const words = data.words;
     const results = data.gameResults;
-    // console.log(statWords);
-    // console.log(words);
-    // console.log(results);
     for (const statWord of statWords) {
       const wordInResults = results.find((result: IUserResult) => result.wordId === statWord.wordId);
       const wordInWords = words.find((word: IUserWord) => word.wordId === statWord.wordId);
@@ -76,8 +73,6 @@ class SendStats {
       } else if (wordInResults.currResult < 1 && wordInWords) {
         SendStats.updateDifficulty(statWord.wordId, wordInResults, 'easy', 'PUT');
       }
-
-      // console.log(wordInResults);
     }
   }
 
