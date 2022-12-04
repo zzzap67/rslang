@@ -52,6 +52,7 @@ class HeaderNav {
       footer.classList.add('footer__hidden');
       state.currentPage = 'audiocall';
       localStorage.setItem('state', JSON.stringify(state));
+
       new Audiocall(-1, -1);
     }
     if (target.classList.contains('header__nav-sprint')) {
